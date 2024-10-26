@@ -59,6 +59,17 @@
   opacity: 0.15;
 }
 
+.primary-button {
+  background-color: #efecff;
+  border-color: #b071ec;
+  color: #b071ec;
+}
+
+.primary-button:hover {
+  border-color: #7b3cb6;
+  color: #7b3cb6;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
