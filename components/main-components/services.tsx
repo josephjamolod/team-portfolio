@@ -36,21 +36,29 @@ const services: servicesType[] = [
   },
 ];
 
+import Link from "next/link";
+import { PiArrowCircleUpRightDuotone } from "react-icons/pi";
+
 export default function Services() {
   return (
-    <main className="flex flex-col justify-center items-center py-5 gap-y-5 px-20">
+    <main className="flex flex-col justify-center  py-10 gap-y-10 px-20">
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
         Our Services
       </h1>
       <div className="grid grid-cols-2 gap-4    ">
         {services.map((service, index) => (
           <div
-            className="border border-[#CAC2FF] rounded-xl p-4 flex flex-col gap-y-2"
+            className="border border-[#b071ec] rounded-xl p-4 flex flex-col gap-y-2"
             key={index}
           >
-            <h1 className=" font-bold text-4xl bg-gradient-to-r from-[#7860BC] to-[#9880DC] bg-clip-text text-transparent">
-              {service.name}
-            </h1>
+            <div className="flex justify-between items-center">
+              <h1 className=" font-bold text-4xl bg-gradient-to-r from-[#7860BC] to-[#9880DC] bg-clip-text text-transparent">
+                {service.name}
+              </h1>
+              <Link href={"/"}>
+                <PiArrowCircleUpRightDuotone className="text-4xl text-[#b071ec] hover:text-[#7b3cb6] transition-colors duration-300" />
+              </Link>
+            </div>
             <p>{service.description}</p>
           </div>
         ))}
