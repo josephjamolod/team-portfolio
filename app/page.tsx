@@ -1,12 +1,12 @@
 import Home from "@/components/main-components/home";
-import Test from "@/components/main-components/test";
+import Services from "@/components/main-components/services";
 
 export default function Main() {
   return (
     <main className="h-auto ">
       <div className="  min-h-[800px] ">
         <Home />
-        <Test />
+        <Services />
       </div>
     </main>
   );
