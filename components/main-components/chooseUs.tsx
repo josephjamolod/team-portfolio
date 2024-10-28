@@ -28,7 +28,10 @@ const messages: whyChooseUsTpye[] = [
 
 export default function ChooseUs() {
   return (
-    <div className="flex flex-col justify-center  pb-10 gap-y-10 ">
+    <div
+      id="why-choose-us"
+      className="flex flex-col justify-center  pb-10 gap-y-10 "
+    >
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight px-20">
         Why Choose Us?
       </h1>
