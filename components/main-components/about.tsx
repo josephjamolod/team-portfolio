@@ -2,25 +2,23 @@ import Image from "next/image";
 import frame from "@/public/assets/images/frame1.png";
 import { Button } from "../ui/button";
 
-export default function Home() {
+export default function About() {
   return (
     <div className=" w-full relative h-[500px] md:h-[700px] lg:h-[700px] overflow-hidden items-center px-20 flex  ">
       <div className="flex flex-col w-1/2  gap-y-10">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-          Android + iOS <br />
-          <span className="text-black">mobile </span>
-          <span className="font-light italic text-[#B071EC]">
-            wireframe kit
-          </span>
+          ABOUT US :<br />
+          <span className="text-black">DOLOMAJ&#39;s </span>
+          <span className="font-light italic text-[#B071EC]">services</span>
         </h1>
         <p className="w-4/5 leading-loose">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          Welcome to DOLOMAJs, your trusted partner in your business
+          development. We specialize in providing comprehensive services that
+          empower businesses to streamline their operations, enhance
+          productivity, and achieve their strategic goals. Our expertise spans
+          across various domains, including video editing, executive assistance,
+          web design, lead generation, content writing, and social media
+          management.
         </p>
         <div className="flex gap-x-2 w-3/4">
           <Button
