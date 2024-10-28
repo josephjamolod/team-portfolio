@@ -41,7 +41,10 @@ import { PiArrowCircleUpRightDuotone } from "react-icons/pi";
 
 export default function Services() {
   return (
-    <main className="flex flex-col justify-center  py-10 gap-y-10 px-20">
+    <main
+      id="services"
+      className="flex flex-col justify-center  py-10 gap-y-10 px-20"
+    >
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
         Our Services
       </h1>
