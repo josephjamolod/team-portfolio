@@ -3,16 +3,17 @@ import logo from "@/public/assets/images/logo.png";
 import memoji from "@/public/assets/images/memoji.png";
 import { IoSearchOutline } from "react-icons/io5";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 export default function Header() {
   return (
     <header className="fixed z-10 w-full flex items-center justify-between h-16 border border-b-[#CAC2FF80] px-10 backdrop-blur-md shadow-sm">
       <div className="flex items-center gap-x-14">
         <Image src={logo} alt="logo" height={150} width={150} />
-        <li className="flex gap-x-12">
-          <ul>Home</ul>
-          <ul>About Us</ul>
-        </li>
+        <ul className="flex gap-x-12">
+          <Link href={"/"}>Home</Link>
+          <Link href={"#services"}>Services</Link>
+        </ul>
       </div>
       <div className="border  w-2/5 py-2 h-9  border-slate-300  rounded-full flex items-center text-center bg-[#EFECFF]">
         <IoSearchOutline className="mx-3 text-2xl " />
