@@ -4,7 +4,10 @@ import { Button } from "../ui/button";
 
 export default function About() {
   return (
-    <div className=" w-full relative h-[500px] md:h-[700px] lg:h-[700px] overflow-hidden items-center px-20 flex  ">
+    <div
+      id="about-us"
+      className="w-full relative h-[500px] md:h-[700px] lg:h-[700px] overflow-hidden items-center px-20 flex  "
+    >
       <div className="flex flex-col w-1/2  gap-y-10">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
           ABOUT US :<br />
