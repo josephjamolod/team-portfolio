@@ -1,9 +1,11 @@
 import Image from "next/image";
 import logo from "@/public/assets/images/logo.png";
-import memoji from "@/public/assets/images/memoji.png";
+
 import { IoSearchOutline } from "react-icons/io5";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import Test from "./test";
+import ProfileDropdown from "./profileDropdown";
 
 export default function Header() {
   return (
@@ -30,13 +32,7 @@ export default function Header() {
         >
           Meet Our Team
         </Button>
-        <Image
-          src={memoji}
-          alt="profile"
-          width={45}
-          height={45}
-          className="bg-[#EFECFF] rounded-full"
-        />
+        <ProfileDropdown />
         <Button
           variant={"outline"}
           className="rounded-full primary-button hover:text-[#7b3cb6]"
