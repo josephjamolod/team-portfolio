@@ -73,14 +73,19 @@ export default function Footer() {
             );
           })}
         </ul>
-        <ul className=" h-full flex gap-x-3 ">
-          {socials.map((text, index) => {
-            return (
-              <Link key={index} href={text.href} className="text-4xl h-min">
-                {text.icon}
-              </Link>
-            );
-          })}
+        <ul className=" h-full flex flex-col gap-y-4 ">
+          <Link href={"#"} className="font-semibold text-lg">
+            Connect Us
+          </Link>
+          <div className="flex gap-x-3">
+            {socials.map((text, index) => {
+              return (
+                <Link key={index} href={text.href} className="text-4xl h-min">
+                  {text.icon}
+                </Link>
+              );
+            })}
+          </div>
         </ul>
       </div>
       <h1 className="text-center w-full pt-4 pb-2">
