@@ -61,13 +61,8 @@
 
 .primary-button {
   background-color: #efecff;
-  border-color: #b071ec;
-  color: #b071ec;
-}
-
-.primary-button:hover {
-  border-color: #7b3cb6;
-  color: #7b3cb6;
+  border-color: #624ced;
+  color: #624ced;
 }
 
 .vertical-timeline::before {
