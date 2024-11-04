@@ -22,6 +22,7 @@ export default function LogInPage() {
             src={purpleBG}
             alt="back-ground"
             className="h-full rounded-md"
+            fill
           />
         </div>
 
