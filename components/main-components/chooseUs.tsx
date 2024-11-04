@@ -40,9 +40,9 @@ export default function ChooseUs() {
           return (
             <li
               key={index}
-              className="text-[#b071ec] border border-[#b071ec] rounded-xl p-8 flex flex-col gap-y-2"
+              className="text-[#b071ec] bg-[#efecff] border border-[#624ced] rounded-xl p-8 flex flex-col gap-y-2"
             >
-              <span className="font-bold text-4xl bg-gradient-to-r from-[#7860BC] to-[#9880DC] bg-clip-text text-transparent">
+              <span className="font-bold text-4xl bg-gradient-to-r from-[#7d6de4] to-[#624ced] bg-clip-text text-transparent">
                 {message.text}{" "}
                 <span className="font-normal text-lg text-black">
                   {message.description}
