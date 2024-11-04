@@ -12,7 +12,7 @@ export default function About() {
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
           ABOUT US :<br />
           <span className="text-black">DOLOMAJ&#39;s </span>
-          <span className="font-light italic text-[#B071EC]">services</span>
+          <span className="font-light italic text-[#5139edb5]">services</span>
         </h1>
         <p className="w-4/5 leading-loose">
           Welcome to DOLOMAJs, your trusted partner in your business
@@ -26,11 +26,11 @@ export default function About() {
         <div className="flex gap-x-2 w-3/4">
           <Button
             variant={"outline"}
-            className="flex-1  border primary-button hover:text-[#7b3cb6]"
+            className="flex-1  primary-button hover:bg-[#5139edb5] hover:text-white transition-colors duration-300"
           >
             Our Portfolio
           </Button>
-          <Button variant={"outline"} className="flex-1">
+          <Button variant={"outline"} className="flex-1 hover:text-[#5139edb5">
             Learn More
           </Button>
         </div>
