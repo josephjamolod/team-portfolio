@@ -9,7 +9,7 @@ export default function SearchBar({ margin }: { margin: string }) {
       <IoSearchOutline className="mx-3 text-2xl text-[#624ced]" />
       <input
         placeholder="Search Gallery Feed"
-        className="bg-transparent  w-full h-4 text-sm outline-none "
+        className="bg-transparent  w-full h-4 text-xs outline-none "
         type="text"
       />
     </div>
