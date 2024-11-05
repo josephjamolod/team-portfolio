@@ -55,11 +55,13 @@ export default function ProfileDropdown() {
           Staff Only
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-          <DropdownMenuRadioItem value="bottom" className="cursor-pointer">
-            <Link href={"/login"}> Sign In</Link>
-          </DropdownMenuRadioItem>
-        </DropdownMenuRadioGroup>
+        <Link href={"/login"}>
+          <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+            <DropdownMenuRadioItem value="bottom" className="cursor-pointer">
+              Sign In
+            </DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+        </Link>
       </DropdownMenuContent>
     </DropdownMenu>
   );
