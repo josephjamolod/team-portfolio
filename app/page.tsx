@@ -7,7 +7,7 @@ import Test from "@/components/main-components/test";
 
 export default function Main() {
   return (
-    <main className="h-auto ">
+    <main className="h-auto overflow-hidden">
       <div>
         <About />
         <Services />
