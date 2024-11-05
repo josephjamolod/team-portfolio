@@ -41,7 +41,7 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
     },
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: z.infer<typeof loginSchema>) => {
     // await loginHandler(data.email, data.password);
     // router.push("/create");
     console.log(data);
@@ -104,7 +104,7 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
                 <input type="checkbox" />
                 <span>Remember Password</span>
               </div>
-              <p className="text-xs text-[#21C15C]">Forgot your password?</p>
+              <p className="text-xs text-[#624ced]">Forgot your password?</p>
             </div>
             <Button
               type="submit"
@@ -116,7 +116,7 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
             </Button>
             <p className="flex gap-x-1 items-center justify-center text-xs text-muted-foreground w-full pt-2">
               <span>Don&#39;t Have an Account?</span>
-              <Link className="text-[#21C15C]" href={"/"}>
+              <Link className="text-[#624ced]" href={"/"}>
                 Contact Moderator
               </Link>
             </p>
