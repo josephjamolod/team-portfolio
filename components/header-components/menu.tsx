@@ -1,10 +1,8 @@
 import logo from "@/public/assets/images/logo.png";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { LuBellRing } from "react-icons/lu";
 
-import { Label } from "@/components/ui/label";
 import {
   Sheet,
   SheetClose,
@@ -21,7 +19,7 @@ import Image from "next/image";
 import Social from "../footer-components/social";
 import Link from "next/link";
 
-export function Test() {
+export function Menu() {
   const signIn = true;
   return (
     <Sheet>
