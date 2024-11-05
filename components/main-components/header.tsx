@@ -1,11 +1,11 @@
 import Image from "next/image";
 import logo from "@/public/assets/images/logo.png";
 
-import { IoSearchOutline } from "react-icons/io5";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import ProfileDropdown from "./profileDropdown";
 import { Menu } from "../header-components/menu";
+import SearchBar from "../header-components/searchBar";
 
 export default function Header() {
   return (
@@ -21,13 +21,8 @@ export default function Header() {
           </Link>
         </ul>
       </div>
-      <div className="hidden sm:flex border  w-2/5 py-2 h-9  border-[#624ced]  rounded-full  items-center text-center bg-[#EFECFF] mx-3">
-        <IoSearchOutline className="mx-3 text-2xl text-[#624ced]" />
-        <input
-          placeholder="Search Gallery Feed"
-          className="bg-transparent  w-full h-4 text-sm outline-none "
-          type="text"
-        />
+      <div className="w-2/5 hidden lg:flex">
+        <SearchBar margin="mx-3" />
       </div>
       <div className="hidden lg:flex items-center gap-x-4">
         <Button
