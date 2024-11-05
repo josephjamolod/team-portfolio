@@ -51,18 +51,18 @@ export default function Services() {
       <div className="grid grid-cols-2 gap-4    ">
         {services.map((service, index) => (
           <div
-            className="border bg-gradient-to-r from-[#7d6de4] to-[#624ced] border-[#b071ec] rounded-xl p-4 flex flex-col gap-y-2"
+            className="border bg-[#efecff] border-[#b071ec] rounded-xl p-4 flex flex-col gap-y-2"
             key={index}
           >
             <div className="flex justify-between items-center">
-              <h1 className=" font-bold text-4xl text-white bg-clip-text text-transparent">
+              <h1 className=" font-bold text-4xl bg-gradient-to-r from-[#7d6de4] to-[#624ced] bg-clip-text text-transparent">
                 {service.name}
               </h1>
               <Link href={"/"}>
-                <PiArrowCircleUpRightDuotone className="text-4xl text-white hover:text-[#b071ec]  transition-colors duration-300" />
+                <PiArrowCircleUpRightDuotone className="text-4xl text-[#624ced] rounded-full hover:text-white hover:bg-[#5139edb5] transition-colors duration-300" />
               </Link>
             </div>
-            <p className="text-white">{service.description}</p>
+            <p>{service.description}</p>
           </div>
         ))}
       </div>
