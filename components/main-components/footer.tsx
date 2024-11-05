@@ -1,9 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FaFacebookSquare } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa6";
-import { FaDiscord } from "react-icons/fa6";
 import logo from "@/public/assets/images/logo.png";
+import Social from "../footer-components/social";
 
 interface AboutUsTye {
   label: string;
@@ -12,11 +10,6 @@ interface AboutUsTye {
 
 interface CompanyType {
   label: string;
-  href: string;
-}
-
-interface SocialsType {
-  icon: JSX.Element;
   href: string;
 }
 
@@ -30,12 +23,6 @@ const aboutUs: AboutUsTye[] = [
 const company: CompanyType[] = [
   { label: "FAQs", href: "#" },
   { label: "Terms & Condition", href: "#" },
-];
-
-const socials: SocialsType[] = [
-  { icon: <FaFacebookSquare />, href: "#" },
-  { icon: <FaLinkedin />, href: "#" },
-  { icon: <FaDiscord />, href: "#" },
 ];
 
 export default function Footer() {
@@ -77,15 +64,7 @@ export default function Footer() {
           <Link href={"#"} className="font-semibold text-lg">
             Connect Us
           </Link>
-          <div className="flex gap-x-3">
-            {socials.map((text, index) => {
-              return (
-                <Link key={index} href={text.href} className="text-4xl h-min">
-                  {text.icon}
-                </Link>
-              );
-            })}
-          </div>
+          <Social cn="text-4xl" />
         </ul>
       </div>
       <h1 className="text-center w-full pt-4 pb-2">
