@@ -18,9 +18,10 @@ import { IoShieldHalf } from "react-icons/io5";
 import Image from "next/image";
 import Social from "../footer-components/social";
 import Link from "next/link";
+import SearchBar from "./searchBar";
 
 export function Menu() {
-  const signIn = true;
+  const signIn = false;
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -53,6 +54,7 @@ export function Menu() {
             </div>
           )}
           <DropdownMenuSeparator />
+          <SearchBar margin="mx-0" />
           <Link href={"/"}>
             <SheetTrigger className="border rounded-md shadow-sm font-medium w-full hover:bg-accent h-9 px-4 py-2 items-center flex justify-center">
               Home
