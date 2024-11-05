@@ -43,12 +43,12 @@ export default function Services() {
   return (
     <main
       id="services"
-      className="flex flex-col justify-center  py-10 gap-y-10 px-20"
+      className="flex flex-col justify-center  py-10 gap-y-10 px-10 md:px-20"
     >
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
         Our Services
       </h1>
-      <div className="grid grid-cols-2 gap-4    ">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4    ">
         {services.map((service, index) => (
           <div
             className="border bg-[#efecff] border-[#b071ec] rounded-xl p-4 flex flex-col gap-y-2"
