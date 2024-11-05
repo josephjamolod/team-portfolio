@@ -27,11 +27,11 @@ const company: CompanyType[] = [
 
 export default function Footer() {
   return (
-    <main className=" mt-40 h-80 border border-[#b071ec] bg-[#efecff] mb-10 text-sm">
-      <div className="grid grid-cols-4 px-52 h-full gap-8 pt-20">
+    <main className=" mt-40  border border-[#b071ec] bg-[#efecff] mb-10 text-sm">
+      <div className="grid grid-cols-1 md:grid-cols-4 px-10 md:px-52 h-full gap-8 pt-20">
         <ul className=" h-full flex flex-col gap-y-4">
           <Image src={logo} alt="logo" height={175} width={175} />
-          <h3 className="pr-4">
+          <h3 className="pr-4 font-medium md:font-normal">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit dolore magna
             aliqua.
           </h3>
@@ -42,7 +42,11 @@ export default function Footer() {
           </Link>
           {aboutUs.map((text, index) => {
             return (
-              <Link key={index} href={text.href}>
+              <Link
+                className="font-medium md:font-normal"
+                key={index}
+                href={text.href}
+              >
                 {text.label}
               </Link>
             );
@@ -54,7 +58,11 @@ export default function Footer() {
           </Link>
           {company.map((text, index) => {
             return (
-              <Link key={index} href={text.href}>
+              <Link
+                className="font-medium md:font-normal"
+                key={index}
+                href={text.href}
+              >
                 {text.label}
               </Link>
             );
@@ -62,12 +70,13 @@ export default function Footer() {
         </ul>
         <ul className=" h-full flex flex-col gap-y-4 ">
           <Link href={"#"} className="font-semibold text-lg">
-            Connect Us
+            Connect to Us
           </Link>
           <Social cn="text-4xl" />
         </ul>
       </div>
-      <h1 className="text-center w-full pt-4 pb-2">
+      <hr className="w-full border-t-[1px] border-[#b071ec] mt-5" />
+      <h1 className="text-center w-full pt-2 pb-2 bg-[#b071ec] text-white">
         Copy right{" "}
         <Link
           href={"https://www.facebook.com/jamolod.joseph"}
