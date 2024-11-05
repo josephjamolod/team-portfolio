@@ -35,7 +35,7 @@ export default function ChooseUs() {
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight px-20">
         Why Choose Us?
       </h1>
-      <ul className="text-xl list-disc list-inside space-y-2  p-4 flex flex-col gap-y-2 w-full px-20">
+      <ul className="text-xl list-disc list-inside space-y-2  p-4 flex flex-col gap-y-2 w-full px-10 md:px-20">
         {messages.map((message, index) => {
           return (
             <li
