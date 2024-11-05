@@ -28,7 +28,7 @@ const company: CompanyType[] = [
 export default function Footer() {
   return (
     <main className=" mt-40  border border-[#b071ec] bg-[#efecff] mb-10 text-sm">
-      <div className="grid grid-cols-1 md:grid-cols-4 px-10 md:px-52 h-full gap-8 pt-20">
+      <div className="grid grid-cols-1 md:grid-cols-4 px-10 lg:px-52 h-full gap-8 pt-20">
         <ul className=" h-full flex flex-col gap-y-4">
           <Image src={logo} alt="logo" height={175} width={175} />
           <h3 className="pr-4 font-medium md:font-normal">
