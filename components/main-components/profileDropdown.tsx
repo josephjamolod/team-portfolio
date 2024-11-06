@@ -61,11 +61,7 @@ export default function ProfileDropdown() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         {user ? (
-          <SignOutBtn
-            position={position}
-            setPosition={setPosition}
-            router={router}
-          />
+          <SignOutBtn router={router} variant="outline" />
         ) : (
           <Link href={"/login"}>
             <DropdownMenuRadioGroup
