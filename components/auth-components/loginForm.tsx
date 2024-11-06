@@ -30,8 +30,12 @@ import {
 // import { loginHandler } from "@/src/lib/firebase/config/auth";
 // import { LoginData } from "@/types/auth-types";
 import { useRouter } from "next/navigation";
+import { loginHandler } from "@/src/lib/firebase/config/auth";
+import { useUserContext } from "@/providers/userProvider";
 
 export function LogInForm({ children }: { children: React.ReactNode }) {
+  const user = useUserContext();
+
   const router = useRouter();
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -42,9 +46,12 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
   });
 
   const onSubmit = async (data: z.infer<typeof loginSchema>) => {
-    // await loginHandler(data.email, data.password);
-    // router.push("/create");
-    console.log(data);
+    await loginHandler(data.email, data.password);
+
+    if (user) {
+      console.log(user);
+      router.push("/");
+    }
   };
 
   return (
@@ -114,17 +121,17 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
             >
               Sign In
             </Button>
-            <p className="flex gap-x-1 items-center justify-center text-xs text-muted-foreground w-full pt-2">
-              <span>Don&#39;t Have an Account?</span>
-              <Link className="text-[#624ced]" href={"/"}>
-                Contact Moderator
-              </Link>
-            </p>
           </form>
         </Form>
       </CardContent>
-
-      <CardFooter className="flex flex-col gap-y-3"></CardFooter>
+      <CardFooter>
+        <p className="flex gap-x-1 items-center justify-center text-xs text-muted-foreground w-full pt-2">
+          <span>Don&#39;t Have an Account?</span>
+          <Link className="text-[#624ced]" href={"/"}>
+            Contact Moderator
+          </Link>
+        </p>
+      </CardFooter>
     </Card>
   );
 }
