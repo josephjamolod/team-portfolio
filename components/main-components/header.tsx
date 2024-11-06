@@ -16,7 +16,7 @@ export default function Header() {
           <Link className="hover:underline" href={"/"}>
             Home
           </Link>
-          <Link className="hover:underline  duration-300" href={"#services"}>
+          <Link className="hover:underline  duration-300" href={"/#services"}>
             Services
           </Link>
         </ul>

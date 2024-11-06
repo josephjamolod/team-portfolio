@@ -1,3 +1,5 @@
+"use client";
+
 import logo from "@/public/assets/images/logo.png";
 
 import { Button } from "@/components/ui/button";
@@ -19,9 +21,15 @@ import Image from "next/image";
 import Social from "../footer-components/social";
 import Link from "next/link";
 import SearchBar from "./searchBar";
+import { useUserContext } from "@/providers/userProvider";
+import SignOutBtn from "../auth-components/signOutBtn";
+import React from "react";
+import { useRouter } from "next/navigation";
 
 export function Menu() {
-  const signIn = false;
+  const user = useUserContext();
+  const router = useRouter();
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -29,8 +37,8 @@ export function Menu() {
       </SheetTrigger>
 
       <SheetContent>
-        {!signIn && <Image src={logo} alt="logo" height={150} width={150} />}
-        <SheetHeader className={`${signIn ? "flex" : "hidden"}`}>
+        {!user && <Image src={logo} alt="logo" height={150} width={150} />}
+        <SheetHeader className={`${user ? "flex" : "hidden"}`}>
           <SheetTitle className="flex items-center justify-center gap-x-2">
             Reminder
             <LuBellRing />
@@ -42,7 +50,7 @@ export function Menu() {
         </SheetHeader>
 
         <div className="grid gap-4 py-4">
-          {!signIn && (
+          {!user && (
             <div className="flex flex-col gap-y-2">
               <label className="text-[#b071ec] text-xs ">Staff Only</label>
               <Link href={"/login"}>
@@ -60,14 +68,13 @@ export function Menu() {
               Home
             </SheetTrigger>
           </Link>
-          <Link href={"#services"}>
+          <Link href={"/#services"}>
             <SheetTrigger className="border rounded-md shadow-sm font-medium w-full hover:bg-accent h-9 px-4 py-2 items-center flex justify-center">
               Services
             </SheetTrigger>
           </Link>
           <Link href={"#"}>
             <SheetTrigger className="border rounded-md shadow-sm font-medium w-full hover:bg-accent h-9 px-4 py-2 items-center flex justify-center">
-              {" "}
               Meet The Team
             </SheetTrigger>
           </Link>
@@ -80,9 +87,10 @@ export function Menu() {
         </div>
         <SheetFooter>
           <SheetClose asChild>
-            {signIn ? (
-              <Button type="submit">Sign Out</Button>
+            {user ? (
+              <SignOutBtn router={router} variant="default" />
             ) : (
+              // <SignOutBtn/> ""
               <Social cn="text-2xl" />
             )}
           </SheetClose>
