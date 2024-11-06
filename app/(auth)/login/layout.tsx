@@ -9,7 +9,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   // const user = useUserContext();
   const { isLoading, user } = useAuth();
 
-  if (!user || (!user && isLoading)) {
+  if (isLoading) {
     return <Loading />;
   }
 
