@@ -1,36 +1,28 @@
 "use client";
 
-import {
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-} from "@/components/ui/dropdown-menu";
 import { signOutHandler } from "@/src/lib/firebase/config/auth";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { Button } from "../ui/button";
 
 type SignOutBtnProps = {
-  position: string; // or simply `string` if it can be any string
-  setPosition: React.Dispatch<React.SetStateAction<string>>;
   router: AppRouterInstance;
+  variant:
+    | "default"
+    | "destructive"
+    | "ghost"
+    | "link"
+    | "outline"
+    | "secondary";
 };
 
-export default function SignOutBtn({
-  position,
-  setPosition,
-  router,
-}: SignOutBtnProps) {
+export default function SignOutBtn({ router, variant }: SignOutBtnProps) {
   const handleSignOut = async () => {
     await signOutHandler();
     router.push("/login");
   };
   return (
-    <DropdownMenuRadioGroup
-      onClick={handleSignOut}
-      value={position}
-      onValueChange={setPosition}
-    >
-      <DropdownMenuRadioItem value="bottom" className="cursor-pointer">
-        Sign Out
-      </DropdownMenuRadioItem>
-    </DropdownMenuRadioGroup>
+    <Button className="w-full" variant={variant} onClick={handleSignOut}>
+      Sign Out
+    </Button>
   );
 }
