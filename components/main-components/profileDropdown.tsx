@@ -23,13 +23,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Link from "next/link";
-import { useUserContext } from "@/providers/userProvider";
 import SignOutBtn from "../auth-components/signOutBtn";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/providers/userProvider";
 
 export default function ProfileDropdown() {
   const router = useRouter();
-  const user = useUserContext();
+  const { user } = useAuth();
   const [position, setPosition] = React.useState("bottom");
 
   return (

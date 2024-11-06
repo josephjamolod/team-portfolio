@@ -21,13 +21,14 @@ import Image from "next/image";
 import Social from "../footer-components/social";
 import Link from "next/link";
 import SearchBar from "./searchBar";
-import { useUserContext } from "@/providers/userProvider";
+
 import SignOutBtn from "../auth-components/signOutBtn";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/providers/userProvider";
 
 export function Menu() {
-  const user = useUserContext();
+  const { user } = useAuth();
   const router = useRouter();
 
   return (
@@ -90,7 +91,6 @@ export function Menu() {
             {user ? (
               <SignOutBtn router={router} variant="default" />
             ) : (
-              // <SignOutBtn/> ""
               <Social cn="text-2xl" />
             )}
           </SheetClose>

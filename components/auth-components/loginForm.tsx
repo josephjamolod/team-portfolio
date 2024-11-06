@@ -27,15 +27,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-// import { loginHandler } from "@/src/lib/firebase/config/auth";
-// import { LoginData } from "@/types/auth-types";
 import { useRouter } from "next/navigation";
 import { loginHandler } from "@/src/lib/firebase/config/auth";
-import { useUserContext } from "@/providers/userProvider";
 
 export function LogInForm({ children }: { children: React.ReactNode }) {
-  const user = useUserContext();
-
   const router = useRouter();
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -46,11 +41,9 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
   });
 
   const onSubmit = async (data: z.infer<typeof loginSchema>) => {
-    await loginHandler(data.email, data.password);
-
-    if (user) {
-      console.log(user);
-      router.push("/");
+    const response = await loginHandler(data.email, data.password);
+    if (response) {
+      router.push("/create-profile");
     }
   };
 
