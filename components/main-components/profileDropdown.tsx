@@ -23,8 +23,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Link from "next/link";
+import { useUserContext } from "@/providers/userProvider";
+import SignOutBtn from "../auth-components/signOutBtn";
+import { useRouter } from "next/navigation";
 
 export default function ProfileDropdown() {
+  const router = useRouter();
+  const user = useUserContext();
   const [position, setPosition] = React.useState("bottom");
 
   return (
@@ -55,13 +60,24 @@ export default function ProfileDropdown() {
           Staff Only
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link href={"/login"}>
-          <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-            <DropdownMenuRadioItem value="bottom" className="cursor-pointer">
-              Sign In
-            </DropdownMenuRadioItem>
-          </DropdownMenuRadioGroup>
-        </Link>
+        {user ? (
+          <SignOutBtn
+            position={position}
+            setPosition={setPosition}
+            router={router}
+          />
+        ) : (
+          <Link href={"/login"}>
+            <DropdownMenuRadioGroup
+              value={position}
+              onValueChange={setPosition}
+            >
+              <DropdownMenuRadioItem value="bottom" className="cursor-pointer">
+                Sign In
+              </DropdownMenuRadioItem>
+            </DropdownMenuRadioGroup>
+          </Link>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
