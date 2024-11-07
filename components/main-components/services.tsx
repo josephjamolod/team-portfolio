@@ -43,7 +43,7 @@ export default function Services() {
   return (
     <main
       id="services"
-      className="flex flex-col justify-center  py-10 gap-y-10 px-10 md:px-20"
+      className="flex flex-col justify-center  py-10 gap-y-10 px-10 md:px-20 2xl:px-60"
     >
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
         Our Services

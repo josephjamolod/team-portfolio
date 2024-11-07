@@ -30,12 +30,12 @@ export default function ChooseUs() {
   return (
     <div
       id="why-choose-us"
-      className="flex flex-col justify-center  pb-10 gap-y-10 "
+      className="flex flex-col justify-center  pb-10 gap-y-10 px-10 md:px-20 2xl:px-60"
     >
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight px-20">
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight ">
         Why Choose Us?
       </h1>
-      <ul className="text-xl list-disc list-inside space-y-2  p-4 flex flex-col gap-y-2 w-full px-10 md:px-20">
+      <ul className="text-xl list-disc list-inside space-y-2   flex flex-col gap-y-2 w-full ">
         {messages.map((message, index) => {
           return (
             <li

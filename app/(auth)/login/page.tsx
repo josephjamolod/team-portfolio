@@ -16,7 +16,7 @@ import purpleBG from "@/public/assets/images/purpleBG.png";
 export default function LogInPage() {
   return (
     <main className="flex justify-center  min-h-screen p-4 overflow-hidden">
-      <div className="flex  h-auto  max-w-[900px] w-full max-h-[583px] mt-20 rounded-md relative ">
+      <div className="flex  h-auto  max-w-[900px] w-full max-h-[583px] mt-24 rounded-md relative ">
         <div className="absolute h-12 w-12 bg-[#ffff] border shadow-xl -left-5  -top-4 rounded-full" />
         <div className="absolute h-12 w-12 bg-gradient-to-r from-[#988ce6] to-[#624ced] border shadow-2xl -right-5  -bottom-4 rounded-full" />
         <div className=" w-full absolute h-full object-cover ">
