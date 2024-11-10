@@ -1,17 +1,34 @@
 "use client";
 
-import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useRef, useState } from "react";
 import { ModalPropType } from "./modal";
-import ReactCrop, { centerCrop, Crop, makeAspectCrop } from "react-image-crop";
+import ReactCrop, {
+  centerCrop,
+  convertToPixelCrop,
+  Crop,
+  makeAspectCrop,
+} from "react-image-crop";
 import Image from "next/image";
+import setCanvasPreview from "./setCanvasPreview";
 
 const ASPECT_RATIO = 1;
 const MIN_DIMENSION = 150;
 
 const ImageCropper = ({ closeModal, updateAvatar }: ModalPropType) => {
+  const imgRef = useRef<HTMLImageElement | null>(null);
+  const previewCanvasRef = useRef<HTMLCanvasElement | null>(null);
+
   const [imgSrc, setImgSrc] = useState("");
-  const [crop, setCrop] = useState<Crop>();
+  const [crop, setCrop] = useState<Crop>({
+    unit: "px",
+    width: 100,
+    height: 100,
+    x: 0,
+    y: 0,
+  });
+
   const [error, setError] = useState("");
+
   const onSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -74,6 +91,7 @@ const ImageCropper = ({ closeModal, updateAvatar }: ModalPropType) => {
             minWidth={MIN_DIMENSION}
           >
             <Image
+              ref={imgRef}
               src={imgSrc}
               alt="Upload"
               width={500}
@@ -82,10 +100,40 @@ const ImageCropper = ({ closeModal, updateAvatar }: ModalPropType) => {
               priority
             />
           </ReactCrop>{" "}
-          <button className="text-white font-mono text-xs py-2 px-4 rounded-2xl mt-4 bg-sky-500 hover:bg-sky-600">
+          <button
+            className="text-white font-mono text-xs py-2 px-4 rounded-2xl mt-4 bg-sky-500 hover:bg-sky-600"
+            onClick={() => {
+              console.log("red");
+
+              if (imgRef.current && previewCanvasRef.current) {
+                setCanvasPreview(
+                  imgRef.current,
+                  previewCanvasRef.current,
+                  convertToPixelCrop(
+                    crop,
+                    imgRef.current.width,
+                    imgRef.current.height
+                  )
+                );
+                const dataUrl = previewCanvasRef.current.toDataURL();
+                updateAvatar(dataUrl);
+                closeModal();
+              } else {
+                console.error("Image or canvas element is not available.");
+              }
+            }}
+          >
             Crop Image
           </button>
         </div>
+      )}
+      {crop && (
+        <canvas
+          ref={previewCanvasRef}
+          className={`mt-4 ${
+            imgSrc ? "visible" : "invisible"
+          } border object-contain rounded-full h-[150px] w-[150px]`}
+        />
       )}
     </>
   );
