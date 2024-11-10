@@ -6,7 +6,7 @@ export default function About() {
   return (
     <div
       id="about-us"
-      className="w-full relative  overflow-hidden pt-28 md:pt-40 px-10 md:px-20 2xl:px-60 flex lg:pb-20 "
+      className="w-full relative  overflow-hidden pt-28 md:pt-40 px-10 md:px-20 3xl:px-60 flex lg:pb-20 "
     >
       <div className="flex flex-col w-full xl:w-1/2 z-10 gap-y-5 md:gap-y-10">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
