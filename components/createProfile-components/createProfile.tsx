@@ -23,7 +23,7 @@ export default function CreateProfile() {
           <Image
             width={200}
             height={200}
-            src={plus || img}
+            src={img || plus}
             alt="Avatar"
             className="w-[150px] h-[150px] rounded-full border-2 border-gray-400 cursor-pointer"
           />
