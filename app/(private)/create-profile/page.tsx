@@ -1,5 +1,11 @@
-import React from "react";
+import "react-image-crop/dist/ReactCrop.css";
 
-export default function CreateProfile() {
-  return <div className="pt-20">profile</div>;
+import CreateProfile from "@/components/createProfile-components/createProfile";
+
+export default function Profile() {
+  return (
+    <div className="pt-20">
+      <CreateProfile />
+    </div>
+  );
 }
