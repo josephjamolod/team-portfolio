@@ -1,7 +1,7 @@
 import { FaRegWindowClose } from "react-icons/fa";
 import ImageCropper from "./ImageCropper";
 
-interface ModalPropType {
+export interface ModalPropType {
   updateAvatar: (imgSrc: string) => void;
   closeModal: () => void;
 }
@@ -25,10 +25,10 @@ const Modal = ({ updateAvatar, closeModal }: ModalPropType) => {
               >
                 <FaRegWindowClose />
               </button>
-              {/* <ImageCropper
+              <ImageCropper
                 updateAvatar={updateAvatar}
                 closeModal={closeModal}
-              /> */}
+              />
             </div>
           </div>
         </div>
