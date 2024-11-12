@@ -37,7 +37,7 @@ export function Menu() {
         <Button variant="outline">Menu</Button>
       </SheetTrigger>
 
-      <SheetContent>
+      <SheetContent className="py-8">
         {!user && <Image src={logo} alt="logo" height={150} width={150} />}
         <SheetHeader className={`${user ? "flex" : "hidden"}`}>
           <SheetTitle className="flex items-center justify-center gap-x-2">
@@ -50,10 +50,11 @@ export function Menu() {
           </SheetDescription>
         </SheetHeader>
 
-        <div className="grid gap-4 py-4">
+        <div className="grid gap-4 py-6 mb-2">
+          <SearchBar margin="mx-0" />
           {!user && (
             <div className="flex flex-col gap-y-2">
-              <label className="text-[#b071ec] text-xs ">Staff Only</label>
+              <label className="text-[#b071ec] text-xs pl-3">Staff Only</label>
               <Link href={"/login"}>
                 <SheetTrigger className="gap-x-2 border text-[#b071ec] hover:text-[#b071ec] border-[#b071ec] rounded-md shadow-sm font-medium w-full hover:bg-accent h-9 px-4 py-2 items-center flex justify-center">
                   <IoShieldHalf />
@@ -63,7 +64,7 @@ export function Menu() {
             </div>
           )}
           <DropdownMenuSeparator />
-          <SearchBar margin="mx-0" />
+
           <Link href={"/"}>
             <SheetTrigger className="border rounded-md shadow-sm font-medium w-full hover:bg-accent h-9 px-4 py-2 items-center flex justify-center">
               Home
@@ -76,13 +77,13 @@ export function Menu() {
           </Link>
           <Link href={"#"}>
             <SheetTrigger className="border rounded-md shadow-sm font-medium w-full hover:bg-accent h-9 px-4 py-2 items-center flex justify-center">
-              Meet The Team
+              Connect
             </SheetTrigger>
           </Link>
 
           <Link href={"#"}>
             <SheetTrigger className="border rounded-md shadow-sm font-medium w-full hover:bg-accent h-9 px-4 py-2 items-center flex justify-center">
-              Connect
+              Meet The Team
             </SheetTrigger>
           </Link>
         </div>
