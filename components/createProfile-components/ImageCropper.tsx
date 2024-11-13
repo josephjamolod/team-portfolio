@@ -1,28 +1,24 @@
-"use client";
-
 import { ChangeEvent, SyntheticEvent, useRef, useState } from "react";
 import { ModalPropType } from "./modal";
 import ReactCrop, {
   centerCrop,
-  convertToPixelCrop,
-  Crop,
   makeAspectCrop,
+  PixelCrop,
 } from "react-image-crop";
 import Image from "next/image";
 import setCanvasPreview from "./setCanvasPreview";
 
-const ASPECT_RATIO = 1;
-const MIN_DIMENSION = 150;
+const ASPECT_RATIO = 16 / 9; // Aspect ratio for cover photo
 
-const ImageCropper = ({ closeModal, updateAvatar }: ModalPropType) => {
+const ImageCropper = ({ closeModal, updateAvatar, profile }: ModalPropType) => {
   const imgRef = useRef<HTMLImageElement | null>(null);
   const previewCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const [imgSrc, setImgSrc] = useState("");
-  const [crop, setCrop] = useState<Crop>({
+  const [crop, setCrop] = useState<PixelCrop>({
     unit: "px",
-    width: 100,
-    height: 100,
+    width: 0,
+    height: 0,
     x: 0,
     y: 0,
   });
@@ -37,17 +33,6 @@ const ImageCropper = ({ closeModal, updateAvatar }: ModalPropType) => {
     reader.addEventListener("load", () => {
       if (error) setError("");
       const imageUrl = reader.result?.toString() || "";
-      const imageElement = document.createElement("img") as HTMLImageElement;
-      imageElement.src = imageUrl;
-
-      imageElement.addEventListener("load", (e) => {
-        const { naturalWidth, naturalHeight } =
-          e.currentTarget as HTMLImageElement;
-        if (naturalWidth < MIN_DIMENSION || naturalHeight < MIN_DIMENSION) {
-          setError("Image must be at least 150 x 150 pixels.");
-          return setImgSrc("");
-        }
-      });
       setImgSrc(imageUrl);
     });
     reader.readAsDataURL(file);
@@ -55,19 +40,23 @@ const ImageCropper = ({ closeModal, updateAvatar }: ModalPropType) => {
 
   const onImageLoad = (e: SyntheticEvent<HTMLImageElement, Event>) => {
     const { width, height } = e.currentTarget;
-    const cropWidthInPercent = (MIN_DIMENSION / width) * 100;
 
-    const crop = makeAspectCrop(
-      {
-        unit: "%",
-        width: cropWidthInPercent,
-      },
-      ASPECT_RATIO,
+    // Set the crop width to the full width of the image and apply the aspect ratio for a rectangular shape
+    const fullWidthCrop = centerCrop(
+      makeAspectCrop(
+        {
+          unit: "px", // Ensuring 'px' unit for PixelCrop compatibility
+          width, // Full width of the image
+        },
+        profile ? 1 : ASPECT_RATIO,
+        width,
+        height
+      ),
       width,
       height
     );
-    const centeredCrop = centerCrop(crop, width, height);
-    setCrop(centeredCrop);
+
+    setCrop(fullWidthCrop as PixelCrop); // Cast to PixelCrop
   };
 
   return (
@@ -84,11 +73,10 @@ const ImageCropper = ({ closeModal, updateAvatar }: ModalPropType) => {
         <div className="flex flex-col items-center z-50">
           <ReactCrop
             crop={crop}
-            onChange={(pixelCrop, percentCrop) => setCrop(percentCrop)}
-            circularCrop
+            onChange={(c) => setCrop(c as PixelCrop)}
+            locked // Locks the crop position and size, making it non-adjustable
             keepSelection
-            aspect={ASPECT_RATIO}
-            minWidth={MIN_DIMENSION}
+            aspect={profile ? 1 : ASPECT_RATIO} // Set aspect ratio to rectangular (e.g., 16:9)
           >
             <Image
               ref={imgRef}
@@ -99,21 +87,15 @@ const ImageCropper = ({ closeModal, updateAvatar }: ModalPropType) => {
               onLoad={onImageLoad}
               priority
             />
-          </ReactCrop>{" "}
+          </ReactCrop>
           <button
             className="text-white font-mono text-xs py-2 px-4 rounded-2xl mt-4 bg-sky-500 hover:bg-sky-600"
             onClick={() => {
-              console.log("red");
-
               if (imgRef.current && previewCanvasRef.current) {
                 setCanvasPreview(
                   imgRef.current,
                   previewCanvasRef.current,
-                  convertToPixelCrop(
-                    crop,
-                    imgRef.current.width,
-                    imgRef.current.height
-                  )
+                  crop
                 );
                 const dataUrl = previewCanvasRef.current.toDataURL();
                 updateAvatar(dataUrl);
@@ -127,15 +109,12 @@ const ImageCropper = ({ closeModal, updateAvatar }: ModalPropType) => {
           </button>
         </div>
       )}
-      {crop && (
-        <canvas
-          ref={previewCanvasRef}
-          className={`mt-4 ${
-            imgSrc ? "visible" : "invisible"
-          } border object-contain rounded-full h-[150px] w-[150px]`}
-        />
-      )}
+      <canvas
+        ref={previewCanvasRef}
+        className="mt-4 hidden border object-contain rounded h-[150px] w-[266px]"
+      />
     </>
   );
 };
+
 export default ImageCropper;

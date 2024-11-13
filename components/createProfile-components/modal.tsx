@@ -1,12 +1,13 @@
 import { FaRegWindowClose } from "react-icons/fa";
 import ImageCropper from "./ImageCropper";
+import { CreateProfileType } from "./createProfile";
 
-export interface ModalPropType {
+export interface ModalPropType extends CreateProfileType {
   updateAvatar: (imgSrc: string) => void;
   closeModal: () => void;
 }
 
-const Modal = ({ updateAvatar, closeModal }: ModalPropType) => {
+const Modal = ({ updateAvatar, closeModal, profile }: ModalPropType) => {
   return (
     <div
       className="relative z-10"
@@ -28,6 +29,7 @@ const Modal = ({ updateAvatar, closeModal }: ModalPropType) => {
               <ImageCropper
                 updateAvatar={updateAvatar}
                 closeModal={closeModal}
+                profile={profile}
               />
             </div>
           </div>
