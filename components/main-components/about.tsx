@@ -14,7 +14,7 @@ export default function About() {
           <span className="text-black">DOLOMAJ&#39;s </span>
           <span className="font-light italic text-[#5139edb5]">services</span>
         </h1>
-        <p className="w-4/5 text-base lg:text-xl leading-loose">
+        <p className="w-4/5 text-base lg:text-xl leading-loose tracking-wider font-normal">
           Welcome to DOLOMAJs, your trusted partner in your business
           development. We specialize in providing comprehensive services that
           empower businesses to streamline their operations, enhance

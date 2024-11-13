@@ -51,7 +51,7 @@ export default function Services() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4    ">
         {services.map((service, index) => (
           <div
-            className="border bg-[#efecff] border-[#b071ec] rounded-xl p-4 flex flex-col gap-y-2"
+            className="border bg-[#efecff] border-[#b071ec] rounded-xl p-6 flex flex-col gap-y-2"
             key={index}
           >
             <div className="flex justify-between items-center">
@@ -62,7 +62,9 @@ export default function Services() {
                 <PiArrowCircleUpRightDuotone className="text-4xl text-[#624ced] rounded-full hover:text-white hover:bg-[#5139edb5] transition-colors duration-300" />
               </Link>
             </div>
-            <p>{service.description}</p>
+            <p className="text-base lg:text-xl leading-loose tracking-wider">
+              {service.description}
+            </p>
           </div>
         ))}
       </div>

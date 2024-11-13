@@ -42,11 +42,11 @@ export default function ChooseUs() {
               key={index}
               className="text-[#b071ec] bg-[#efecff] border border-[#624ced] rounded-xl p-8 flex flex-col gap-y-2"
             >
-              <span className="font-bold text-4xl bg-gradient-to-r from-[#7d6de4] to-[#624ced] bg-clip-text text-transparent">
+              <span className="font-bold  text-4xl bg-gradient-to-r from-[#7d6de4] to-[#624ced] bg-clip-text text-transparent">
                 {message.text}{" "}
-                <span className="font-normal text-lg text-black">
-                  {message.description}
-                </span>
+              </span>
+              <span className="text-lg font-normal lg:text-xl leading-loose tracking-wider block text-black">
+                {message.description}
               </span>
             </li>
           );
