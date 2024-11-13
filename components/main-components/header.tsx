@@ -9,11 +9,11 @@ import SearchBar from "../header-components/searchBar";
 
 export default function Header() {
   return (
-    <header className="fixed z-50 w-full flex items-center justify-between h-16 border border-b-[#CAC2FF80] px-5 xl:px-10 backdrop-blur-md shadow-sm">
+    <header className="fixed z-50 w-full flex items-center justify-between h-16 border border-b-[#CAC2FF80] px-5 xl:px-10 bg-white shadow-sm">
       <Image src={logo} alt="logo" height={150} width={150} />
       <div className="flex items-center mx-3">
         <ul className="hidden lg:flex gap-x-12">
-          <Link className="hover:underline" href={"/"}>
+          <Link className="hover:underline duration-300" href={"/"}>
             Home
           </Link>
           <Link className="hover:underline  duration-300" href={"/#services"}>
