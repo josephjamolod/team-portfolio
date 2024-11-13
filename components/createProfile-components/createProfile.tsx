@@ -31,7 +31,7 @@ export default function CreateProfile({ profile }: CreateProfileType) {
           <div className="w-full h-full flex justify-center items-center  ">
             {!img ? (
               <button
-                title="Change photo"
+                title={`Upload a ${profile ? "profile" : "cover photo"}`}
                 className={`flex items-center gap-x-4 py-2 px-4 rounded-md  ${
                   !profile
                     ? "bg-[#624ced] text-white"
@@ -48,6 +48,7 @@ export default function CreateProfile({ profile }: CreateProfileType) {
               </button>
             ) : (
               <Image
+                title={`Change ${profile ? "profile" : "cover photo"}`}
                 onClick={() => setModalOpen(true)}
                 width={200}
                 height={200}
