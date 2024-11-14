@@ -34,8 +34,8 @@ export default function CreateProfile({ profile }: CreateProfileType) {
                 title={`Upload a ${profile ? "profile" : "cover photo"}`}
                 className={`flex items-center gap-x-4 py-2 px-4 rounded-md  ${
                   !profile
-                    ? "bg-[#624ced] text-white"
-                    : "text-[#624ced] flex-col"
+                    ? "bg-[#624ced] text-white hover:bg-[#b075eb] transition-colors duration-300 hover:shadow-lg shadow-md"
+                    : "text-[#624ced] flex-col  hover:text-[#b075eb] transition-colors duration-300"
                 }`}
                 onClick={() => setModalOpen(true)}
               >
