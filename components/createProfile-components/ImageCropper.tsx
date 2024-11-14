@@ -82,8 +82,8 @@ const ImageCropper = ({ closeModal, updateAvatar, profile }: ModalPropType) => {
               ref={imgRef}
               src={imgSrc}
               alt="Upload"
-              width={500}
-              height={500}
+              width={profile ? 250 : 500}
+              height={profile ? 250 : 500}
               onLoad={onImageLoad}
               priority
             />
@@ -131,7 +131,7 @@ const ImageCropper = ({ closeModal, updateAvatar, profile }: ModalPropType) => {
       )}
       <canvas
         ref={previewCanvasRef}
-        className="mt-4 object-contain rounded h-[150px] w-[266px]"
+        className="mt-4 object-contain rounded h-[150px] w-[266px] place-self-center"
       />
     </>
   );
