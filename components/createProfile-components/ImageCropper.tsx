@@ -88,30 +88,50 @@ const ImageCropper = ({ closeModal, updateAvatar, profile }: ModalPropType) => {
               priority
             />
           </ReactCrop>
-          <button
-            className="text-white font-mono text-xs py-2 px-4 rounded-2xl mt-4 bg-sky-500 hover:bg-sky-600"
-            onClick={() => {
-              if (imgRef.current && previewCanvasRef.current) {
-                setCanvasPreview(
-                  imgRef.current,
-                  previewCanvasRef.current,
-                  crop
-                );
-                const dataUrl = previewCanvasRef.current.toDataURL();
-                updateAvatar(dataUrl);
-                closeModal();
-              } else {
-                console.error("Image or canvas element is not available.");
-              }
-            }}
-          >
-            Crop Image
-          </button>
+          <div className="flex gap-x-4">
+            <button
+              className="text-white font-mono text-xs py-2 px-4 rounded-2xl mt-4 bg-sky-500 hover:bg-sky-600"
+              onClick={() => {
+                if (imgRef.current && previewCanvasRef.current) {
+                  setCanvasPreview(
+                    imgRef.current,
+                    previewCanvasRef.current,
+                    crop
+                  );
+
+                  // closeModal();
+                } else {
+                  console.error("Image or canvas element is not available.");
+                }
+              }}
+            >
+              View crop
+            </button>
+            <button
+              className="text-white font-mono text-xs py-2 px-4 rounded-2xl mt-4 bg-sky-500 hover:bg-sky-600"
+              onClick={() => {
+                if (imgRef.current && previewCanvasRef.current) {
+                  setCanvasPreview(
+                    imgRef.current,
+                    previewCanvasRef.current,
+                    crop
+                  );
+                  const dataUrl = previewCanvasRef.current.toDataURL();
+                  updateAvatar(dataUrl);
+                  closeModal();
+                } else {
+                  console.error("Image or canvas element is not available.");
+                }
+              }}
+            >
+              Upload
+            </button>
+          </div>
         </div>
       )}
       <canvas
         ref={previewCanvasRef}
-        className="mt-4 hidden border object-contain rounded h-[150px] w-[266px]"
+        className="mt-4 object-contain rounded h-[150px] w-[266px]"
       />
     </>
   );
