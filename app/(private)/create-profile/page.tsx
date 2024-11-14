@@ -12,6 +12,20 @@ export default function Profile() {
         <CreateProfile profile={false} />
         <CreateProfile profile={true} />
       </div>
+      <div className="flex flex-col relative w-full  max-w-[1250px]  border-b border-b-black">
+        <CreateProfileForm>
+          <Image
+            src={logo}
+            alt="logo"
+            height={200}
+            width={200}
+            className="absolute top-4 left-1/2 -translate-x-1/2"
+          />
+          <h1 className="lg:text-2xl text-lg text-center lg:text-start pt-4">
+            Create Profile
+          </h1>
+        </CreateProfileForm>
+      </div>
     </div>
   );
 }
