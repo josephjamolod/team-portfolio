@@ -8,6 +8,8 @@ import ReactCrop, {
 import Image from "next/image";
 import setCanvasPreview from "./setCanvasPreview";
 
+import bracuza from "@/public/assets/images/brazuca.png";
+
 const ASPECT_RATIO = 16 / 9; // Aspect ratio for cover photo
 
 const ImageCropper = ({ closeModal, updateAvatar, profile }: ModalPropType) => {
@@ -66,10 +68,11 @@ const ImageCropper = ({ closeModal, updateAvatar, profile }: ModalPropType) => {
           type="file"
           accept="image/*"
           onChange={onSelectFile}
-          className="block w-full cursor-pointer text-sm text-slate-500 file:mr-4 file:py-1 file:px-2 file:rounded-full file:border-0 file:text-xs file:bg-gray-700 file:text-sky-300 hover:file:bg-gray-600"
+          className="block w-full cursor-pointer text-sm text-[#624ced] file:mr-4 file:py-1 file:px-2 file:rounded-full file:border-0 file:text-xs file:bg-[#624ced]
+           file:text-white  file:cursor-pointer "
         />
       </label>
-      {imgSrc && (
+      {imgSrc ? (
         <div className="flex flex-col items-center z-50">
           <ReactCrop
             crop={crop}
@@ -90,7 +93,7 @@ const ImageCropper = ({ closeModal, updateAvatar, profile }: ModalPropType) => {
           </ReactCrop>
           <div className="flex gap-x-4">
             <button
-              className="text-white font-mono text-xs py-2 px-4 rounded-2xl mt-4 bg-sky-500 hover:bg-sky-600"
+              className="primary-button border border-[#624ced] font-semibold text-xs py-2 px-4 rounded-2xl mt-4 hover:shadow-md"
               onClick={() => {
                 if (imgRef.current && previewCanvasRef.current) {
                   setCanvasPreview(
@@ -98,8 +101,6 @@ const ImageCropper = ({ closeModal, updateAvatar, profile }: ModalPropType) => {
                     previewCanvasRef.current,
                     crop
                   );
-
-                  // closeModal();
                 } else {
                   console.error("Image or canvas element is not available.");
                 }
@@ -108,7 +109,7 @@ const ImageCropper = ({ closeModal, updateAvatar, profile }: ModalPropType) => {
               View crop
             </button>
             <button
-              className="text-white font-mono text-xs py-2 px-4 rounded-2xl mt-4 bg-sky-500 hover:bg-sky-600"
+              className="text-white font-mono text-xs py-2 px-4 rounded-2xl mt-4 bg-[#624ced] hover:shadow-md"
               onClick={() => {
                 if (imgRef.current && previewCanvasRef.current) {
                   setCanvasPreview(
@@ -128,11 +129,21 @@ const ImageCropper = ({ closeModal, updateAvatar, profile }: ModalPropType) => {
             </button>
           </div>
         </div>
+      ) : (
+        <Image
+          className="pt-20 border-b-2 border-b-[#624ced] place-self-center"
+          src={bracuza}
+          alt="frame"
+          height={200}
+          width={200}
+        />
       )}
-      <canvas
-        ref={previewCanvasRef}
-        className="mt-4 object-contain rounded h-[150px] w-[266px] place-self-center"
-      />
+      {previewCanvasRef && (
+        <canvas
+          ref={previewCanvasRef}
+          className="mt-4 object-contain rounded h-[150px] w-[266px] place-self-center"
+        />
+      )}
     </>
   );
 };
