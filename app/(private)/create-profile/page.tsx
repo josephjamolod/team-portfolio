@@ -21,7 +21,7 @@ export default function Profile() {
             width={200}
             className="absolute top-4 left-1/2 -translate-x-1/2"
           />
-          <h1 className="lg:text-2xl text-lg text-center lg:text-start pt-4">
+          <h1 className="lg:text-2xl text-lg text-[#624ced] font-semibold text-center lg:text-start pt-4">
             Create Profile
           </h1>
         </CreateProfileForm>
