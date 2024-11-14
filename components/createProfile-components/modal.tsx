@@ -16,8 +16,8 @@ const Modal = ({ updateAvatar, closeModal, profile }: ModalPropType) => {
       aria-modal="true"
     >
       <div className="fixed flex items-center justify-center inset-0 z-10 w-screen overflow-y-auto">
-        <div className="flex w-1/2 min-h-screen justify-center px-2 py-20 text-center ">
-          <div className="relative w-1/2 sm:w-[80%] min-h-[60vh] rounded-2xl bg-gray-800 text-slate-100 text-left shadow-xl transition-all">
+        <div className="flex w-full lg:w-1/2 min-h-screen justify-center px-4 py-20 text-center ">
+          <div className="relative w-full sm:w-[80%] min-h-[60vh] rounded-2xl bg-gray-800 text-slate-100 text-left shadow-xl transition-all">
             <div className="px-5 py-4">
               <button
                 type="button"

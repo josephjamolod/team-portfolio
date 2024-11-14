@@ -22,7 +22,7 @@ export default function CreateProfile({ profile }: CreateProfileType) {
       <div
         className={`flex flex-col items-center bg-gradient-to-b from-[#614ced4b] via-[#efecff]  to-[#efecff] ${
           profile
-            ? "h-[175px] w-[175px] lg:w-[200px] lg:h-[200px] absolute -bottom-24 left-1/2 transform -translate-x-1/2 lg:left-20 lg:-translate-x-0 border-8 border-[#624ced] bg-[#efecff] rounded-xl"
+            ? "h-[175px] w-[175px] lg:w-[200px] lg:h-[200px] absolute -bottom-24 left-1/2 transform -translate-x-1/2 lg:left-20 lg:-translate-x-0 border-8 border-white shadow-md bg-[#efecff] rounded-xl"
             : " w-full border-b border-b-[#624ced] h-full  "
         }  `}
       >
