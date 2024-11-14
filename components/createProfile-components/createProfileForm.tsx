@@ -58,11 +58,7 @@ export default function CreateProfileForm({
       <CardHeader> {children}</CardHeader>
       <CardContent className="pb-0 ">
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit, (errors) =>
-              console.log(errors)
-            )}
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="space-y-5">
               <div className="flex flex-col lg:flex-row gap-y-5 gap-x-5">
                 <FormField
@@ -102,6 +98,7 @@ export default function CreateProfileForm({
                         <FormLabel className="text-black text-xs">
                           Last Name
                         </FormLabel>
+
                         {form.formState.errors.name && (
                           <span className="flex gap-x-2 text-red-400">
                             <FaExclamationCircle />
