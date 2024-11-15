@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
 import { firebaseAuth } from "@/src/lib/firebase/config/firebase";
 
@@ -15,6 +22,10 @@ type User = {
 export type UserProviderContextType = {
   user: User | null;
   isLoading: boolean;
+  imgFile: undefined | string;
+  setImgFile: Dispatch<SetStateAction<string | undefined>>;
+  coverImgFile: undefined | string;
+  setCoverImgFile: Dispatch<SetStateAction<string | undefined>>;
 };
 
 // Create the AuthContext object
@@ -26,6 +37,8 @@ const AuthContext = createContext<UserProviderContextType | undefined>(
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null); // State to hold the user object
   const [isLoading, setIsLoading] = useState(true); // State to track loading status
+  const [imgFile, setImgFile] = useState<undefined | string>();
+  const [coverImgFile, setCoverImgFile] = useState<undefined | string>();
 
   // Check for user's authentication status on mount
   useEffect(() => {
@@ -54,7 +67,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isLoading }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isLoading,
+        imgFile,
+        setImgFile,
+        coverImgFile,
+        setCoverImgFile,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
