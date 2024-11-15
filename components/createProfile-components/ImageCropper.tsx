@@ -7,10 +7,12 @@ import ReactCrop, {
   makeAspectCrop,
   PixelCrop,
 } from "react-image-crop";
-import Image from "next/image";
+import Image from "next/image"; // Change here to import as default
+
 import setCanvasPreview from "./setCanvasPreview";
 
 import bracuza from "@/public/assets/images/brazuca.png";
+import { FaExclamationCircle } from "react-icons/fa";
 
 const ASPECT_RATIO = 16 / 9; // Aspect ratio for cover photo
 
@@ -35,8 +37,18 @@ const ImageCropper = ({ closeModal, updateAvatar, profile }: ModalPropType) => {
 
     const reader = new FileReader();
     reader.addEventListener("load", () => {
-      if (error) setError("");
+      const imageElement = document.createElement("img");
       const imageUrl = reader.result?.toString() || "";
+      imageElement.src = imageUrl;
+
+      imageElement.addEventListener("load", (e) => {
+        if (error) setError("");
+        const { naturalHeight } = e.currentTarget as HTMLImageElement;
+        if (!profile && naturalHeight > 1000) {
+          setError("Image is too big");
+          return setImgSrc("");
+        }
+      });
       setImgSrc(imageUrl);
     });
     reader.readAsDataURL(file);
@@ -65,14 +77,20 @@ const ImageCropper = ({ closeModal, updateAvatar, profile }: ModalPropType) => {
 
   return (
     <>
-      <label className="block mb-3 w-fit">
+      <label className=" mb-3 w-fit flex">
         <input
           type="file"
           accept="image/*"
           onChange={onSelectFile}
-          className="block w-full cursor-pointer text-sm text-[#624ced] file:mr-4 file:py-1 file:px-2 file:rounded-full file:border-0 file:text-xs file:bg-[#624ced]
+          className="flex-1 w-full cursor-pointer text-sm text-[#624ced] file:mr-4 file:py-1 file:px-2 file:rounded-full file:border-0 file:text-xs file:bg-[#624ced]
            file:text-white  file:cursor-pointer "
         />
+        {error && (
+          <p className="flex items-center gap-x-2 flex-1 text-sm text-red-400 pl-2 pt-1 ">
+            <FaExclamationCircle />
+            {error}
+          </p>
+        )}
       </label>
       {imgSrc ? (
         <div className="flex flex-col items-center z-50">
@@ -133,7 +151,7 @@ const ImageCropper = ({ closeModal, updateAvatar, profile }: ModalPropType) => {
         </div>
       ) : (
         <>
-          <div className="h-5/6 w-5/6 border   absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white opacity-10 border-gray-500" />
+          <div className="h-5/6 w-5/6 border absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white opacity-10 border-gray-500" />
           <Image
             className="pt-20 border-b-2 border-b-[#624ced] place-self-center"
             src={bracuza}
