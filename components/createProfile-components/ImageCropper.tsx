@@ -13,10 +13,13 @@ import setCanvasPreview from "./setCanvasPreview";
 
 import bracuza from "@/public/assets/images/brazuca.png";
 import { FaExclamationCircle } from "react-icons/fa";
+import { useAuth } from "@/providers/userProvider";
 
 const ASPECT_RATIO = 16 / 9; // Aspect ratio for cover photo
 
 const ImageCropper = ({ closeModal, updateAvatar, profile }: ModalPropType) => {
+  const { setImgFile, setCoverImgFile } = useAuth();
+
   const imgRef = useRef<HTMLImageElement | null>(null);
   const previewCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -33,6 +36,8 @@ const ImageCropper = ({ closeModal, updateAvatar, profile }: ModalPropType) => {
 
   const onSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    // console.log(file);
+
     if (!file) return;
 
     const reader = new FileReader();
@@ -138,6 +143,11 @@ const ImageCropper = ({ closeModal, updateAvatar, profile }: ModalPropType) => {
                     crop
                   );
                   const dataUrl = previewCanvasRef.current.toDataURL();
+                  if (profile) {
+                    setImgFile(dataUrl);
+                  } else {
+                    setCoverImgFile(dataUrl);
+                  }
                   updateAvatar(dataUrl);
                   closeModal();
                 } else {
