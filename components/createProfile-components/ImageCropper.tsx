@@ -1,3 +1,5 @@
+"use client";
+
 import { ChangeEvent, SyntheticEvent, useRef, useState } from "react";
 import { ModalPropType } from "./modal";
 import ReactCrop, {
@@ -130,13 +132,16 @@ const ImageCropper = ({ closeModal, updateAvatar, profile }: ModalPropType) => {
           </div>
         </div>
       ) : (
-        <Image
-          className="pt-20 border-b-2 border-b-[#624ced] place-self-center"
-          src={bracuza}
-          alt="frame"
-          height={200}
-          width={200}
-        />
+        <>
+          <div className="h-5/6 w-5/6 border   absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white opacity-10 border-gray-500" />
+          <Image
+            className="pt-20 border-b-2 border-b-[#624ced] place-self-center"
+            src={bracuza}
+            alt="frame"
+            height={200}
+            width={200}
+          />
+        </>
       )}
       {previewCanvasRef && (
         <canvas
