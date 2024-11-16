@@ -10,6 +10,7 @@ import {
 } from "react";
 import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
 import { firebaseAuth } from "@/src/lib/firebase/config/firebase";
+import { ImageFile } from "@/components/create-profile-components/uploadTools";
 
 // Define a type for your user, matching the properties provided by Firebase
 type User = {
@@ -26,6 +27,8 @@ export type UserProviderContextType = {
   setProfilePhoto: Dispatch<SetStateAction<string | null>>;
   coverPhoto: null | string;
   setCoverPhoto: Dispatch<SetStateAction<string | null>>;
+  images: ImageFile[] | [];
+  setImages: Dispatch<SetStateAction<ImageFile[]>>;
 };
 
 // Create the AuthContext object
@@ -37,10 +40,9 @@ const AuthContext = createContext<UserProviderContextType | undefined>(
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null); // State to hold the user object
   const [isLoading, setIsLoading] = useState(true); // State to track loading status
-  // const [imgFile, setImgFile] = useState<undefined | string>();
-  // const [coverImgFile, setCoverImgFile] = useState<undefined | string>();
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
   const [coverPhoto, setCoverPhoto] = useState<string | null>(null);
+  const [images, setImages] = useState<ImageFile[]>([]);
 
   // Check for user's authentication status on mount
   useEffect(() => {
@@ -77,6 +79,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setProfilePhoto,
         coverPhoto,
         setCoverPhoto,
+        images,
+        setImages,
       }}
     >
       {children}
