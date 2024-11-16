@@ -24,7 +24,10 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "../ui/textarea";
 import { useAuth } from "@/providers/userProvider";
-import { uploadImage } from "@/src/lib/firebase/store/users.action";
+import {
+  uploadFiles,
+  uploadImage,
+} from "@/src/lib/firebase/store/users.action";
 import UploadTools from "./uploadTools";
 
 export default function CreateProfileForm({
@@ -32,7 +35,7 @@ export default function CreateProfileForm({
 }: {
   children: React.ReactNode;
 }) {
-  const { profilePhoto, coverPhoto } = useAuth();
+  const { profilePhoto, coverPhoto, images } = useAuth();
   // console.log(imgFile);
 
   const form = useForm<z.infer<typeof createProfileSchema>>({
@@ -56,9 +59,28 @@ export default function CreateProfileForm({
 
   const uploadPhoto = async (): Promise<string | undefined> => {
     try {
-      const profileLink = await uploadImage(profilePhoto);
-      const coverPhotoLink = await uploadImage(coverPhoto);
-      console.log("File available at", coverPhotoLink, profileLink);
+      if (profilePhoto && coverPhoto) {
+        const profileLink = await uploadImage(profilePhoto);
+        const coverPhotoLink = await uploadImage(coverPhoto);
+        console.log("File available at", coverPhotoLink, profileLink);
+      }
+      console.log("No cover or profile photo uploaded");
+
+      return "";
+    } catch (error) {
+      console.error("Error uploading image: ", error);
+      return "";
+    }
+  };
+
+  const uploadImageTools = async (): Promise<string | undefined> => {
+    try {
+      if (images.length !== 0) {
+        const toolsLink = await uploadFiles(images);
+        console.log("Files here!!!", toolsLink);
+      }
+      console.log("No tools");
+
       return "";
     } catch (error) {
       console.error("Error uploading image: ", error);
@@ -225,7 +247,7 @@ export default function CreateProfileForm({
                   </FormItem>
                 )}
               />
-              {/* <UploadTools /> */}
+              <UploadTools />
               <div className="flex flex-col lg:flex-row gap-y-5 gap-x-5">
                 <FormField
                   control={form.control}
@@ -472,7 +494,14 @@ export default function CreateProfileForm({
                 onClick={uploadPhoto}
                 className="w-full rounded-full hover:opacity-85 h-8 bg-gradient-to-r from-[#988ce6] to-[#624ced] font-light mt-[20px] transform transition-opacity duration-300"
               >
-                Upload
+                Upload profile and cover
+              </Button>
+              <Button
+                type="button"
+                onClick={uploadImageTools}
+                className="w-full rounded-full hover:opacity-85 h-8 bg-gradient-to-r from-[#988ce6] to-[#624ced] font-light mt-[20px] transform transition-opacity duration-300"
+              >
+                Upload all tools
               </Button>
             </div>
           </form>
