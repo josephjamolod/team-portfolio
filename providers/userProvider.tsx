@@ -22,10 +22,10 @@ type User = {
 export type UserProviderContextType = {
   user: User | null;
   isLoading: boolean;
-  imgFile: undefined | string;
-  setImgFile: Dispatch<SetStateAction<string | undefined>>;
-  coverImgFile: undefined | string;
-  setCoverImgFile: Dispatch<SetStateAction<string | undefined>>;
+  profilePhoto: null | string;
+  setProfilePhoto: Dispatch<SetStateAction<string | null>>;
+  coverPhoto: null | string;
+  setCoverPhoto: Dispatch<SetStateAction<string | null>>;
 };
 
 // Create the AuthContext object
@@ -37,8 +37,10 @@ const AuthContext = createContext<UserProviderContextType | undefined>(
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null); // State to hold the user object
   const [isLoading, setIsLoading] = useState(true); // State to track loading status
-  const [imgFile, setImgFile] = useState<undefined | string>();
-  const [coverImgFile, setCoverImgFile] = useState<undefined | string>();
+  // const [imgFile, setImgFile] = useState<undefined | string>();
+  // const [coverImgFile, setCoverImgFile] = useState<undefined | string>();
+  const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
+  const [coverPhoto, setCoverPhoto] = useState<string | null>(null);
 
   // Check for user's authentication status on mount
   useEffect(() => {
@@ -71,10 +73,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       value={{
         user,
         isLoading,
-        imgFile,
-        setImgFile,
-        coverImgFile,
-        setCoverImgFile,
+        profilePhoto,
+        setProfilePhoto,
+        coverPhoto,
+        setCoverPhoto,
       }}
     >
       {children}

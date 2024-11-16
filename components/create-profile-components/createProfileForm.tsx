@@ -25,13 +25,14 @@ import {
 import { Textarea } from "../ui/textarea";
 import { useAuth } from "@/providers/userProvider";
 import { uploadImage } from "@/src/lib/firebase/store/users.action";
+import UploadTools from "./uploadTools";
 
 export default function CreateProfileForm({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { imgFile, coverImgFile } = useAuth();
+  const { profilePhoto, coverPhoto } = useAuth();
   // console.log(imgFile);
 
   const form = useForm<z.infer<typeof createProfileSchema>>({
@@ -55,8 +56,8 @@ export default function CreateProfileForm({
 
   const uploadPhoto = async (): Promise<string | undefined> => {
     try {
-      const profileLink = await uploadImage(imgFile);
-      const coverPhotoLink = await uploadImage(coverImgFile);
+      const profileLink = await uploadImage(profilePhoto);
+      const coverPhotoLink = await uploadImage(coverPhoto);
       console.log("File available at", coverPhotoLink, profileLink);
       return "";
     } catch (error) {
@@ -224,6 +225,7 @@ export default function CreateProfileForm({
                   </FormItem>
                 )}
               />
+              {/* <UploadTools /> */}
               <div className="flex flex-col lg:flex-row gap-y-5 gap-x-5">
                 <FormField
                   control={form.control}
@@ -406,7 +408,10 @@ export default function CreateProfileForm({
                     <FormItem className="flex-1">
                       <div className="flex items-center justify-between">
                         <FormLabel className="text-black text-xs">
-                          {"X link (Twitter Link)"}
+                          X link{" "}
+                          <span className="text-muted-foreground">
+                            {"(Twitter Link)"}
+                          </span>
                         </FormLabel>
                         {form.formState.errors.name && (
                           <span className="flex gap-x-2 text-red-400">

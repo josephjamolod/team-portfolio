@@ -5,10 +5,13 @@ import React, { useState } from "react";
 import Image from "next/image";
 import ImageUpload from "./imageUpload";
 import CreateProfileForm from "./createProfileForm";
+import { useAuth } from "@/providers/userProvider";
 
 function CreateProfile() {
-  const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
-  const [coverPhoto, setCoverPhoto] = useState<string | null>(null);
+  // const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
+  // const [coverPhoto, setCoverPhoto] = useState<string | null>(null);
+  const { profilePhoto, setProfilePhoto, coverPhoto, setCoverPhoto } =
+    useAuth();
 
   return (
     <div className="h-full bg-[#efecff93]  py-12 px-4 sm:px-6 lg:px-8 w-full">
