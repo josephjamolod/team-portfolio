@@ -1,4 +1,3 @@
-import { useAuth } from "@/providers/userProvider";
 import Image from "next/image";
 import React, { useState, useRef, useEffect } from "react";
 import ReactCrop, { type Crop } from "react-image-crop";
@@ -14,14 +13,11 @@ interface ImageCropperProps {
 }
 
 export default function ImageCropper({
-  label,
   image,
   onCropComplete,
   onCancel,
   aspectRatio = 1,
 }: ImageCropperProps) {
-  const { setCoverImgFile, setImgFile } = useAuth();
-
   const [crop, setCrop] = useState<Crop>({
     unit: "%",
     width: 90,
@@ -33,7 +29,7 @@ export default function ImageCropper({
   const [completeCrop, setCompleteCrop] = useState<Crop | null>(null);
   const [hasInteracted, setHasInteracted] = useState(false);
   const imageRef = useRef<HTMLImageElement>(null);
-  const previewCanvasRef = useRef<HTMLCanvasElement>(null);
+  // const previewCanvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     if (imageRef.current && completeCrop) {
@@ -109,11 +105,6 @@ export default function ImageCropper({
 
     const base64Image = canvas.toDataURL("image/jpeg", 0.95);
     // console.log(base64Image);
-    if (label === "Profile Photo") {
-      setImgFile(base64Image);
-    } else {
-      setCoverImgFile(base64Image);
-    }
 
     onCropComplete(base64Image);
   };
