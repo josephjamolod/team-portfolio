@@ -13,7 +13,7 @@ export const createProfileSchema = z.object({
   serviceDescription: z
     .string()
     .min(20, { message: "must contain atleast 20 characters" })
-    .max(200, { message: "minimum of 200 characters" }),
+    .max(1000, { message: "minimum of 1000 characters" }),
   facebookUrl: z
     .string()
     .refine(
