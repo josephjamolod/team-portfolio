@@ -59,6 +59,11 @@
   opacity: 0.15;
 }
 
+.custom-phone-container input:focus {
+  border-color: #8d53c4 !important; /* Focused border color */
+  outline: none; /* Remove outline */
+}
+
 .primary-button {
   background-color: #efecff;
   border-color: #624ced;

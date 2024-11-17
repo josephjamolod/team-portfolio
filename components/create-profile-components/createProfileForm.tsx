@@ -1,6 +1,8 @@
 "use client";
 
 import { FaExclamationCircle } from "react-icons/fa";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 //shadcn components
 import { Input } from "@/components/ui/input";
@@ -128,7 +130,7 @@ export default function CreateProfileForm({
                     </FormItem>
                   )}
                 />
-
+                {/* <PhoneInput country={'ph'} value={}/> */}
                 <FormField
                   control={form.control}
                   name="lastName"
@@ -251,14 +253,14 @@ export default function CreateProfileForm({
               <div className="flex flex-col lg:flex-row gap-y-5 gap-x-5">
                 <FormField
                   control={form.control}
-                  name="linkedinUrl"
+                  name="whatsappNumber"
                   render={({ field }) => (
                     <FormItem className="flex-1">
                       <div className="flex items-center justify-between">
                         <FormLabel className="text-black text-xs">
-                          LinkedIn link
+                          Whatsapp number
                         </FormLabel>
-                        {form.formState.errors.name && (
+                        {form.formState.errors.whatsappNumber && (
                           <span className="flex gap-x-2 text-red-400">
                             <FaExclamationCircle />
                             <FormMessage className="text-xs" />
@@ -266,11 +268,21 @@ export default function CreateProfileForm({
                         )}
                       </div>
                       <FormControl>
-                        <Input
+                        <PhoneInput
                           {...field}
-                          type="text"
-                          placeholder="Your LinkedIn link"
-                          className="text-xs h-10 rounded-none bg-[#efecff]  focus:outline-none focus:border-[#b071ec]"
+                          country={"ph"}
+                          containerClass="custom-phone-container"
+                          inputStyle={{
+                            fontSize: "0.875rem", // text-xs
+                            height: "2.5rem", // h-10
+                            backgroundColor: "#efecff", // bg-[#efecff]
+                            border: "2px solid #e4e8ee", // default border
+
+                            borderRadius: 0,
+                            width: "100%", // w-full
+                          }}
+                          placeholder="Your Whatsapp number"
+                          onChange={(value) => field.onChange(value)} // Update form state
                         />
                       </FormControl>
                     </FormItem>
@@ -309,12 +321,12 @@ export default function CreateProfileForm({
               <div className="flex flex-col lg:flex-row gap-y-5 gap-x-5">
                 <FormField
                   control={form.control}
-                  name="whatsappNumber"
+                  name="linkedinUrl"
                   render={({ field }) => (
                     <FormItem className="flex-1">
                       <div className="flex items-center justify-between">
                         <FormLabel className="text-black text-xs">
-                          Whatsapp number
+                          LinkedIn link
                         </FormLabel>
                         {form.formState.errors.name && (
                           <span className="flex gap-x-2 text-red-400">
@@ -327,20 +339,19 @@ export default function CreateProfileForm({
                         <Input
                           {...field}
                           type="text"
-                          placeholder="Your Whatsapp number"
+                          placeholder="Your LinkedIn link"
                           className="text-xs h-10 rounded-none bg-[#efecff]  focus:outline-none focus:border-[#b071ec]"
                         />
                       </FormControl>
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="websiteUrl"
                   render={({ field }) => (
                     <FormItem className="flex-1">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between ">
                         <FormLabel className="text-black text-xs">
                           Website link
                         </FormLabel>
