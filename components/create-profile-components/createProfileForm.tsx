@@ -25,7 +25,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "../ui/textarea";
-import { useAuth } from "@/providers/userProvider";
+import { useAuth, User } from "@/providers/userProvider";
 import {
   uploadFiles,
   uploadImage,
@@ -34,11 +34,14 @@ import UploadTools from "./uploadTools";
 
 export default function CreateProfileForm({
   children,
+  user,
 }: {
   children: React.ReactNode;
+  user: User | null;
 }) {
   const { profilePhoto, coverPhoto, images } = useAuth();
   // console.log(imgFile);
+  console.log(user);
 
   const form = useForm<z.infer<typeof createProfileSchema>>({
     resolver: zodResolver(createProfileSchema),

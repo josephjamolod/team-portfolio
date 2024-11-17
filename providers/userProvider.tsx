@@ -13,7 +13,7 @@ import { firebaseAuth } from "@/src/lib/firebase/config/firebase";
 import { ImageFile } from "@/components/create-profile-components/uploadTools";
 
 // Define a type for your user, matching the properties provided by Firebase
-type User = {
+export type User = {
   uid: string;
   email: string | null;
   displayName: string | null;
