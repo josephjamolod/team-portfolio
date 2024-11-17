@@ -1,5 +1,6 @@
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { firebaseStorage } from "../config/firebase";
+import { ImageFile } from "@/components/create-profile-components/uploadTools";
 
 export const dataURLToBlob = (dataURL: string): Blob => {
   const byteString = atob(dataURL.split(",")[1]);
@@ -14,8 +15,8 @@ export const dataURLToBlob = (dataURL: string): Blob => {
 };
 
 export const uploadImage = async (
-  imgFile: string | undefined
-): Promise<string | undefined> => {
+  imgFile: string | null
+): Promise<string | null> => {
   try {
     const filename = self.crypto.randomUUID();
 
@@ -34,4 +35,26 @@ export const uploadImage = async (
     console.error("Error uploading image: ", error);
     return "";
   }
+};
+
+// Function to upload an array of files
+export const uploadFiles = async (
+  fileArray: ImageFile[]
+): Promise<string[]> => {
+  const downloadURLs: string[] = [];
+
+  for (const file of fileArray) {
+    try {
+      const filename = self.crypto.randomUUID(); // Generate unique filename
+      const imageBlob = dataURLToBlob(file.croppedImage as string); // Convert base64 to Blob
+      const storageRef = ref(firebaseStorage, `tools/${filename}.jpg`); // Storage path
+      const uploadTask = await uploadBytesResumable(storageRef, imageBlob);
+      const downloadURL = await getDownloadURL(uploadTask.ref);
+      downloadURLs.push(downloadURL); // Add URL to result array
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  }
+
+  return downloadURLs; // Return all uploaded URLs
 };
