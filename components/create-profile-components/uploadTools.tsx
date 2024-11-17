@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { useDropzone } from "react-dropzone";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,11 +16,10 @@ export interface ImageFile extends File {
 }
 
 export default function UploadTools() {
-  // const [images, setImages] = useState<ImageFile[]>([]);
   const { images, setImages } = useAuth();
   //careful logging this without image, cause browser will crash "console.log(images[0].croppedImage);"
   // console.log(images[0].croppedImage);
-
+  const cancelRef = useRef<HTMLButtonElement>(null);
   const [currentImage, setCurrentImage] = useState<ImageFile | null>(null);
   // console.log(currentImage);
 
@@ -137,7 +136,12 @@ export default function UploadTools() {
         <ToolsCropper
           image={currentImage.preview!}
           onCropComplete={handleCropComplete}
-          onCancel={() => setShowCropper(false)}
+          onCancel={() => {
+            setShowCropper(false);
+            if (cancelRef) {
+              cancelRef.current?.click();
+            }
+          }}
         />
       )}
 
@@ -152,6 +156,7 @@ export default function UploadTools() {
               />
               <button
                 type="button"
+                ref={cancelRef}
                 onClick={() => removeImage(index)}
                 className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
               >
