@@ -9,6 +9,7 @@ import { FiUpload, FiX, FiTrash2 } from "react-icons/fi";
 import ToolsCropper from "./toolsCropper";
 import { Button } from "../ui/button";
 import { useAuth } from "@/providers/userProvider";
+import Image from "next/image";
 
 export interface ImageFile extends File {
   preview?: string;
@@ -149,10 +150,12 @@ export default function UploadTools() {
         <div className="flex gap-4 min-w-min pb-4">
           {images.map((file, index) => (
             <div key={index} className="relative group flex-shrink-0 w-40">
-              <img
-                src={file.croppedImage || file.preview}
+              <Image
+                src={file.croppedImage || (file.preview as string)}
                 alt={`Preview ${index + 1}`}
-                className="w-40 h-40 object-cover rounded-lg"
+                height={200}
+                width={200}
+                className=" object-cover rounded-lg"
               />
               <button
                 type="button"

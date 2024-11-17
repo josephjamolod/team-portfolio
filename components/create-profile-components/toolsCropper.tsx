@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { useState, useRef } from "react";
 import ReactCrop, {
   Crop,
@@ -92,11 +93,12 @@ export default function ToolsCropper({
             locked={true}
             className="max-w-full"
           >
-            <img
+            <Image
               ref={imgRef}
               src={image}
               onLoad={onImageLoad}
-              className="max-w-full"
+              width={700}
+              height={700}
               alt="Crop"
             />
           </ReactCrop>

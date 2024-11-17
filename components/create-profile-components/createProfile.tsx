@@ -1,7 +1,7 @@
 "use client";
 
 import logo from "@/public/assets/images/logo.png";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import ImageUpload from "./imageUpload";
 import CreateProfileForm from "./createProfileForm";
