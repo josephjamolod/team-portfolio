@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useState, useCallback, useRef } from "react";
+import React, {
+  useState,
+  useCallback,
+  useRef,
+  SetStateAction,
+  Dispatch,
+} from "react";
 import { useDropzone } from "react-dropzone";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,7 +14,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { FiUpload, FiX, FiTrash2 } from "react-icons/fi";
 import ToolsCropper from "./toolsCropper";
 import { Button } from "../ui/button";
-import { useAuth } from "@/providers/userProvider";
 import Image from "next/image";
 
 export interface ImageFile extends File {
@@ -16,8 +21,15 @@ export interface ImageFile extends File {
   croppedImage?: string;
 }
 
-export default function UploadTools() {
-  const { images, setImages } = useAuth();
+interface UploadToolsPropType {
+  images: ImageFile[] | [];
+  setImages: Dispatch<SetStateAction<ImageFile[]>>;
+}
+
+export default function UploadTools({
+  images,
+  setImages,
+}: UploadToolsPropType) {
   //careful logging this without image, cause browser will crash "console.log(images[0].croppedImage);"
   // console.log(images[0].croppedImage);
   const cancelRef = useRef<HTMLButtonElement>(null);

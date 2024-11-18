@@ -10,8 +10,15 @@ import { useAuth } from "@/providers/userProvider";
 function CreateProfile() {
   // const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
   // const [coverPhoto, setCoverPhoto] = useState<string | null>(null);
-  const { profilePhoto, setProfilePhoto, coverPhoto, setCoverPhoto, user } =
-    useAuth();
+  const {
+    profilePhoto,
+    setProfilePhoto,
+    coverPhoto,
+    setCoverPhoto,
+    user,
+    setImages,
+    images,
+  } = useAuth();
 
   // console.log(user);
 
@@ -28,7 +35,7 @@ function CreateProfile() {
               {/* Cover Photo Container */}
               <div className="relative">
                 {/* Cover Photo */}
-                <div className="relative w-full h-[200px] md:h-[300px] bg-gray-100">
+                <div className="relative w-full h-[200px] md:h-[348px] bg-gray-100">
                   {coverPhoto ? (
                     <>
                       <div className="w-full h-full object-cover">
@@ -114,7 +121,13 @@ function CreateProfile() {
               {/* Spacing for profile photo overflow */}
               <div className="h-12"></div>
             </div>
-            <CreateProfileForm user={user}>
+            <CreateProfileForm
+              user={user}
+              profilePhoto={profilePhoto}
+              coverPhoto={coverPhoto}
+              images={images}
+              setImages={setImages}
+            >
               <div className="flex items-center w-full justify-center">
                 <Image
                   src={logo}
