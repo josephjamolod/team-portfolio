@@ -5,10 +5,30 @@ export const loginSchema = z.object({
   password: z.string(),
 });
 
+const isValidPhoneNumber = (value: string) => {
+  if (value.match(/12345/)) {
+    return "Invalid phone number containing '12345'.";
+  } else if (value.length < 10) {
+    return false; // Invalid if less than 10 digits
+  } else {
+    return true; // Valid
+  }
+};
+
+const refinePhoneNumber = (phoneNumber: string) => {
+  if (phoneNumber.trim() === "") {
+    return true; // Allow empty string
+  }
+  return isValidPhoneNumber(phoneNumber);
+};
+
 export const createProfileSchema = z.object({
   name: z.string().min(2, { message: "Invalid name" }),
   lastName: z.string().min(2, { message: "Invalid last name" }),
   email: z.string().email({ message: "Invalid email address" }),
+  contactNumber: z
+    .string()
+    .refine(isValidPhoneNumber, { message: "Invalid phone number" }),
   position: z.string().min(3, "Position is required"),
   serviceDescription: z
     .string()
@@ -70,7 +90,10 @@ export const createProfileSchema = z.object({
       }
     )
     .optional(),
-  whatsappNumber: z.string().optional(),
+  whatsappNumber: z
+    .string()
+    .refine(refinePhoneNumber, { message: "Invalid phone number" })
+    .optional(),
   skypeInviteUrl: z
     .string()
     .refine(

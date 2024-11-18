@@ -41,7 +41,7 @@ export default function CreateProfileForm({
 }) {
   const { profilePhoto, coverPhoto, images } = useAuth();
   // console.log(imgFile);
-  console.log(user);
+  // console.log(user);
 
   const form = useForm<z.infer<typeof createProfileSchema>>({
     resolver: zodResolver(createProfileSchema),
@@ -49,6 +49,7 @@ export default function CreateProfileForm({
       name: "",
       lastName: "",
       email: "",
+      contactNumber: "",
       position: "",
       serviceDescription: "",
       facebookUrl: "",
@@ -163,33 +164,73 @@ export default function CreateProfileForm({
                   )}
                 />
               </div>
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <div className="flex items-center justify-between">
-                      <FormLabel className="text-black text-xs">
-                        Email Address
-                      </FormLabel>
-                      {form.formState.errors.name && (
-                        <span className="flex gap-x-2 text-red-400">
-                          <FaExclamationCircle />
-                          <FormMessage className="text-xs" />
-                        </span>
-                      )}
-                    </div>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        type="email"
-                        placeholder="Email"
-                        className="text-xs h-10 rounded-none bg-[#efecff]  focus:outline-none focus:border-[#b071ec]"
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
+              <div className="flex flex-col lg:flex-row gap-y-5 gap-x-5">
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <FormLabel className="text-black text-xs">
+                          Email
+                        </FormLabel>
+                        {form.formState.errors.email && (
+                          <span className="flex gap-x-2 text-red-400">
+                            <FaExclamationCircle />
+                            <FormMessage className="text-xs" />
+                          </span>
+                        )}
+                      </div>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          type="email"
+                          placeholder="Your Email"
+                          className="text-xs h-10 rounded-none bg-[#efecff]  focus:outline-none focus:border-[#b071ec]"
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                {/* <PhoneInput country={'ph'} value={}/> */}
+                <FormField
+                  control={form.control}
+                  name="contactNumber"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <FormLabel className="text-black text-xs">
+                          Contact number
+                        </FormLabel>
+                        {form.formState.errors.contactNumber && (
+                          <span className="flex gap-x-2 text-red-400">
+                            <FaExclamationCircle />
+                            <FormMessage className="text-xs" />
+                          </span>
+                        )}
+                      </div>
+                      <FormControl>
+                        <PhoneInput
+                          {...field}
+                          country={"ph"}
+                          containerClass="custom-phone-container"
+                          inputStyle={{
+                            fontSize: "0.875rem", // text-xs
+                            height: "2.5rem", // h-10
+                            backgroundColor: "#efecff", // bg-[#efecff]
+                            border: "2px solid #e4e8ee", // default border
+
+                            borderRadius: 0,
+                            width: "100%", // w-full
+                          }}
+                          placeholder="Your Whatsapp number"
+                          onChange={(value) => field.onChange(value)} // Update form state
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
               <FormField
                 control={form.control}
                 name="position"
@@ -199,7 +240,7 @@ export default function CreateProfileForm({
                       <FormLabel className="text-black text-xs">
                         Position
                       </FormLabel>
-                      {form.formState.errors.name && (
+                      {form.formState.errors.position && (
                         <span className="flex gap-x-2 text-red-400">
                           <FaExclamationCircle />
                           <FormMessage className="text-xs" />
@@ -229,7 +270,7 @@ export default function CreateProfileForm({
                           {"(can be your services offer)"}
                         </span>
                       </FormLabel>
-                      {form.formState.errors.name && (
+                      {form.formState.errors.serviceDescription && (
                         <span className="flex gap-x-2 text-red-400">
                           <FaExclamationCircle />
                           <FormMessage className="text-xs" />
@@ -256,12 +297,46 @@ export default function CreateProfileForm({
               <div className="flex flex-col lg:flex-row gap-y-5 gap-x-5">
                 <FormField
                   control={form.control}
+                  name="skypeInviteUrl"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <FormLabel className="text-black text-xs">
+                          Skype invite link
+                          <span className="text-muted-foreground">
+                            {" (optional)"}
+                          </span>
+                        </FormLabel>
+
+                        {form.formState.errors.skypeInviteUrl && (
+                          <span className="flex gap-x-2 text-red-400">
+                            <FaExclamationCircle />
+                            <FormMessage className="text-xs" />
+                          </span>
+                        )}
+                      </div>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          type="text"
+                          placeholder="Your Skype invite link"
+                          className="text-xs h-10 rounded-none bg-[#efecff]  focus:outline-none focus:border-[#b071ec]"
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
                   name="whatsappNumber"
                   render={({ field }) => (
                     <FormItem className="flex-1">
                       <div className="flex items-center justify-between">
                         <FormLabel className="text-black text-xs">
                           Whatsapp number
+                          <span className="text-muted-foreground">
+                            {" (optional)"}
+                          </span>
                         </FormLabel>
                         {form.formState.errors.whatsappNumber && (
                           <span className="flex gap-x-2 text-red-400">
@@ -291,35 +366,6 @@ export default function CreateProfileForm({
                     </FormItem>
                   )}
                 />
-
-                <FormField
-                  control={form.control}
-                  name="skypeInviteUrl"
-                  render={({ field }) => (
-                    <FormItem className="flex-1">
-                      <div className="flex items-center justify-between">
-                        <FormLabel className="text-black text-xs">
-                          Skype invite link
-                        </FormLabel>
-
-                        {form.formState.errors.name && (
-                          <span className="flex gap-x-2 text-red-400">
-                            <FaExclamationCircle />
-                            <FormMessage className="text-xs" />
-                          </span>
-                        )}
-                      </div>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          type="text"
-                          placeholder="Your Skype invite link"
-                          className="text-xs h-10 rounded-none bg-[#efecff]  focus:outline-none focus:border-[#b071ec]"
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
               </div>
               <div className="flex flex-col lg:flex-row gap-y-5 gap-x-5">
                 <FormField
@@ -330,8 +376,11 @@ export default function CreateProfileForm({
                       <div className="flex items-center justify-between">
                         <FormLabel className="text-black text-xs">
                           LinkedIn link
+                          <span className="text-muted-foreground">
+                            {" (optional)"}
+                          </span>
                         </FormLabel>
-                        {form.formState.errors.name && (
+                        {form.formState.errors.linkedinUrl && (
                           <span className="flex gap-x-2 text-red-400">
                             <FaExclamationCircle />
                             <FormMessage className="text-xs" />
@@ -357,9 +406,12 @@ export default function CreateProfileForm({
                       <div className="flex items-center justify-between ">
                         <FormLabel className="text-black text-xs">
                           Website link
+                          <span className="text-muted-foreground">
+                            {" (optional)"}
+                          </span>
                         </FormLabel>
 
-                        {form.formState.errors.name && (
+                        {form.formState.errors.websiteUrl && (
                           <span className="flex gap-x-2 text-red-400">
                             <FaExclamationCircle />
                             <FormMessage className="text-xs" />
@@ -387,8 +439,11 @@ export default function CreateProfileForm({
                       <div className="flex items-center justify-between">
                         <FormLabel className="text-black text-xs">
                           Facebook Link
+                          <span className="text-muted-foreground">
+                            {" (optional)"}
+                          </span>
                         </FormLabel>
-                        {form.formState.errors.name && (
+                        {form.formState.errors.facebookUrl && (
                           <span className="flex gap-x-2 text-red-400">
                             <FaExclamationCircle />
                             <FormMessage className="text-xs" />
@@ -415,9 +470,12 @@ export default function CreateProfileForm({
                       <div className="flex items-center justify-between">
                         <FormLabel className="text-black text-xs">
                           Instagram link
+                          <span className="text-muted-foreground">
+                            {" (optional)"}
+                          </span>
                         </FormLabel>
 
-                        {form.formState.errors.name && (
+                        {form.formState.errors.instagramUrl && (
                           <span className="flex gap-x-2 text-red-400">
                             <FaExclamationCircle />
                             <FormMessage className="text-xs" />
@@ -444,12 +502,12 @@ export default function CreateProfileForm({
                     <FormItem className="flex-1">
                       <div className="flex items-center justify-between">
                         <FormLabel className="text-black text-xs">
-                          X link{" "}
+                          X link | Twitter
                           <span className="text-muted-foreground">
-                            {"(Twitter Link)"}
+                            {" (optional)"}
                           </span>
                         </FormLabel>
-                        {form.formState.errors.name && (
+                        {form.formState.errors.twitterUrl && (
                           <span className="flex gap-x-2 text-red-400">
                             <FaExclamationCircle />
                             <FormMessage className="text-xs" />
@@ -476,9 +534,12 @@ export default function CreateProfileForm({
                       <div className="flex items-center justify-between">
                         <FormLabel className="text-black text-xs">
                           Youtube link
+                          <span className="text-muted-foreground">
+                            {" (optional)"}
+                          </span>
                         </FormLabel>
 
-                        {form.formState.errors.name && (
+                        {form.formState.errors.youtubeUrl && (
                           <span className="flex gap-x-2 text-red-400">
                             <FaExclamationCircle />
                             <FormMessage className="text-xs" />
