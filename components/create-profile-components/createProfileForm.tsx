@@ -25,22 +25,38 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "../ui/textarea";
-import { useAuth, User } from "@/providers/userProvider";
+import { User } from "@/providers/userProvider";
 import {
   uploadFiles,
   uploadImage,
 } from "@/src/lib/firebase/store/users.action";
-import UploadTools from "./uploadTools";
+import UploadTools, { ImageFile } from "./uploadTools";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import { isValidPhotoUrl } from "@/schema/validators";
+import { toast } from "react-toastify";
+
+interface CreateProfileFormPropType {
+  children: React.ReactNode;
+  user: User | null;
+  profilePhoto: string | null;
+  coverPhoto: string | null;
+  setImages: Dispatch<SetStateAction<ImageFile[]>>;
+  images: ImageFile[] | [];
+}
+
+interface PhotoType {
+  profile: string;
+  cover: string;
+}
 
 export default function CreateProfileForm({
   children,
   user,
-}: {
-  children: React.ReactNode;
-  user: User | null;
-}) {
-  const { profilePhoto, coverPhoto, images } = useAuth();
-  // console.log(imgFile);
+  profilePhoto,
+  coverPhoto,
+  images,
+  setImages,
+}: CreateProfileFormPropType) {
   // console.log(user);
 
   const form = useForm<z.infer<typeof createProfileSchema>>({
@@ -63,19 +79,25 @@ export default function CreateProfileForm({
     },
   });
 
-  const uploadPhoto = async (): Promise<string | undefined> => {
+  const uploadPhoto = async ({
+    profile,
+    cover,
+  }: PhotoType): Promise<
+    { coverPhotoLink: string | null; profileLink: string | null } | undefined
+  > => {
     try {
-      if (profilePhoto && coverPhoto) {
-        const profileLink = await uploadImage(profilePhoto);
-        const coverPhotoLink = await uploadImage(coverPhoto);
+      if (profile && cover) {
+        const profileLink = await uploadImage(profile);
+        const coverPhotoLink = await uploadImage(cover);
         console.log("File available at", coverPhotoLink, profileLink);
+        if (!profileLink || !coverPhoto) {
+          toast.error("Something went wrong, try again later");
+        }
+        return { coverPhotoLink, profileLink };
       }
       console.log("No cover or profile photo uploaded");
-
-      return "";
     } catch (error) {
       console.error("Error uploading image: ", error);
-      return "";
     }
   };
 
@@ -94,9 +116,38 @@ export default function CreateProfileForm({
     }
   };
 
+  useEffect(() => {
+    if (profilePhoto) {
+      form.setValue("profilePictureUrl", profilePhoto);
+      if (form.formState.errors.profilePictureUrl) {
+        form.clearErrors("profilePictureUrl");
+      }
+    }
+    if (coverPhoto) {
+      form.setValue("coverPhotoUrl", coverPhoto);
+
+      if (form.formState.errors.coverPhotoUrl) {
+        form.clearErrors("coverPhotoUrl");
+      }
+    }
+  }, [profilePhoto, coverPhoto]);
+
   const onSubmit = async (data: z.infer<typeof createProfileSchema>) => {
-    console.log("Form submitted!");
-    console.log(data);
+    // const profileBlob=form.getValues("profilePictureUrl")
+    const photo = {
+      profile: form.getValues("profilePictureUrl"),
+      cover: form.getValues("coverPhotoUrl"),
+    };
+    const photoLinks = await uploadPhoto({
+      profile: photo.profile,
+      cover: photo.cover,
+    });
+    const isValidProfile = await isValidPhotoUrl(photoLinks?.profileLink);
+    const isValidCover = await isValidPhotoUrl(photoLinks?.coverPhotoLink);
+    if (isValidCover && isValidProfile) {
+      console.log(data, photoLinks);
+    }
+    return "Invalid link for profile or cover photo";
   };
 
   return (
@@ -104,8 +155,16 @@ export default function CreateProfileForm({
       <CardHeader className="md:pt-0"> {children}</CardHeader>
       <CardContent className="pb-0 ">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit, (errors) => {
+              console.error("Validation errors:", errors);
+            })}
+          >
             <div className="space-y-5">
+              <span className="text-sm text-red-500">
+                {form.formState.errors.profilePictureUrl?.message ?? ""}
+                {form.formState.errors.coverPhotoUrl?.message ?? ""}
+              </span>
               <div className="flex flex-col lg:flex-row gap-y-5 gap-x-5">
                 <FormField
                   control={form.control}
@@ -293,7 +352,7 @@ export default function CreateProfileForm({
                   </FormItem>
                 )}
               />
-              <UploadTools />
+              <UploadTools images={images} setImages={setImages} />
               <div className="flex flex-col lg:flex-row gap-y-5 gap-x-5">
                 <FormField
                   control={form.control}
@@ -564,13 +623,13 @@ export default function CreateProfileForm({
               >
                 Sign In
               </Button>
-              <Button
+              {/* <Button
                 type="button"
                 onClick={uploadPhoto}
                 className="w-full rounded-full hover:opacity-85 h-8 bg-gradient-to-r from-[#988ce6] to-[#624ced] font-light mt-[20px] transform transition-opacity duration-300"
               >
                 Upload profile and cover
-              </Button>
+              </Button> */}
               <Button
                 type="button"
                 onClick={uploadImageTools}
