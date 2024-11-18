@@ -1,28 +1,16 @@
 import { z } from "zod";
+import { isValidPhoneNumber, refinePhoneNumber } from "./validators";
 
 export const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   password: z.string(),
 });
 
-const isValidPhoneNumber = (value: string) => {
-  if (value.match(/12345/)) {
-    return "Invalid phone number containing '12345'.";
-  } else if (value.length < 10) {
-    return false; // Invalid if less than 10 digits
-  } else {
-    return true; // Valid
-  }
-};
-
-const refinePhoneNumber = (phoneNumber: string) => {
-  if (phoneNumber.trim() === "") {
-    return true; // Allow empty string
-  }
-  return isValidPhoneNumber(phoneNumber);
-};
-
 export const createProfileSchema = z.object({
+  profilePictureUrl: z.string().min(3, "Profile Picture is required"),
+
+  coverPhotoUrl: z.string().min(3, "Profile Picture is required"),
+
   name: z.string().min(2, { message: "Invalid name" }),
   lastName: z.string().min(2, { message: "Invalid last name" }),
   email: z.string().email({ message: "Invalid email address" }),
