@@ -5,12 +5,12 @@ import {
   Dispatch,
   SetStateAction,
   useContext,
-  useEffect,
   useState,
 } from "react";
-import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "@/src/lib/firebase/config/firebase";
 import { ImageFile } from "@/components/create-profile-components/uploadTools";
+import { useQuery } from "@tanstack/react-query";
 
 // Define a type for your user, matching the properties provided by Firebase
 export type User = {
@@ -31,6 +31,23 @@ export type UserProviderContextType = {
   setImages: Dispatch<SetStateAction<ImageFile[]>>;
 };
 
+async function fetchUser(): Promise<User | null> {
+  return new Promise((resolve) => {
+    onAuthStateChanged(firebaseAuth, (firebaseUser) => {
+      if (firebaseUser) {
+        resolve({
+          uid: firebaseUser.uid,
+          email: firebaseUser.email,
+          displayName: firebaseUser.displayName,
+          photoURL: firebaseUser.photoURL,
+        });
+      } else {
+        resolve(null);
+      }
+    });
+  });
+}
+
 // Create the AuthContext object
 const AuthContext = createContext<UserProviderContextType | undefined>(
   undefined
@@ -38,38 +55,17 @@ const AuthContext = createContext<UserProviderContextType | undefined>(
 
 // Create a provider component
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null); // State to hold the user object
-  const [isLoading, setIsLoading] = useState(true); // State to track loading status
+  // const [user, setUser] = useState<User | null>(null); // State to hold the user object
+  // const [isLoading, setIsLoading] = useState(true); // State to track loading status
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
   const [coverPhoto, setCoverPhoto] = useState<string | null>(null);
   const [images, setImages] = useState<ImageFile[]>([]);
 
-  // Check for user's authentication status on mount
-  useEffect(() => {
-    // This function from Firebase gets called whenever the auth state changes
-    const unsubscribe = onAuthStateChanged(
-      firebaseAuth,
-      (firebaseUser: FirebaseUser | null) => {
-        if (firebaseUser) {
-          // Map the FirebaseUser object to your custom User type
-          const user: User = {
-            uid: firebaseUser.uid,
-            email: firebaseUser.email,
-            displayName: firebaseUser.displayName,
-            photoURL: firebaseUser.photoURL,
-          };
-          setUser(user);
-        } else {
-          setUser(null);
-        }
-        setIsLoading(false);
-      }
-    );
-
-    // Clean up the subscription on unmount
-    return () => unsubscribe();
-  }, []);
-
+  const { data: user = null, isLoading } = useQuery({
+    queryKey: ["current-auth-user"],
+    queryFn: fetchUser,
+    staleTime: 1000 * 60 * 5, // Cache user data for 5 minutes
+  });
   return (
     <AuthContext.Provider
       value={{
