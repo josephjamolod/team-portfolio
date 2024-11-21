@@ -20,7 +20,7 @@ function CreateProfile() {
     images,
   } = useAuth();
 
-  // console.log(user);
+  console.log(user);
 
   return (
     <div className="h-full bg-[#efecff93]  py-12 px-4 sm:px-6 lg:px-8 w-full">

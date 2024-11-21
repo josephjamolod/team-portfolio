@@ -3,6 +3,7 @@
 import { signOutHandler } from "@/src/lib/firebase/config/auth";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { Button } from "../ui/button";
+import { toast } from "react-toastify";
 
 type SignOutBtnProps = {
   router: AppRouterInstance;
@@ -18,6 +19,7 @@ type SignOutBtnProps = {
 export default function SignOutBtn({ router, variant }: SignOutBtnProps) {
   const handleSignOut = async () => {
     await signOutHandler();
+    toast.success("Sign out Successfully");
     router.push("/login");
   };
   return (

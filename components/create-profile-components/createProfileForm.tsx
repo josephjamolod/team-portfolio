@@ -34,6 +34,8 @@ import UploadTools, { ImageFile } from "./uploadTools";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { isValidPhotoUrl } from "@/schema/validators";
 import { toast } from "react-toastify";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { firebaseDb } from "@/src/lib/firebase/config/firebase";
 
 interface CreateProfileFormPropType {
   children: React.ReactNode;
@@ -58,6 +60,15 @@ export default function CreateProfileForm({
   setImages,
 }: CreateProfileFormPropType) {
   // console.log(user);
+
+  // const auth = getAuth();
+  // const curr = auth.currentUser;
+
+  // if (!curr) {
+  //   console.log("No user is authenticated.");
+  // } else {
+  //   console.log("Authenticated user:", curr.uid);
+  // }
 
   const form = useForm<z.infer<typeof createProfileSchema>>({
     resolver: zodResolver(createProfileSchema),
@@ -101,18 +112,17 @@ export default function CreateProfileForm({
     }
   };
 
-  const uploadImageTools = async (): Promise<string | undefined> => {
+  const uploadImageTools = async (): Promise<string[] | undefined> => {
     try {
       if (images.length !== 0) {
         const toolsLink = await uploadFiles(images);
         console.log("Files here!!!", toolsLink);
+        return toolsLink;
       }
       console.log("No tools");
-
-      return "";
     } catch (error) {
       console.error("Error uploading image: ", error);
-      return "";
+      return;
     }
   };
 
@@ -130,24 +140,74 @@ export default function CreateProfileForm({
         form.clearErrors("coverPhotoUrl");
       }
     }
-  }, [profilePhoto, coverPhoto]);
+  }, [profilePhoto, coverPhoto, form]);
 
   const onSubmit = async (data: z.infer<typeof createProfileSchema>) => {
     // const profileBlob=form.getValues("profilePictureUrl")
-    const photo = {
-      profile: form.getValues("profilePictureUrl"),
-      cover: form.getValues("coverPhotoUrl"),
-    };
-    const photoLinks = await uploadPhoto({
-      profile: photo.profile,
-      cover: photo.cover,
-    });
-    const isValidProfile = await isValidPhotoUrl(photoLinks?.profileLink);
-    const isValidCover = await isValidPhotoUrl(photoLinks?.coverPhotoLink);
-    if (isValidCover && isValidProfile) {
-      console.log(data, photoLinks);
+    try {
+      if (user) {
+        const photo = {
+          profile: form.getValues("profilePictureUrl"),
+          cover: form.getValues("coverPhotoUrl"),
+        };
+        const photoLinks = await uploadPhoto({
+          profile: photo.profile,
+          cover: photo.cover,
+        });
+        const tools = await uploadImageTools();
+        const isValidProfile = await isValidPhotoUrl(photoLinks?.profileLink);
+        const isValidCover = await isValidPhotoUrl(photoLinks?.coverPhotoLink);
+        if (!isValidCover && !isValidProfile) {
+          console.log("Invalid photos link");
+
+          return;
+        }
+        if (isValidCover && isValidProfile) {
+          console.log(data, photoLinks);
+          await setDoc(doc(firebaseDb, "users", user.uid), {
+            profileSrc: photoLinks?.profileLink,
+            coverSrc: photoLinks?.coverPhotoLink,
+            email: data.email,
+            name: data.name,
+            lastname: data.lastName,
+            contactNumber: data.contactNumber,
+            position: data.position,
+            serviceDescription: data.serviceDescription,
+            facebookSrc: data.facebookUrl,
+            youtubeSrc: data.youtubeUrl,
+            instagramSrc: data.instagramUrl,
+            twitterSrc: data.twitterUrl,
+            linkedinSrc: data.linkedinUrl,
+            whatsappNumber: data.whatsappNumber,
+            skypeInviteSrc: data.skypeInviteUrl,
+            websiteSrc: data.websiteUrl,
+            userRef: user.uid,
+            tools,
+            timestamp: serverTimestamp(),
+          });
+          toast.success("User created successfully!");
+        }
+
+        return "Invalid link for profile or cover photo";
+      }
+    } catch (error) {
+      console.log(error);
     }
-    return "Invalid link for profile or cover photo";
+  };
+
+  const testWrite = async () => {
+    try {
+      console.log("Attempting to write data...");
+      await setDoc(doc(firebaseDb, "testCollection", "testDoc"), {
+        field1: "test data",
+      });
+      console.log("Document written successfully");
+    } catch (error) {
+      console.error("Error writing document:", error);
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+    }
   };
 
   return (
@@ -632,10 +692,10 @@ export default function CreateProfileForm({
               </Button> */}
               <Button
                 type="button"
-                onClick={uploadImageTools}
+                onClick={testWrite}
                 className="w-full rounded-full hover:opacity-85 h-8 bg-gradient-to-r from-[#988ce6] to-[#624ced] font-light mt-[20px] transform transition-opacity duration-300"
               >
-                Upload all tools
+                Test
               </Button>
             </div>
           </form>

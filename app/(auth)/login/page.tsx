@@ -5,7 +5,7 @@ import Image from "next/image";
 //font
 import { Roboto_Condensed } from "next/font/google";
 import { cn } from "@/lib/utils";
-export const fonts = Roboto_Condensed({
+const fonts = Roboto_Condensed({
   subsets: ["latin"],
   weight: ["600"],
 });

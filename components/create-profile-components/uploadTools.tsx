@@ -65,7 +65,7 @@ export default function UploadTools({
 
       setImages((prev) => [...prev, ...newFiles]);
     },
-    [images]
+    [setImages, images.length]
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
