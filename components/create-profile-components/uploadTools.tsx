@@ -8,7 +8,7 @@ import React, {
   Dispatch,
 } from "react";
 import { useDropzone } from "react-dropzone";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { FiUpload, FiX, FiTrash2 } from "react-icons/fi";
@@ -110,7 +110,6 @@ export default function UploadTools({
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <ToastContainer />
       <h1 className="text-sm font-semibold pb-2">Upload image tools</h1>
       <div className="flex justify-between items-center mb-4">
         <div className="flex flex-col md:flex-row gap-x-2 text-sm font-medium text-muted-foreground">

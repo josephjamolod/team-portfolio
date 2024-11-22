@@ -33,6 +33,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ToastContainer />
         <QueryProvider>
           <AuthProvider>
             <div className="main -z-10">
@@ -40,7 +41,6 @@ export default function RootLayout({
             </div>
             <Header />
             {children}
-            <ToastContainer />
           </AuthProvider>
         </QueryProvider>
       </body>
