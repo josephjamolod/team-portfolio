@@ -7,10 +7,18 @@ import {
   useContext,
   useState,
 } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { firebaseAuth } from "@/src/lib/firebase/config/firebase";
 import { ImageFile } from "@/components/create-profile-components/uploadTools";
-import { useQuery } from "@tanstack/react-query";
+import {
+  QueryObserverResult,
+  RefetchOptions,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+import Loading from "@/app/loading";
+import { useRouter } from "next/navigation";
 
 // Define a type for your user, matching the properties provided by Firebase
 export type User = {
@@ -22,6 +30,10 @@ export type User = {
 
 export type UserProviderContextType = {
   user: User | null;
+  refetch: (
+    options?: RefetchOptions
+  ) => Promise<QueryObserverResult<User | null, Error>>;
+  logOutUser: () => void;
   isLoading: boolean;
   profilePhoto: null | string;
   setProfilePhoto: Dispatch<SetStateAction<string | null>>;
@@ -55,21 +67,48 @@ const AuthContext = createContext<UserProviderContextType | undefined>(
 
 // Create a provider component
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const queryClient = useQueryClient();
+  const router = useRouter();
   // const [user, setUser] = useState<User | null>(null); // State to hold the user object
   // const [isLoading, setIsLoading] = useState(true); // State to track loading status
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
   const [coverPhoto, setCoverPhoto] = useState<string | null>(null);
   const [images, setImages] = useState<ImageFile[]>([]);
 
-  const { data: user = null, isLoading } = useQuery({
+  const {
+    data: user = null,
+    isPending: isUserLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["current-auth-user"],
     queryFn: fetchUser,
     staleTime: 1000 * 60 * 5, // Cache user data for 5 minutes
   });
+
+  const { mutate: logOutUser, isPending: isLoadingSignOutMutation } =
+    useMutation({
+      mutationFn: async () => {
+        await signOut(firebaseAuth);
+        router.push("/login");
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ["current-auth-user", user?.uid],
+        });
+      },
+    });
+
+  const isLoading = isUserLoading || isLoadingSignOutMutation;
+
+  // if (isLoading) {
+  //   return <Loading />; // Or a loading spinner
+  // }
   return (
     <AuthContext.Provider
       value={{
         user,
+        refetch,
+        logOutUser,
         isLoading,
         profilePhoto,
         setProfilePhoto,

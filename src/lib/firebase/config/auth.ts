@@ -6,7 +6,7 @@ import { FirebaseError } from "firebase/app";
 export const loginHandler = async (email: string, password: string) => {
   try {
     const res = await signInWithEmailAndPassword(firebaseAuth, email, password);
-    toast.success("Login successful!");
+    // toast.success("Login successful!");
     return res;
   } catch (error) {
     if (error instanceof FirebaseError) {

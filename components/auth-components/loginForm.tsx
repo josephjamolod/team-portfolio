@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
 import { loginHandler } from "@/src/lib/firebase/config/auth";
+import { toast } from "react-toastify";
 
 export function LogInForm({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -42,6 +43,7 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
 
   const onSubmit = async (data: z.infer<typeof loginSchema>) => {
     const response = await loginHandler(data.email, data.password);
+    toast.success("Log in successfully");
     if (response) {
       router.push("/create-profile");
     }

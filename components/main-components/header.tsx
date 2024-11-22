@@ -1,13 +1,17 @@
+"use client";
+
 import Image from "next/image";
 import logo from "@/public/assets/images/logo.png";
 
 import { Button } from "../ui/button";
 import Link from "next/link";
-import ProfileDropdown from "./profileDropdown";
+import ProfileDropdown, { UserAndLogOutUserType } from "./profileDropdown";
 import { Menu } from "../header-components/menu";
 import SearchBar from "../header-components/searchBar";
+import { useAuth } from "@/providers/userProvider";
 
 export default function Header() {
+  const { user, logOutUser, refetch } = useAuth();
   return (
     <header className="fixed z-50 w-full flex items-center justify-between h-16 border border-b-[#CAC2FF80] px-5 xl:px-10 bg-white shadow-sm">
       <Image src={logo} alt="logo" height={150} width={150} />
@@ -31,7 +35,11 @@ export default function Header() {
         >
           Meet Our Team
         </Button>
-        <ProfileDropdown />
+        <ProfileDropdown
+          user={user}
+          logOutUser={logOutUser}
+          refetch={refetch}
+        />
         <Button
           variant={"outline"}
           className="rounded-full primary-button hover:bg-[#5139edb5] hover:text-white transition-colors duration-300"
@@ -40,7 +48,7 @@ export default function Header() {
         </Button>
       </div>
       <div className="flex lg:hidden">
-        <Menu />
+        <Menu user={user} logOutUser={logOutUser} refetch={refetch} />
       </div>
     </header>
   );
