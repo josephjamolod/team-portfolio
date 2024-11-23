@@ -7,7 +7,7 @@ import {
   useContext,
   useState,
 } from "react";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { firebaseAuth } from "@/src/lib/firebase/config/firebase";
 import { ImageFile } from "@/components/create-profile-components/uploadTools";
 import {
@@ -17,8 +17,10 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import Loading from "@/app/loading";
+
 import { useRouter } from "next/navigation";
+import Loading from "@/app/loading";
+import { fetchUser } from "@/src/lib/firebase/store/users.action";
 
 // Define a type for your user, matching the properties provided by Firebase
 export type User = {
@@ -43,22 +45,22 @@ export type UserProviderContextType = {
   setImages: Dispatch<SetStateAction<ImageFile[]>>;
 };
 
-async function fetchUser(): Promise<User | null> {
-  return new Promise((resolve) => {
-    onAuthStateChanged(firebaseAuth, (firebaseUser) => {
-      if (firebaseUser) {
-        resolve({
-          uid: firebaseUser.uid,
-          email: firebaseUser.email,
-          displayName: firebaseUser.displayName,
-          photoURL: firebaseUser.photoURL,
-        });
-      } else {
-        resolve(null);
-      }
-    });
-  });
-}
+// async function fetchUser(): Promise<User | null> {
+//   return new Promise((resolve) => {
+//     onAuthStateChanged(firebaseAuth, (firebaseUser) => {
+//       if (firebaseUser) {
+//         resolve({
+//           uid: firebaseUser.uid,
+//           email: firebaseUser.email,
+//           displayName: firebaseUser.displayName,
+//           photoURL: firebaseUser.photoURL,
+//         });
+//       } else {
+//         resolve(null);
+//       }
+//     });
+//   });
+// }
 
 // Create the AuthContext object
 const AuthContext = createContext<UserProviderContextType | undefined>(
@@ -83,26 +85,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     queryKey: ["current-auth-user"],
     queryFn: fetchUser,
     staleTime: 1000 * 60 * 5, // Cache user data for 5 minutes
+    // onError: (error) => console.error("Failed to fetch user:", error),
+    // throwOnError
   });
 
   const { mutate: logOutUser, isPending: isLoadingSignOutMutation } =
     useMutation({
       mutationFn: async () => {
         await signOut(firebaseAuth);
+        refetch();
         router.push("/login");
       },
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: ["current-auth-user", user?.uid],
+          queryKey: ["current-auth-user"],
         });
       },
     });
 
   const isLoading = isUserLoading || isLoadingSignOutMutation;
 
-  // if (isLoading) {
-  //   return <Loading />; // Or a loading spinner
-  // }
+  if (isLoading) {
+    return <Loading />; // Or a loading spinner
+  }
   return (
     <AuthContext.Provider
       value={{

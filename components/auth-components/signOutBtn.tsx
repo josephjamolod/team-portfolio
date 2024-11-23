@@ -8,7 +8,7 @@ import { User } from "@/providers/userProvider";
 
 type SignOutBtnProps = {
   logOutUser: () => void;
-  router: AppRouterInstance;
+  // router: AppRouterInstance;
   variant:
     | "default"
     | "destructive"
@@ -16,22 +16,12 @@ type SignOutBtnProps = {
     | "link"
     | "outline"
     | "secondary";
-  refetch: (
-    options?: RefetchOptions
-  ) => Promise<QueryObserverResult<User | null, Error>>;
 };
 
-export default function SignOutBtn({
-  router,
-  variant,
-  logOutUser,
-  refetch,
-}: SignOutBtnProps) {
+export default function SignOutBtn({ variant, logOutUser }: SignOutBtnProps) {
   const handleSignOut = async () => {
     // await signOutHandler();
     await logOutUser();
-    refetch();
-    router.push("/login");
   };
   return (
     <Button className="w-full" variant={variant} onClick={handleSignOut}>

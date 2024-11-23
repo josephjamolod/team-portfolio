@@ -31,17 +31,12 @@ import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 export interface UserAndLogOutUserType {
   user: User | null;
   logOutUser: () => void;
-  refetch: (
-    options?: RefetchOptions
-  ) => Promise<QueryObserverResult<User | null, Error>>;
 }
 
 export default function ProfileDropdown({
   user,
   logOutUser,
-  refetch,
 }: UserAndLogOutUserType) {
-  const router = useRouter();
   // const { user, logOutUser } = useAuth();
   // console.log(user);
 
@@ -76,12 +71,7 @@ export default function ProfileDropdown({
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         {user ? (
-          <SignOutBtn
-            logOutUser={logOutUser}
-            router={router}
-            refetch={refetch}
-            variant="outline"
-          />
+          <SignOutBtn logOutUser={logOutUser} variant="outline" />
         ) : (
           <Link href={"/login"}>
             <DropdownMenuRadioGroup

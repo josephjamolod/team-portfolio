@@ -1,6 +1,25 @@
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { firebaseStorage } from "../config/firebase";
+import { firebaseAuth, firebaseStorage } from "../config/firebase";
 import { ImageFile } from "@/components/create-profile-components/uploadTools";
+import { onAuthStateChanged } from "firebase/auth";
+import { User } from "@/providers/userProvider";
+
+export async function fetchUser(): Promise<User | null> {
+  return new Promise((resolve) => {
+    onAuthStateChanged(firebaseAuth, (firebaseUser) => {
+      if (firebaseUser) {
+        resolve({
+          uid: firebaseUser.uid,
+          email: firebaseUser.email,
+          displayName: firebaseUser.displayName,
+          photoURL: firebaseUser.photoURL,
+        });
+      } else {
+        resolve(null);
+      }
+    });
+  });
+}
 
 export const dataURLToBlob = (dataURL: string): Blob => {
   const byteString = atob(dataURL.split(",")[1]);

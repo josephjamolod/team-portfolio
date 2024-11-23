@@ -28,9 +28,8 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/userProvider";
 import { UserAndLogOutUserType } from "../main-components/profileDropdown";
 
-export function Menu({ user, logOutUser, refetch }: UserAndLogOutUserType) {
+export function Menu({ user, logOutUser }: UserAndLogOutUserType) {
   // const { user, logOutUser } = useAuth();
-  const router = useRouter();
 
   return (
     <Sheet>
@@ -91,12 +90,7 @@ export function Menu({ user, logOutUser, refetch }: UserAndLogOutUserType) {
         <SheetFooter>
           <SheetClose asChild>
             {user ? (
-              <SignOutBtn
-                refetch={refetch}
-                logOutUser={logOutUser}
-                router={router}
-                variant="default"
-              />
+              <SignOutBtn logOutUser={logOutUser} variant="default" />
             ) : (
               <Social cn="text-2xl" />
             )}
