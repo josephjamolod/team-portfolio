@@ -12,6 +12,45 @@
   pointer-events: none;
 }
 
+/* global.css */
+
+.double-gradient-border {
+  position: relative;
+  background-color: #efecff; /* Solid background color of the button */
+  border-radius: 9999px; /* Ensure it's fully rounded */
+}
+
+.double-gradient-border::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  background: linear-gradient(
+    to right,
+    #6434d3,
+    #34d39e,
+    #d33441,
+    #d98cf0
+  ); /* Green to Blue gradient */
+  border-radius: 9999px; /* Match button's rounded corners */
+  z-index: -1; /* Send the gradient border behind the button */
+  opacity: 20%;
+}
+
+.double-gradient-border::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid #0f0d0c; /* Solid red inner border */
+  border-radius: 9999px; /* Match button's rounded corners */
+  z-index: -2; /* Send the solid border behind the button */
+}
+
 .main:before {
   background: radial-gradient(circle, rgba(2, 0, 36, 0) 0, #fafafaab 10%);
   position: absolute;
@@ -66,7 +105,7 @@
 
 .primary-button {
   background-color: #efecff;
-  border-color: #624ced;
+  border-color: #8676eeb5;
   color: #624ced;
 }
 

@@ -39,7 +39,7 @@ export default function ProfileDropdown({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="border rounded-full border-[#624ced]">
+      <DropdownMenuTrigger className="border-2 rounded-full border-[#8676eeb5] double-gradient-border focus:outline-[#8676eeb5] ">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
