@@ -48,19 +48,9 @@ export function Menu({ user, logOutUser }: UserAndLogOutUserType) {
           </SheetDescription>
         </SheetHeader>
 
-        <div className="grid gap-4 py-6 mb-2">
+        <div className="grid gap-4 py-6 mb-2 mx-2">
           <SearchBar margin="mx-0" />
-          {!user && (
-            <div className="flex flex-col gap-y-2">
-              <label className="text-[#b071ec] text-xs pl-3">Staff Only</label>
-              <Link href={"/login"}>
-                <SheetTrigger className="gap-x-2 border text-[#b071ec] hover:text-[#b071ec] border-[#b071ec] rounded-md shadow-sm font-medium w-full hover:bg-accent h-9 px-4 py-2 items-center flex justify-center">
-                  <IoShieldHalf />
-                  Sign In
-                </SheetTrigger>
-              </Link>
-            </div>
-          )}
+
           <DropdownMenuSeparator />
 
           <Link href={"/"}>
@@ -94,6 +84,17 @@ export function Menu({ user, logOutUser }: UserAndLogOutUserType) {
             )}
           </SheetClose>
         </SheetFooter>
+        {!user && (
+          <div className="flex flex-col gap-y-2 pt-4">
+            <label className="text-[#b071ec] text-xs">Staff Only</label>
+            <Link href={"/login"}>
+              <SheetTrigger className="gap-x-2 border text-[#b071ec] hover:text-[#b071ec] border-[#b071ec] rounded-md shadow-sm font-medium w-full hover:bg-accent h-9 px-4 py-2 items-center flex justify-center">
+                <IoShieldHalf />
+                Sign In
+              </SheetTrigger>
+            </Link>
+          </div>
+        )}
       </SheetContent>
     </Sheet>
   );
