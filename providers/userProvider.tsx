@@ -45,23 +45,6 @@ export type UserProviderContextType = {
   setImages: Dispatch<SetStateAction<ImageFile[]>>;
 };
 
-// async function fetchUser(): Promise<User | null> {
-//   return new Promise((resolve) => {
-//     onAuthStateChanged(firebaseAuth, (firebaseUser) => {
-//       if (firebaseUser) {
-//         resolve({
-//           uid: firebaseUser.uid,
-//           email: firebaseUser.email,
-//           displayName: firebaseUser.displayName,
-//           photoURL: firebaseUser.photoURL,
-//         });
-//       } else {
-//         resolve(null);
-//       }
-//     });
-//   });
-// }
-
 // Create the AuthContext object
 const AuthContext = createContext<UserProviderContextType | undefined>(
   undefined
@@ -85,8 +68,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     queryKey: ["current-auth-user"],
     queryFn: fetchUser,
     staleTime: 1000 * 60 * 5, // Cache user data for 5 minutes
-    // onError: (error) => console.error("Failed to fetch user:", error),
-    // throwOnError
   });
 
   const { mutate: logOutUser, isPending: isLoadingSignOutMutation } =

@@ -24,9 +24,7 @@ import {
 } from "@/components/ui/tooltip";
 import Link from "next/link";
 import SignOutBtn from "../auth-components/signOutBtn";
-import { useRouter } from "next/navigation";
-import { useAuth, User } from "@/providers/userProvider";
-import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
+import { User } from "@/providers/userProvider";
 
 export interface UserAndLogOutUserType {
   user: User | null;
@@ -37,9 +35,6 @@ export default function ProfileDropdown({
   user,
   logOutUser,
 }: UserAndLogOutUserType) {
-  // const { user, logOutUser } = useAuth();
-  // console.log(user);
-
   const [position, setPosition] = React.useState("bottom");
 
   return (

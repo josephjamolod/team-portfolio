@@ -8,8 +8,6 @@ import CreateProfileForm from "./createProfileForm";
 import { useAuth } from "@/providers/userProvider";
 
 function CreateProfile() {
-  // const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
-  // const [coverPhoto, setCoverPhoto] = useState<string | null>(null);
   const {
     profilePhoto,
     setProfilePhoto,

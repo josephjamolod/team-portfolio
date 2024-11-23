@@ -24,8 +24,6 @@ import SearchBar from "./searchBar";
 
 import SignOutBtn from "../auth-components/signOutBtn";
 import React from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/providers/userProvider";
 import { UserAndLogOutUserType } from "../main-components/profileDropdown";
 
 export function Menu({ user, logOutUser }: UserAndLogOutUserType) {
