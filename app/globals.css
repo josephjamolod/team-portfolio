@@ -20,6 +20,14 @@
   border-radius: 9999px; /* Ensure it's fully rounded */
 }
 
+p {
+  @apply text-base md:text-2xl font-normal;
+}
+
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#6434d38f] via-[#34d39e] to-[#d3344180];
+}
+
 .double-gradient-border::before {
   content: "";
   position: absolute;
@@ -83,8 +91,8 @@
       hsla(215, 98%, 61%, 1) 0px,
       transparent 0%
     ),
-    radial-gradient(at 97% 21%, rgb(214, 114, 254) 0px, transparent 50%),
-    radial-gradient(at 52% 99%, rgb(77, 58, 253) 0px, transparent 50%),
+    radial-gradient(at 97% 21%, rgb(254, 114, 149) 0px, transparent 50%),
+    radial-gradient(at 52% 99%, rgb(11, 214, 11) 0px, transparent 50%),
     radial-gradient(at 10% 29%, hsla(256, 96%, 67%, 1) 0px, transparent 50%),
     radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 1) 0px, transparent 50%),
     radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 1) 0px, transparent 50%),
