@@ -37,32 +37,38 @@ const services: servicesType[] = [
 ];
 
 import Link from "next/link";
-import { PiArrowCircleUpRightDuotone } from "react-icons/pi";
+import { LuArrowUpRightSquare } from "react-icons/lu";
 
-export default function Services() {
+import { DropdownMenuSeparator } from "../ui/dropdown-menu";
+
+export default function Test() {
   return (
     <main
       id="services"
-      className="flex flex-col justify-center  py-10 gap-y-10 px-10 md:px-20 3xl:px-60"
+      className="flex flex-col justify-center py-5 md:py-10 gap-y-10 md:gap-y-20 px-10 md:px-20 3xl:px-60"
     >
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
         Our Services
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4    ">
+      <div className="grid grid-cols-1 lg:grid-cols-2  gap-8  ">
         {services.map((service, index) => (
           <div
-            className="border bg-[#efecff] border-[#b071ec] rounded-xl p-6 flex flex-col gap-y-2"
+            className="border bg-[#efecff]  p-8 rounded-3xl border-[#624ced] gradient-border-none-rounded "
             key={index}
           >
-            <div className="flex justify-between items-center">
-              <h1 className=" font-bold text-4xl bg-gradient-to-r from-[#7d6de4] to-[#624ced] bg-clip-text text-transparent">
+            <div className="flex justify-between text-[#624ced] h-auto w-full">
+              <h1 className=" font-bold  text-4xl bg-gradient-to-r from-[#7d6de4] to-[#624ced] bg-clip-text text-transparent">
                 {service.name}
               </h1>
-              <Link href={"/"}>
-                <PiArrowCircleUpRightDuotone className="text-4xl text-[#624ced] rounded-full hover:text-white hover:bg-[#5139edb5] transition-colors duration-300" />
+              <Link
+                className="text-3xl block scale-100 hover:scale-110 transform transition-transform duration-300 bg-transparent "
+                href={"/"}
+              >
+                <LuArrowUpRightSquare />
               </Link>
             </div>
-            <p className="text-base lg:text-xl leading-loose tracking-wider">
+            <DropdownMenuSeparator className="bg-primary mt-4" />
+            <p className="py-8 text-lg font-normal lg:text-xl leading-loose tracking-wider block text-primary">
               {service.description}
             </p>
           </div>
