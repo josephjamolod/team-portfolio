@@ -19,8 +19,9 @@ export default function About() {
           </span>
 
           <p className="leading-none text-[30px] md:text-[56px]">
-            Welcome to <span className=" gradient-text"> DOLOMAJs</span>, Your
-            trusted partner in your business development.
+            Welcome to <span className=" gradient-text"> DOLOMAJs</span>,
+            <span className="block md:inline-block"> Your trusted partner</span>{" "}
+            in your business development.
             <span className="block"></span>
             {/* We specialize in providing comprehensive services that
             empower businesses to streamline their operations, enhance
