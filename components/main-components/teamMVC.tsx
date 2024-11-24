@@ -26,14 +26,14 @@ export default function TeamMVC() {
           iconStyle={{
             background: "#fff",
             color: "#b075eb",
-            border: "solid #b075eb",
+            border: "solid #b075eb ",
           }}
           icon={<FaCheckCircle />}
         >
-          <h3 className="vertical-timeline-element-title font-bold text-4xl bg-gradient-to-r from-[#7860BC] to-[#9880DC] bg-clip-text text-transparent">
+          <h3 className="vertical-timeline-element-title font-bold text-4xl gradient-text">
             Our Mission
           </h3>
-          <p className="text-base lg:text-xl leading-loose tracking-wider text-black">
+          <p className="text-base lg:text-xl leading-loose tracking-wider text-primary">
             At DOLOMAJs, our mission is to deliver top-notch online services
             that drive efficiency and innovation for our clients. We are
             dedicated to understanding your unique needs and providing
@@ -55,10 +55,10 @@ export default function TeamMVC() {
           }}
           icon={<FaCheckCircle />}
         >
-          <h3 className="vertical-timeline-element-title font-bold text-4xl bg-gradient-to-r from-[#7860BC] to-[#9880DC] bg-clip-text text-transparent">
+          <h3 className="vertical-timeline-element-title font-bold text-4xl gradient-text">
             Our Vision
           </h3>
-          <p className="text-base lg:text-xl leading-loose tracking-wider text-black">
+          <p className="text-base lg:text-xl leading-loose tracking-wider text-primary">
             Our vision is to provide our partners with online solutions, known
             for our commitment to quality, reliability, and excellence. We aim
             to foster long-term partnerships with our clients, helping them to
@@ -82,10 +82,10 @@ export default function TeamMVC() {
           }}
           icon={<FaCheckCircle />}
         >
-          <h3 className="vertical-timeline-element-title font-bold text-4xl bg-gradient-to-r from-[#7860BC] to-[#9880DC] bg-clip-text text-transparent">
+          <h3 className="vertical-timeline-element-title font-bold text-4xl gradient-text">
             Our Commitment
           </h3>
-          <p className="text-base lg:text-xl leading-loose tracking-wider text-black">
+          <p className="text-base lg:text-xl leading-loose tracking-wider text-primary">
             We are committed to delivering high-quality business solutions that
             exceed your expectations. Whether you need support with a single
             project or ongoing services, DOLOMAJs is here to help you succeed.
