@@ -132,10 +132,10 @@ export function AutoCarousel() {
         {items.map((item, index) => (
           <CarouselItem
             key={index}
-            className="basis-1/3  lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6 pt-4 shadow-lg"
+            className="basis-1/3  lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6 pt-4 h-full shadow-lg"
           >
             <div
-              className={`${item.color} ${item.titleColor} flex flex-col   items-center justify-between rounded-lg p-4 h-[100px] md:h-[300px] transition-transform duration-300 hover:scale-110 cursor-pointer`}
+              className={`${item.color} ${item.titleColor} flex flex-col  items-center justify-between rounded-lg p-4 h-[150px] sm:h-[200px] md:h-[300px] transition-transform duration-300 hover:scale-110 cursor-pointer`}
             >
               <p className="hidden md:flex flex-shrink font-semibold text-center">
                 {item.title}
