@@ -14,18 +14,18 @@
 
 /* global.css */
 
-.double-gradient-border {
-  position: relative;
-  background-color: #efecff; /* Solid background color of the button */
-  border-radius: 9999px; /* Ensure it's fully rounded */
-}
-
 p {
   @apply text-base md:text-2xl font-normal;
 }
 
 .gradient-text {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-[#6434d38f] via-[#34d39e] to-[#d3344180];
+}
+
+.double-gradient-border {
+  position: relative;
+  background-color: #efecff; /* Solid background color of the button */
+  border-radius: 9999px; /* Ensure it's fully rounded */
 }
 
 .double-gradient-border::before {
@@ -56,6 +56,43 @@ p {
   bottom: 0;
   border: 2px solid #0f0d0c; /* Solid red inner border */
   border-radius: 9999px; /* Match button's rounded corners */
+  z-index: -2; /* Send the solid border behind the button */
+}
+
+.gradient-border-none-rounded {
+  position: relative;
+  background-color: #efecff; /* Solid background color of the button */
+  border-radius: 25px; /* Ensure it's fully rounded */
+}
+
+.gradient-border-none-rounded::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  background: linear-gradient(
+    to right,
+    #6434d3,
+    #34d39e,
+    #d33441,
+    #d98cf0
+  ); /* Green to Blue gradient */
+  border-radius: 25px; /* Match button's rounded corners */
+  z-index: -1; /* Send the gradient border behind the button */
+  opacity: 20%;
+}
+
+.gradient-border-none-rounded::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid #0f0d0c; /* Solid red inner border */
+  border-radius: 25px; /* Match button's rounded corners */
   z-index: -2; /* Send the solid border behind the button */
 }
 
