@@ -68,7 +68,7 @@ export default function Test() {
               </Link>
             </div>
             <DropdownMenuSeparator className="bg-primary mt-4" />
-            <p className="py-8 text-lg font-normal lg:text-xl leading-loose tracking-wider block text-primary">
+            <p className="md:py-8 text-lg font-normal lg:text-xl leading-loose tracking-wider block text-primary">
               {service.description}
             </p>
           </div>
