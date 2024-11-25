@@ -39,7 +39,7 @@ const items: ItemsType[] = [
   {
     title: "Canva",
     titleColor: Color.Secondary,
-    color: " bg-gradient-to-b from-[#4165d5] via-[#4165d5] to-[#293855]",
+    color: "  bg-gradient-to-b from-violet-500 via-violet-500 to-[#d88435]",
     description: <Image src={canva} alt="canva" height={150} width={150} />,
   },
   {
@@ -106,7 +106,7 @@ const items: ItemsType[] = [
   {
     title: "Microsoft Word",
     titleColor: Color.Secondary,
-    color: " bg-gradient-to-b from-violet-500 via-violet-500 to-[#d88435]",
+    color: "bg-gradient-to-b from-[#4165d5] via-[#4165d5] to-[#293855]",
     description: <Image src={word} alt="word" height={150} width={150} />,
   },
 ];
@@ -123,7 +123,7 @@ export function AutoCarousel() {
       plugins={[plugin]}
       className="w-full pt-2 md:pt-10 pb-5  mx-auto px-10 md:px-20 3xl:px-60"
     >
-      <p className="flex items-center gap-x-4 text-lg font-bold py-2 pl-4">
+      <p className="flex items-center gap-x-4 text-lg font-bold py-1 pl-4">
         <GoTools className="text-4xl" />
         <span> SOFTWARE AND TOOLS</span>
       </p>
