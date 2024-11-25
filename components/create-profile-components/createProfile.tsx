@@ -27,8 +27,8 @@ function CreateProfile() {
   return (
     <div className="h-full bg-[#efecff93]  py-12 px-4 sm:px-6 lg:px-8 w-full">
       <div className="max-w-3xl h-full mx-auto">
-        <div className="bg-white shadow sm:rounded-lg">
-          <div className="px-4 py-5 sm:p-6">
+        <div className="bg-white shadow rounded-sm sm:rounded-lg">
+          <div className="px-4 md:px-14 py-5">
             <h1 className="text-2xl font-bold text-[#624ced] mb-8">
               Create Profile
             </h1>
@@ -76,8 +76,8 @@ function CreateProfile() {
                 </div>
 
                 {/* Profile Photo */}
-                <div className="absolute -bottom-20 left-6">
-                  <div className="relative">
+                <div className="absolute -bottom-20  left-6">
+                  <div className="relative ">
                     {profilePhoto ? (
                       <div className="relative">
                         <div className="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover">
