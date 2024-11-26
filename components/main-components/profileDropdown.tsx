@@ -25,6 +25,7 @@ import {
 import Link from "next/link";
 import SignOutBtn from "../auth-components/signOutBtn";
 import { User } from "@/providers/userProvider";
+import { Button } from "../ui/button";
 
 export interface UserAndLogOutUserType {
   user: User | null;
@@ -52,7 +53,7 @@ export default function ProfileDropdown({
               />
             </TooltipTrigger>
             <TooltipContent>
-              <p>Log In as User</p>
+              <p className="text-xs">Log In as User</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -65,6 +66,13 @@ export default function ProfileDropdown({
           Staff Only
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+
+        <Link href={"/create-profile"}>
+          <Button className="w-full   " variant={"outline"}>
+            Create Profile
+          </Button>
+        </Link>
+
         {user ? (
           <SignOutBtn logOutUser={logOutUser} variant="outline" />
         ) : (
