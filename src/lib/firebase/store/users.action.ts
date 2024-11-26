@@ -1,13 +1,42 @@
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { firebaseAuth, firebaseStorage } from "../config/firebase";
 import { ImageFile } from "@/components/create-profile-components/uploadTools";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { User } from "@/providers/userProvider";
+import {
+  createSession,
+  deleteSession,
+  getSession,
+  signUserId,
+  verifySignUserId,
+} from "../config/session";
+
+type SignedUserIdJwtPayload = {
+  uid: string;
+  iat: number;
+  exp: number;
+};
 
 export async function fetchUser(): Promise<User | null> {
-  return new Promise((resolve) => {
-    onAuthStateChanged(firebaseAuth, (firebaseUser) => {
+  return new Promise(async (resolve) => {
+    const sessionCookie = await getSession();
+    onAuthStateChanged(firebaseAuth, async (firebaseUser) => {
       if (firebaseUser) {
+        const signUser = await signUserId(firebaseUser.uid);
+        const cookie = sessionCookie ?? signUser;
+
+        const cookieSession = (await verifySignUserId(
+          cookie
+        )) as SignedUserIdJwtPayload | null;
+
+        if (!sessionCookie) {
+          await createSession(firebaseUser.uid);
+        }
+
+        if (!cookieSession || cookieSession.uid !== firebaseUser.uid) {
+          await signOut(firebaseAuth);
+          await deleteSession();
+        }
         resolve({
           uid: firebaseUser.uid,
           email: firebaseUser.email,
@@ -15,6 +44,9 @@ export async function fetchUser(): Promise<User | null> {
           photoURL: firebaseUser.photoURL,
         });
       } else {
+        if (sessionCookie) {
+          await deleteSession();
+        }
         resolve(null);
       }
     });
