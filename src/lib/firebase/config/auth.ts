@@ -2,11 +2,16 @@ import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { toast } from "react-toastify";
 import { firebaseAuth } from "./firebase";
 import { FirebaseError } from "firebase/app";
+import { createSession } from "./session";
 
 export const loginHandler = async (email: string, password: string) => {
   try {
     const res = await signInWithEmailAndPassword(firebaseAuth, email, password);
-    // toast.success("Login successful!");
+    toast.success("Login successful!");
+    const userID = res.user.uid;
+    if (userID) {
+      await createSession(userID);
+    }
     return res;
   } catch (error) {
     if (error instanceof FirebaseError) {
