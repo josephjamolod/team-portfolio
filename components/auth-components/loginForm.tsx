@@ -29,10 +29,12 @@ import {
 } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
 import { loginHandler } from "@/src/lib/firebase/config/auth";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 export function LogInForm({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -48,15 +50,27 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
       router.push("/create-profile");
     }
 
-    toast.success("Log in successfully");
+    // toast.success("Log in successfully");
   };
+
+  const { mutate: login } = useMutation({
+    mutationFn: onSubmit,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["current-auth-user"],
+      });
+    },
+    onError: () => {
+      toast.error("Something went wrong");
+    },
+  });
 
   return (
     <Card className="w-full shadow-md p-5  md:p-10 h-full flex flex-col justify-center rounded-l-none rounded-r-md">
       <CardHeader> {children}</CardHeader>
       <CardContent className="pb-0 ">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit((data) => login(data))}>
             <div className="space-y-2 ">
               <FormField
                 control={form.control}
