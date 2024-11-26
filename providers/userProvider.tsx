@@ -21,6 +21,7 @@ import {
 import { useRouter } from "next/navigation";
 import Loading from "@/app/loading";
 import { fetchUser } from "@/src/lib/firebase/store/users.action";
+import { deleteSession } from "@/src/lib/firebase/config/session";
 
 // Define a type for your user, matching the properties provided by Firebase
 export type User = {
@@ -74,6 +75,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     useMutation({
       mutationFn: async () => {
         await signOut(firebaseAuth);
+        deleteSession();
         refetch();
         router.push("/login");
       },
