@@ -1,7 +1,7 @@
 "use client";
 
 import logo from "@/public/assets/images/logo.png";
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import ImageUpload from "./imageUpload";
 import CreateProfileForm from "./createProfileForm";
@@ -16,13 +16,7 @@ function CreateProfile() {
     user,
     setImages,
     images,
-    refetch,
   } = useAuth();
-
-  console.log(user);
-  useEffect(() => {
-    refetch();
-  }, []);
 
   return (
     <div className="h-full bg-[#efecff93]  py-12 px-4 sm:px-6 lg:px-8 w-full">
