@@ -195,35 +195,22 @@ export default function CreateProfileForm({
     }
   };
 
-  const testWrite = async () => {
-    try {
-      console.log("Attempting to write data...");
-      await setDoc(doc(firebaseDb, "testCollection", "testDoc"), {
-        field1: "test data",
-      });
-      console.log("Document written successfully");
-    } catch (error) {
-      console.error("Error writing document:", error);
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
-    }
-  };
-
   return (
     <Card className="w-full h-full flex flex-col shadow-none justify-center rounded-l-none rounded-r-md border-none">
       <CardHeader className="md:pt-0"> {children}</CardHeader>
       <CardContent className="pb-0 ">
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit, (errors) => {
-              console.error("Validation errors:", errors);
-            })}
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="space-y-5">
-              <span className="text-sm text-red-500">
-                {form.formState.errors.profilePictureUrl?.message ?? ""}
-                {form.formState.errors.coverPhotoUrl?.message ?? ""}
+              <span className="text-sm text-red-500 block">
+                {form.formState.errors.profilePictureUrl?.message
+                  ? "Profile is required"
+                  : ""}
+              </span>
+              <span className="text-sm text-red-500 block">
+                {form.formState.errors.coverPhotoUrl?.message
+                  ? "Cover is required"
+                  : ""}
               </span>
               <div className="flex flex-col lg:flex-row gap-y-5 gap-x-5">
                 <FormField
@@ -679,23 +666,9 @@ export default function CreateProfileForm({
               </div>
               <Button
                 type="submit"
-                className="w-full rounded-full hover:opacity-85 h-8 bg-gradient-to-r from-[#988ce6] to-[#624ced] font-light mt-[20px] transform transition-opacity duration-300"
+                className="w-full rounded-md hover:opacity-100 opacity-85 h-12 text-xl hover:shadow-lg bg-gradient-to-r from-[#988ce6] to-[#624ced] mt-[20px] transform transition-opacity duration-300"
               >
-                Sign In
-              </Button>
-              {/* <Button
-                type="button"
-                onClick={uploadPhoto}
-                className="w-full rounded-full hover:opacity-85 h-8 bg-gradient-to-r from-[#988ce6] to-[#624ced] font-light mt-[20px] transform transition-opacity duration-300"
-              >
-                Upload profile and cover
-              </Button> */}
-              <Button
-                type="button"
-                onClick={testWrite}
-                className="w-full rounded-full hover:opacity-85 h-8 bg-gradient-to-r from-[#988ce6] to-[#624ced] font-light mt-[20px] transform transition-opacity duration-300"
-              >
-                Test
+                Create Profile
               </Button>
             </div>
           </form>
