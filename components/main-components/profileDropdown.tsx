@@ -67,11 +67,13 @@ export default function ProfileDropdown({
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
 
-        <Link href={"/create-profile"}>
-          <Button className="w-full   " variant={"outline"}>
-            Create Profile
-          </Button>
-        </Link>
+        {user && (
+          <Link href={"/create-profile"}>
+            <Button className="w-full   " variant={"outline"}>
+              Create Profile
+            </Button>
+          </Link>
+        )}
 
         {user ? (
           <SignOutBtn logOutUser={logOutUser} variant="outline" />
