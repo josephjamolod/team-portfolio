@@ -59,6 +59,16 @@ p {
   z-index: -2; /* Send the solid border behind the button */
 }
 
+.gradient-bg {
+  background: linear-gradient(
+    to right,
+    #6434d33a,
+    #34d39e36,
+    #d334413b,
+    #d98cf036
+  );
+}
+
 .gradient-border-none-rounded {
   position: relative;
   background-color: #efecff; /* Solid background color of the button */
