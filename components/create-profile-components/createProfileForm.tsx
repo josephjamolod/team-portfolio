@@ -24,35 +24,21 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "../ui/textarea";
-import { User } from "@/providers/userProvider";
 import {
-  uploadFiles,
-  uploadImage,
+  createUserProfile,
+  uploadImageTools,
+  uploadPhoto,
 } from "@/src/lib/firebase/store/users.action";
-import UploadTools, { ImageFile } from "./uploadTools";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import UploadTools from "./uploadTools";
+import { useEffect, useState } from "react";
 import { isValidPhotoUrl } from "@/schema/validators";
 import { toast } from "react-toastify";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
-import { firebaseDb } from "@/src/lib/firebase/config/firebase";
-import { Service } from "./(task)/serviceForm";
-import TaskList from "./(task)/serviceList";
-import ServiceForm from "./(task)/serviceForm";
-import ServiceList from "./(task)/serviceList";
 
-interface CreateProfileFormPropType {
-  children: React.ReactNode;
-  user: User | null;
-  profilePhoto: string | null;
-  coverPhoto: string | null;
-  setImages: Dispatch<SetStateAction<ImageFile[]>>;
-  images: ImageFile[] | [];
-}
-
-interface PhotoType {
-  profile: string;
-  cover: string;
-}
+import { Service } from "./(service)/serviceForm";
+import ServiceForm from "./(service)/serviceForm";
+import ServiceList from "./(service)/serviceList";
+import { formDefaultVals } from "@/contants";
+import { CreateProfileFormPropType } from "./type";
 
 export default function CreateProfileForm({
   children,
@@ -78,59 +64,10 @@ export default function CreateProfileForm({
   const form = useForm<z.infer<typeof createProfileSchema>>({
     resolver: zodResolver(createProfileSchema),
     defaultValues: {
+      ...formDefaultVals,
       services: services,
-      name: "",
-      lastName: "",
-      email: "",
-      contactNumber: "",
-      position: "",
-      serviceDescription: "",
-      facebookUrl: "",
-      instagramUrl: "",
-      linkedinUrl: "",
-      skypeInviteUrl: "",
-      twitterUrl: "",
-      websiteUrl: "",
-      whatsappNumber: "",
-      youtubeUrl: "",
     },
   });
-
-  const uploadPhoto = async ({
-    profile,
-    cover,
-  }: PhotoType): Promise<
-    { coverPhotoLink: string | null; profileLink: string | null } | undefined
-  > => {
-    try {
-      if (profile && cover) {
-        const profileLink = await uploadImage(profile);
-        const coverPhotoLink = await uploadImage(cover);
-        console.log("File available at", coverPhotoLink, profileLink);
-        if (!profileLink || !coverPhoto) {
-          toast.error("Something went wrong, try again later");
-        }
-        return { coverPhotoLink, profileLink };
-      }
-      console.log("No cover or profile photo uploaded");
-    } catch (error) {
-      console.error("Error uploading image: ", error);
-    }
-  };
-
-  const uploadImageTools = async (): Promise<string[] | undefined> => {
-    try {
-      if (images.length !== 0) {
-        const toolsLink = await uploadFiles(images);
-        console.log("Files here!!!", toolsLink);
-        return toolsLink;
-      }
-      console.log("No tools");
-    } catch (error) {
-      console.error("Error uploading image: ", error);
-      return;
-    }
-  };
 
   useEffect(() => {
     form.setValue("services", services);
@@ -164,38 +101,16 @@ export default function CreateProfileForm({
           profile: photo.profile,
           cover: photo.cover,
         });
-        const tools = await uploadImageTools();
+        const tools = await uploadImageTools(images);
         const isValidProfile = await isValidPhotoUrl(photoLinks?.profileLink);
         const isValidCover = await isValidPhotoUrl(photoLinks?.coverPhotoLink);
         if (!isValidCover && !isValidProfile) {
           console.log("Invalid photos link");
-
           return;
         }
         if (isValidCover && isValidProfile) {
           console.log(data, photoLinks);
-          await setDoc(doc(firebaseDb, "users", user.uid), {
-            services: data.services,
-            profileSrc: photoLinks?.profileLink,
-            coverSrc: photoLinks?.coverPhotoLink,
-            email: data.email,
-            name: data.name,
-            lastname: data.lastName,
-            contactNumber: data.contactNumber,
-            position: data.position,
-            serviceDescription: data.serviceDescription,
-            facebookSrc: data.facebookUrl,
-            youtubeSrc: data.youtubeUrl,
-            instagramSrc: data.instagramUrl,
-            twitterSrc: data.twitterUrl,
-            linkedinSrc: data.linkedinUrl,
-            whatsappNumber: data.whatsappNumber,
-            skypeInviteSrc: data.skypeInviteUrl,
-            websiteSrc: data.websiteUrl,
-            userRef: user.uid,
-            tools,
-            timestamp: serverTimestamp(),
-          });
+          await createUserProfile({ data, photoLinks, tools, user });
           toast.success("User created successfully!");
         }
 
@@ -256,7 +171,6 @@ export default function CreateProfileForm({
                     </FormItem>
                   )}
                 />
-                {/* <PhoneInput country={'ph'} value={}/> */}
                 <FormField
                   control={form.control}
                   name="lastName"

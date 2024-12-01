@@ -10,9 +10,13 @@ import {
   signUserId,
   verifySignUserId,
 } from "../config/session";
-import { CreateUserProfileProp, PhotoType } from "react-image-crop";
+
 import { toast } from "react-toastify";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import {
+  CreateUserProfileProp,
+  PhotoType,
+} from "@/components/create-profile-components/type";
 
 type SignedUserIdJwtPayload = {
   uid: string;
