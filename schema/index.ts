@@ -6,11 +6,22 @@ export const loginSchema = z.object({
   password: z.string(),
 });
 
+export const serviceSchema = z.object({
+  name: z
+    .string()
+    .min(15, "Task name is required")
+    .max(100, "Task name must be less than 100 characters"),
+  description: z
+    .string()
+    .min(50, "Task description is required")
+    .max(500, "Task description must be less than 500 characters"),
+});
+
 export const createProfileSchema = z.object({
   profilePictureUrl: z.string().min(3, "Profile Picture is required"),
 
   coverPhotoUrl: z.string().min(3, "Profile Picture is required"),
-
+  services: z.array(serviceSchema).min(1, "Must contain at least one service"),
   name: z.string().min(2, { message: "Invalid name" }),
   lastName: z.string().min(2, { message: "Invalid last name" }),
   email: z.string().email({ message: "Invalid email address" }),
@@ -107,3 +118,22 @@ export const createProfileSchema = z.object({
     )
     .optional(),
 });
+
+// export const serviceSchema = z.object({
+//   serviceName: z
+//     .string()
+//     .min(5, { message: "Service name must contain at least 5 characters" })
+//     .max(100, {
+//       message: "Service name can contain a maximum of 100 characters",
+//     }),
+//   serviceDesc: z
+//     .string()
+//     .min(20, {
+//       message: "Service description must contain at least 20 characters",
+//     })
+//     .max(1000, {
+//       message: "Service description can contain a maximum of 1000 characters",
+//     }),
+// });
+
+// export const servicesSchema = z.array(serviceSchema);
