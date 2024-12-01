@@ -1,0 +1,16 @@
+export const formDefaultVals = {
+  name: "",
+  lastName: "",
+  email: "",
+  contactNumber: "",
+  position: "",
+  serviceDescription: "",
+  facebookUrl: "",
+  instagramUrl: "",
+  linkedinUrl: "",
+  skypeInviteUrl: "",
+  twitterUrl: "",
+  websiteUrl: "",
+  whatsappNumber: "",
+  youtubeUrl: "",
+};

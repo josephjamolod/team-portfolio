@@ -1,5 +1,5 @@
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { firebaseAuth, firebaseStorage } from "../config/firebase";
+import { firebaseAuth, firebaseDb, firebaseStorage } from "../config/firebase";
 import { ImageFile } from "@/components/create-profile-components/uploadTools";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { User } from "@/providers/userProvider";
@@ -10,6 +10,9 @@ import {
   signUserId,
   verifySignUserId,
 } from "../config/session";
+import { CreateUserProfileProp, PhotoType } from "react-image-crop";
+import { toast } from "react-toastify";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 
 type SignedUserIdJwtPayload = {
   uid: string;
@@ -88,6 +91,28 @@ export const uploadImage = async (
   }
 };
 
+export const uploadPhoto = async ({
+  profile,
+  cover,
+}: PhotoType): Promise<
+  { coverPhotoLink: string | null; profileLink: string | null } | undefined
+> => {
+  try {
+    if (profile && cover) {
+      const profileLink = await uploadImage(profile);
+      const coverPhotoLink = await uploadImage(cover);
+      console.log("File available at", coverPhotoLink, profileLink);
+      if (!profileLink || !coverPhotoLink) {
+        toast.error("Something went wrong, try again later");
+      }
+      return { coverPhotoLink, profileLink };
+    }
+    console.log("No cover or profile photo uploaded");
+  } catch (error) {
+    console.error("Error uploading image: ", error);
+  }
+};
+
 // Function to upload an array of files
 export const uploadFiles = async (
   fileArray: ImageFile[]
@@ -108,4 +133,51 @@ export const uploadFiles = async (
   }
 
   return downloadURLs; // Return all uploaded URLs
+};
+
+export const uploadImageTools = async (
+  images: ImageFile[] | []
+): Promise<string[] | undefined> => {
+  try {
+    if (images.length !== 0) {
+      const toolsLink = await uploadFiles(images);
+      console.log("Files here!!!", toolsLink);
+      return toolsLink;
+    }
+    console.log("No tools");
+  } catch (error) {
+    console.error("Error uploading image: ", error);
+    return;
+  }
+};
+
+export const createUserProfile = async ({
+  data,
+  user,
+  tools,
+  photoLinks,
+}: CreateUserProfileProp) => {
+  if (!user) return;
+  setDoc(doc(firebaseDb, "users", user.uid), {
+    services: data.services,
+    profileSrc: photoLinks?.profileLink,
+    coverSrc: photoLinks?.coverPhotoLink,
+    email: data.email,
+    name: data.name,
+    lastname: data.lastName,
+    contactNumber: data.contactNumber,
+    position: data.position,
+    serviceDescription: data.serviceDescription,
+    facebookSrc: data.facebookUrl,
+    youtubeSrc: data.youtubeUrl,
+    instagramSrc: data.instagramUrl,
+    twitterSrc: data.twitterUrl,
+    linkedinSrc: data.linkedinUrl,
+    whatsappNumber: data.whatsappNumber,
+    skypeInviteSrc: data.skypeInviteUrl,
+    websiteSrc: data.websiteUrl,
+    userRef: user.uid,
+    tools,
+    timestamp: serverTimestamp(),
+  });
 };
