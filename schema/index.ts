@@ -9,12 +9,12 @@ export const loginSchema = z.object({
 export const serviceSchema = z.object({
   name: z
     .string()
-    .min(15, "Task name is required")
-    .max(100, "Task name must be less than 100 characters"),
+    .min(15, "Service name is required")
+    .max(100, "Service name must be less than 100 characters"),
   description: z
     .string()
-    .min(50, "Task description is required")
-    .max(500, "Task description must be less than 500 characters"),
+    .min(50, "Service description is required")
+    .max(500, "Service description must be less than 500 characters"),
 });
 
 export const createProfileSchema = z.object({
