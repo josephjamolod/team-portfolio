@@ -109,10 +109,10 @@ export default function UploadTools({
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-sm font-semibold pb-2">Upload image tools</h1>
+    <div className="max-w-4xl mx-auto ">
+      <h1 className="text-2xl font-bold mb-6 text-gray-800">Tool Expertise</h1>
       <div className="flex justify-between items-center mb-4">
-        <div className="flex flex-col md:flex-row gap-x-2 text-sm font-medium text-muted-foreground">
+        <div className="flex flex-col items-center md:flex-row gap-x-2 text-sm font-medium text-muted-foreground">
           <span> Images uploaded: </span>
           <p>
             <span className="text-[#624ced] font-bold">{images.length}</span>{" "}
@@ -127,21 +127,25 @@ export default function UploadTools({
         )}
       </div>
 
-      <div
-        {...getRootProps()}
-        className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors mb-8
+      <div className="bg-[#efecff] rounded-lg p-4 mb-4">
+        <div
+          {...getRootProps()}
+          className={`border-2 border-dashed rounded-lg p-8 bg-white text-center cursor-pointer transition-colors mb-8
           ${
             isDragActive
               ? "border-[#624ced] bg-[#efecff]"
               : "border-gray-300 hover:border-[#624ced]"
           }`}
-      >
-        <input {...getInputProps()} />
-        <FiUpload className="mx-auto h-12 w-12 text-gray-400" />
-        <p className="mt-2 text-sm text-[#624ced]">
-          Drag and drop images here, or click to select files
-        </p>
-        <p className="text-xs text-gray-500 mt-1">Maximum 12 photos allowed</p>
+        >
+          <input {...getInputProps()} />
+          <FiUpload className="mx-auto h-12 w-12 text-gray-400" />
+          <p className="mt-2 text-sm text-[#624ced]">
+            Drag and drop images here, or click to select files
+          </p>
+          <p className="text-xs text-gray-500 mt-1">
+            Maximum 12 photos allowed
+          </p>
+        </div>
       </div>
 
       {showCropper && currentImage && (
