@@ -40,6 +40,8 @@ import { CreateProfileFormPropType } from "./type";
 import FormFieldInput from "./FormFieldInput";
 import { FirebaseError } from "firebase/app";
 import FormFieldPhoneInput from "./inputNumber";
+import { useRouter } from "next/navigation";
+import { DocumentData } from "firebase/firestore";
 
 export default function CreateProfileForm({
   children,
@@ -49,6 +51,7 @@ export default function CreateProfileForm({
   images,
   setImages,
 }: CreateProfileFormPropType) {
+  const router = useRouter();
   const [services, setServices] = useState<Service[]>([]);
 
   const filterServices = (services: Service[], serviceId: number): Service[] =>
@@ -138,6 +141,13 @@ export default function CreateProfileForm({
         user,
       });
       toast.success("User created successfully!");
+      if (response?.userRef) {
+        router.push(`/meet-the-team/${response.userRef}`);
+      } else {
+        console.error("UserRef is missing in the response");
+      }
+
+      // router.push(response.)
     } catch (error) {
       // Handle Firebase errors specifically
       if (error instanceof FirebaseError) {
