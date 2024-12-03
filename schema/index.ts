@@ -15,6 +15,8 @@ export const serviceSchema = z.object({
     .string()
     .min(50, "Service description is required")
     .max(500, "Service description must be less than 500 characters"),
+  perHour: z.number().positive("Please add rate"),
+  isActive: z.boolean(),
 });
 
 export const createProfileSchema = z.object({

@@ -41,7 +41,6 @@ import FormFieldInput from "./FormFieldInput";
 import { FirebaseError } from "firebase/app";
 import FormFieldPhoneInput from "./inputNumber";
 import { useRouter } from "next/navigation";
-import { DocumentData } from "firebase/firestore";
 
 export default function CreateProfileForm({
   children,

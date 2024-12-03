@@ -17,12 +17,25 @@ const ServiceItem: React.FC<ServiceItemProps> = ({ service, onDelete }) => {
         <DeleteIcon />
       </button>
       <div className="flex-1">
-        <h3 className="font-medium text-gray-800 whitespace-normal break-words pb-2 px-2">
+        <h3 className="font-medium text-gray-800 whitespace-normal break-words pb-2 px-2 capitalize">
           {service.name}
         </h3>
         <hr className="border-[#624ced]" />
         <p className="text-gray-600 text-base mt-1 whitespace-normal break-words px-2">
           {service.description}
+        </p>
+        <p className="text-base p-2 flex gap-x-2 items-center">
+          <span className="text-sm">Per hour:</span>{" "}
+          <span>$ {service.perHour}</span>{" "}
+          {service.isActive ? (
+            <span className="border border-green-400 bg-emerald-100 text-sm  px-2 rounded-lg">
+              Active
+            </span>
+          ) : (
+            <span className="border px-2 rounded-lg text-muted-foreground text-sm bg-gray-50">
+              Inactive
+            </span>
+          )}
         </p>
       </div>
     </div>
