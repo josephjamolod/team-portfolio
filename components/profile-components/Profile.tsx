@@ -26,9 +26,9 @@ function Profile({ profileData }: ProfileProps) {
   ];
 
   return (
-    <div className="min-h-screen  flex items-center justify-center ">
-      <div className="flex pt-20 justify-center  bg-[#efecff93] pb-4">
-        <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg mx-60">
+    <div className="min-h-screen  flex items-center justify-center overflow-hidden ">
+      <div className="flex pt-20 justify-center bg-[#efecff93] pb-4">
+        <div className="w-full max-w-[60rem] py-5 sm:px-16 bg-white rounded-lg shadow-lg 3xl:mx-60">
           <ProfileHeader
             position={profileData?.position}
             coverUrl={profileData?.coverSrc}

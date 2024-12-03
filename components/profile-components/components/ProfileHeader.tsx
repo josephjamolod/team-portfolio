@@ -26,7 +26,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   return (
     <div className="">
       {/* Banner Image */}
-      <div className="h-96 mb-24 relative w-full   rounded-t-lg">
+      <div className="h-60 sm:h-96 mb-24 relative w-full   rounded-t-lg">
         {coverUrl && (
           <Image
             fill
@@ -59,7 +59,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
       {/* Profile Info */}
       <div className="px-6 pb-4">
         <div className="space-y-2">
-          <div className="flex items-center justify-between">
+          <div className="flex gap-y-2 pb-4 flex-col md:flex-row items-center justify-between">
             <div className="text-4xl flex flex-col font-bold capitalize">
               <h2> {name}</h2>
               <div className="flex items-center justify-between">
@@ -72,14 +72,14 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                 </p>
               </div>
             </div>
-            <div className="flex gap-2">
-              <button className="flex justify-center items-center gap-x-2 px-4 py-1 bg-[#efecff] border border-[#8676eeb5] rounded-none text-sm font-medium hover:bg-[#8676eeb5] hover:text-secondary transition-colors duration-300">
+            <div className="flex gap-2  w-full md:w-fit">
+              <button className="flex w-full rounded-lg justify-center items-center gap-x-2 px-4 py-1 bg-[#8676ee] text-secondary border shadow-md md:rounded-none text-sm font-medium  hover:text-secondary transition-colors duration-300">
                 <GoMail size={26} />
                 <span>Send A Mail</span>
                 {/* <span> {email}</span> */}
               </button>
 
-              <button className="flex justify-center items-center gap-x-2 px-4 py-1 bg-[#efecff] border border-[#8676eeb5] rounded-none text-sm font-medium hover:bg-[#8676eeb5] hover:text-secondary transition-colors duration-300">
+              <button className="flex w-full rounded-lg justify-center items-center gap-x-2 px-4 py-1 bg-[#8676ee] text-secondary border shadow-md md:rounded-none text-sm font-medium hover:text-secondary transition-colors duration-300">
                 <CiPhone size={26} />
                 {number}
               </button>
