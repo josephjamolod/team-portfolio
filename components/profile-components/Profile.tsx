@@ -6,7 +6,7 @@ import { ProfileStats } from "./components/ProfileStats";
 import { ProfileTabs } from "./components/ProfileTabs";
 import { SocialActions } from "./components/SocialActions";
 import { ToolsTab } from "./components/AssetsTab";
-import { CampaignsTab } from "./components/CampaignsTab";
+import { ServicesTab } from "./components/ServicesTab";
 import { ProfileData } from "@/app/(public)/meet-the-team/[id]/page";
 
 type ProfileProps = {
@@ -18,13 +18,18 @@ function Profile({ profileData }: ProfileProps) {
 
   const tabs = [
     { name: "Tools", isActive: activeTab === "Tools" },
-    { name: "Campaigns", count: 2, isActive: activeTab === "Campaigns" },
+    {
+      name: "Services",
+      count: profileData?.services.length,
+      isActive: activeTab === "Services",
+    },
   ];
 
   return (
     <div className="min-h-screen pt-24 bg-gray-100 flex items-center justify-center p-4">
       <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg">
         <ProfileHeader
+          position={profileData?.position}
           coverUrl={profileData?.coverSrc}
           avatarUrl={profileData?.profileSrc}
           name={
@@ -38,16 +43,20 @@ function Profile({ profileData }: ProfileProps) {
           description={profileData?.serviceDescription}
         />
         <ProfileStats
-          following={54}
-          followers={190}
-          campaignValue={95}
-          poster={95}
+          fb={profileData?.facebookSrc}
+          insta={profileData?.instagramSrc}
+          linkedin={profileData?.linkedinSrc}
+          skype={profileData?.skypeInviteSrc}
+          x={profileData?.twitterSrc}
+          web={profileData?.websiteSrc}
+          yt={profileData?.youtubeSrc}
+          whatsApp={profileData?.whatsappNumber}
         />
         <ProfileTabs tabs={tabs} onTabChange={setActiveTab} />
         {activeTab === "Tools" ? (
           <ToolsTab tools={profileData?.tools} />
         ) : (
-          <CampaignsTab />
+          <ServicesTab services={profileData?.services} />
         )}
         <SocialActions />
       </div>

@@ -5,6 +5,13 @@ import Profile from "@/components/profile-components/Profile";
 
 import { Timestamp } from "firebase/firestore";
 
+export type Services = {
+  description: string;
+  name: string;
+  isActive: boolean;
+  perHour: number;
+};
+
 export type ProfileData = {
   facebookSrc: string;
   timestamp: string; // Firebase Timestamp type
@@ -25,6 +32,7 @@ export type ProfileData = {
   coverSrc: string;
   contactNumber: string;
   tools: string[]; // Array of strings for tool image URLs
+  services: Services[];
 };
 
 function convertFirestoreTimestamp(timestamp: Timestamp) {
@@ -62,6 +70,8 @@ export default async function ProfilePage({
   } catch (error) {
     console.error("Error fetching document:", error);
   }
+
+  // console.log(profileData);
 
   return <Profile profileData={profileData} />;
 }

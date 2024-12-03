@@ -10,6 +10,7 @@ interface ProfileHeaderProps {
   coverUrl?: string;
   email?: string;
   number?: string;
+  position?: string;
 }
 
 export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
@@ -19,11 +20,12 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   coverUrl,
   email,
   number,
+  position,
 }) => {
   return (
     <div className="">
       {/* Banner Image */}
-      <div className="h-80 mb-24 relative w-full   rounded-t-lg">
+      <div className="h-96 mb-24 relative w-full   rounded-t-lg">
         {coverUrl && (
           <Image
             fill
@@ -59,17 +61,18 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold capitalize">{name}</h1>
             <div className="flex gap-2">
-              <button className="flex justify-center items-center gap-x-2 px-4 py-1 bg-gray-100 rounded-full text-sm font-medium hover:bg-gray-200">
+              <button className="flex justify-center items-center gap-x-2 px-4 py-1 bg-[#efecff] border border-[#8676eeb5] rounded-full text-sm font-medium hover:bg-[#8676eeb5] hover:text-secondary transition-colors duration-300">
                 <GoMail size={26} />
                 <span> {email}</span>
               </button>
-              <button className="flex justify-center items-center gap-x-2 px-4 py-1 bg-gray-100 rounded-full text-sm font-medium hover:bg-gray-200">
+              <button className="flex justify-center items-center gap-x-2 px-4 py-1 bg-[#efecff] border border-[#8676eeb5] rounded-full text-sm font-medium hover:bg-[#8676eeb5] hover:text-secondary transition-colors duration-300">
                 <CiPhone size={26} />
                 {number}
               </button>
             </div>
           </div>
-          <p className="text-gray-600">{description}</p>
+          <p className="capitalize text-xl pt-4 px-2">{position}</p>
+          <p className="text-gray-600 text-base px-2 ">{description}</p>
         </div>
       </div>
     </div>
