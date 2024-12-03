@@ -26,39 +26,41 @@ function Profile({ profileData }: ProfileProps) {
   ];
 
   return (
-    <div className="min-h-screen pt-24 bg-gray-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg">
-        <ProfileHeader
-          position={profileData?.position}
-          coverUrl={profileData?.coverSrc}
-          avatarUrl={profileData?.profileSrc}
-          name={
-            (profileData?.name &&
-              profileData.lastname &&
-              profileData?.name + " " + profileData?.lastname) ||
-            ""
-          }
-          email={profileData?.email}
-          number={profileData?.contactNumber}
-          description={profileData?.serviceDescription}
-        />
-        <ProfileStats
-          fb={profileData?.facebookSrc}
-          insta={profileData?.instagramSrc}
-          linkedin={profileData?.linkedinSrc}
-          skype={profileData?.skypeInviteSrc}
-          x={profileData?.twitterSrc}
-          web={profileData?.websiteSrc}
-          yt={profileData?.youtubeSrc}
-          whatsApp={profileData?.whatsappNumber}
-        />
-        <ProfileTabs tabs={tabs} onTabChange={setActiveTab} />
-        {activeTab === "Tools" ? (
-          <ToolsTab tools={profileData?.tools} />
-        ) : (
-          <ServicesTab services={profileData?.services} />
-        )}
-        <SocialActions />
+    <div className="min-h-screen  flex items-center justify-center ">
+      <div className="flex pt-20 justify-center  bg-[#efecff93] pb-4">
+        <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg mx-60">
+          <ProfileHeader
+            position={profileData?.position}
+            coverUrl={profileData?.coverSrc}
+            avatarUrl={profileData?.profileSrc}
+            name={
+              (profileData?.name &&
+                profileData.lastname &&
+                profileData?.name + " " + profileData?.lastname) ||
+              ""
+            }
+            email={profileData?.email}
+            number={profileData?.contactNumber}
+            description={profileData?.serviceDescription}
+          />
+          <ProfileStats
+            fb={profileData?.facebookSrc}
+            insta={profileData?.instagramSrc}
+            linkedin={profileData?.linkedinSrc}
+            skype={profileData?.skypeInviteSrc}
+            x={profileData?.twitterSrc}
+            web={profileData?.websiteSrc}
+            yt={profileData?.youtubeSrc}
+            whatsApp={profileData?.whatsappNumber}
+          />
+          <ProfileTabs tabs={tabs} onTabChange={setActiveTab} />
+          {activeTab === "Tools" ? (
+            <ToolsTab tools={profileData?.tools} />
+          ) : (
+            <ServicesTab services={profileData?.services} />
+          )}
+          <SocialActions />
+        </div>
       </div>
     </div>
   );

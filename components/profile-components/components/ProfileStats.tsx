@@ -43,12 +43,18 @@ export const ProfileStats: React.FC<ProfileStatsProps> = ({
   ];
 
   return (
-    <div className="px-16 py-4 flex items-center justify-between border-t border-gray-200 text-[#624ced]">
-      {sources.map((source, index) => {
-        return (
-          <LinkTag key={index} src={source.src || "#"} icon={source.icon} />
-        );
-      })}
+    <div className="px-6 py-4 flex flex-col gap-y-2 items-center border-t border-gray-200 text-[#624ced]">
+      <h1 className=" px-2 text-[12px] w-full items-start font-bold text-muted-foreground">
+        SOCIALS
+      </h1>
+
+      <div className="flex w-full   justify-between">
+        {sources.map((source, index) => {
+          return (
+            <LinkTag key={index} src={source.src || "#"} icon={source.icon} />
+          );
+        })}
+      </div>
     </div>
   );
 };

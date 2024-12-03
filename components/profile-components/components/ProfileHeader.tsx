@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { GoMail } from "react-icons/go";
 import { CiPhone } from "react-icons/ci";
+import { RiSpeedLine } from "react-icons/ri";
 
 interface ProfileHeaderProps {
   name: string;
@@ -59,19 +60,36 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
       <div className="px-6 pb-4">
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold capitalize">{name}</h1>
+            <div className="text-4xl flex flex-col font-bold capitalize">
+              <h2> {name}</h2>
+              <div className="flex items-center justify-between">
+                <h1 className="text-sm  my-3 text-green-800 px-2 py-1 rounded-md font-medium bg-green-200 ">
+                  AVAILABLE
+                </h1>
+                <p className="text-sm flex items-center gap-x-2 ">
+                  <RiSpeedLine size={18} />{" "}
+                  <span>Usually replies within 24 hours</span>
+                </p>
+              </div>
+            </div>
             <div className="flex gap-2">
-              <button className="flex justify-center items-center gap-x-2 px-4 py-1 bg-[#efecff] border border-[#8676eeb5] rounded-full text-sm font-medium hover:bg-[#8676eeb5] hover:text-secondary transition-colors duration-300">
+              <button className="flex justify-center items-center gap-x-2 px-4 py-1 bg-[#efecff] border border-[#8676eeb5] rounded-none text-sm font-medium hover:bg-[#8676eeb5] hover:text-secondary transition-colors duration-300">
                 <GoMail size={26} />
-                <span> {email}</span>
+                <span>Send A Mail</span>
+                {/* <span> {email}</span> */}
               </button>
-              <button className="flex justify-center items-center gap-x-2 px-4 py-1 bg-[#efecff] border border-[#8676eeb5] rounded-full text-sm font-medium hover:bg-[#8676eeb5] hover:text-secondary transition-colors duration-300">
+
+              <button className="flex justify-center items-center gap-x-2 px-4 py-1 bg-[#efecff] border border-[#8676eeb5] rounded-none text-sm font-medium hover:bg-[#8676eeb5] hover:text-secondary transition-colors duration-300">
                 <CiPhone size={26} />
                 {number}
               </button>
             </div>
           </div>
-          <p className="capitalize text-xl pt-4 px-2">{position}</p>
+          <hr />
+          <h1 className="pt-4 px-2 text-[12px] font-bold text-muted-foreground">
+            ABOUT
+          </h1>
+          <p className="capitalize text-xl font-semibold px-2">{position}</p>
           <p className="text-gray-600 text-base px-2 ">{description}</p>
         </div>
       </div>
