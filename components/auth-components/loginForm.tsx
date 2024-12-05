@@ -53,7 +53,7 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
     // toast.success("Log in successfully");
   };
 
-  const { mutate: login } = useMutation({
+  const { mutate: login, isPending } = useMutation({
     mutationFn: onSubmit,
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -129,8 +129,16 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
               className="w-full rounded-full hover:opacity-85   h-8 bg-gradient-to-r from-[#988ce6] to-[#624ced] font-light  mt-[20px] transform transition-opacity duration-300"
               variant={"default"}
               size={"lg"}
+              disabled={isPending}
             >
-              Sign In
+              {isPending ? (
+                <div className="flex justify-center gap-x-3 items-center">
+                  <span>Signing In</span>
+                  <div className="w-4 h-4 border-4 border-t-[#624ced] border-gray-300 rounded-full animate-spin"></div>
+                </div>
+              ) : (
+                "Sign In"
+              )}
             </Button>
           </form>
         </Form>
