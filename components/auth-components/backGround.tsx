@@ -14,8 +14,15 @@ export default function BackGround({
         <span>opportunities are waiting for you.</span>
       </p>
       <div className=" relative">
-        <div className="absolute backdrop-blur-md bg-white opacity-10 h-full w-full rounded-2xl" />
-        <Image src={welcomeUser} alt="welcome user" height={300} width={300} />
+        <div className="absolute backdrop-blur-md bg-white z-10 opacity-10 h-full w-full rounded-2xl" />
+        <div className="h-[330px] w-[300px]">
+          <Image
+            src={welcomeUser}
+            alt="welcome user"
+            sizes="(max-width: 768px) 100vw, 100vw"
+            fill
+          />
+        </div>
       </div>
     </>
   );
