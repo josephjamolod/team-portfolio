@@ -16,12 +16,13 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
-import { Staff } from "../../../app/(public)/search-person/page";
+
 import { ProfileStats } from "@/components/profile-components/components/ProfileStats";
 import { ProfileTabs } from "@/components/profile-components/components/ProfileTabs";
 import { ToolsTab } from "@/components/profile-components/components/AssetsTab";
 import { ServicesTab } from "@/components/profile-components/components/ServicesTab";
 import { SocialActions } from "@/components/profile-components/components/SocialActions";
+import { Staff } from "../SearchPerson";
 
 interface SidebarProps {
   staff: Staff;
