@@ -136,7 +136,7 @@ function SearchPerson() {
           {filteredUsers.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-gray-500">
-                No developers found matching {searchQuery}
+                No staff found matching &#8243;{searchQuery}&#8243;
               </p>
             </div>
           ) : (
