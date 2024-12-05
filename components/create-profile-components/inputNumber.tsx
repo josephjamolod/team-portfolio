@@ -28,6 +28,24 @@ const FormFieldPhoneInput = <T extends FieldValues>({
 }: FormFieldPhoneInputProps<T>) => {
   const { formState } = useFormContext<T>();
 
+  const handlePhoneChange = (
+    value: string,
+    countryData: any,
+    onChange: (updatedValue: { countryCode: string; number: string }) => void
+  ) => {
+    // console.log("countryData:", countryData); // Debugging log
+
+    const updatedValue = {
+      countryCode: countryData?.countryCode || "", // Use dialCode directly, fallback to empty string
+      number: value || "", // Ensure the value is a string
+    };
+
+    // console.log("Country Code:", updatedValue.countryCode); // Logs the dial code
+    // console.log("Number:", updatedValue.number); // Logs the phone number
+
+    onChange(updatedValue); // Update form state with the structured object
+  };
+
   return (
     <FormField
       control={control}
@@ -36,14 +54,15 @@ const FormFieldPhoneInput = <T extends FieldValues>({
         <FormItem className="flex-1">
           <div className="flex items-center justify-between">
             <FormLabel className="flex gap-x-2 text-black text-xs">
-              <span> {label}</span>
+              <span>{label}</span>
               {!isOptional && <span className="text-red-500">*</span>}
             </FormLabel>
           </div>
           <FormControl>
             <PhoneInput
               {...field}
-              country={country}
+              country={country || "ph"} // Default country
+              value={field.value?.number || ""}
               containerClass="custom-phone-container"
               inputStyle={{
                 fontSize: "0.875rem", // text-xs
@@ -56,7 +75,11 @@ const FormFieldPhoneInput = <T extends FieldValues>({
                 width: "100%", // w-full
               }}
               placeholder={placeholder}
-              onChange={(value) => field.onChange(value)} // Update form state
+              onChange={(value, countryData) =>
+                handlePhoneChange(value, countryData, (updatedValue) =>
+                  field.onChange(updatedValue)
+                )
+              }
             />
           </FormControl>
           {formState.errors[name] && (

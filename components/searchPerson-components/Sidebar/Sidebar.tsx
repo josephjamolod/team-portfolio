@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Flag from "react-world-flags";
 import { ProfileSection } from "./ProfileSection";
 import { ActionButton } from "./ActionButton";
 import {
@@ -98,12 +99,20 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
             <h3 className="text-sm font-medium text-gray-500 uppercase mb-3">
               Contact Number:
             </h3>
-            <div className="flex  items-center text-lg font-medium text-gray-900">
-              <button className=" text-22xl scale-100 hover:scale-110 transition-transform duration-300">
+            <div className="flex  items-center gap-x-4 text-lg font-medium text-gray-900">
+              <button className=" text-2xl scale-100 hover:scale-110 transition-transform duration-300">
                 <TiPhone />
               </button>
-              <span className="font-medium text-gray-900">
-                +{staff.contactNumber}
+              <span className="font-medium text-gray-900 flex items-center">
+                <Flag
+                  code={staff.contactNumber.countryCode} // ISO Alpha-2 code, e.g., "PH"
+                  style={{
+                    width: "1.5rem",
+                    height: "2rem",
+                    marginRight: "0.5rem",
+                  }}
+                />
+                +{staff.contactNumber.number}
               </span>
             </div>
           </div>

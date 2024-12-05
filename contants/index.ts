@@ -2,7 +2,7 @@ export const formDefaultVals = {
   name: "",
   lastName: "",
   email: "",
-  contactNumber: "",
+  contactNumber: { countryCode: "PH", number: "" },
   position: "",
   serviceDescription: "",
   facebookUrl: "",
@@ -11,6 +11,6 @@ export const formDefaultVals = {
   skypeInviteUrl: "",
   twitterUrl: "",
   websiteUrl: "",
-  whatsappNumber: "",
+  whatsappNumber: { countryCode: "PH", number: "" },
   youtubeUrl: "",
 };

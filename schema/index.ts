@@ -21,104 +21,105 @@ export const serviceSchema = z.object({
 
 export const createProfileSchema = z.object({
   profilePictureUrl: z.string().min(3, "Profile Picture is required"),
-
-  coverPhotoUrl: z.string().min(3, "Profile Picture is required"),
+  coverPhotoUrl: z.string().min(3, "Cover Photo is required"),
   services: z.array(serviceSchema).min(1, "Must contain at least one service"),
   name: z.string().min(2, { message: "Invalid name" }),
   lastName: z.string().min(2, { message: "Invalid last name" }),
   email: z.string().email({ message: "Invalid email address" }),
-  contactNumber: z
-    .string()
-    .refine(isValidPhoneNumber, { message: "Invalid phone number" }),
+
+  contactNumber: z.object({
+    countryCode: z.string().length(2, "Invalid country code"), // ISO Alpha-2 code, e.g., "PH"
+    number: z
+      .string()
+      .refine(isValidPhoneNumber, { message: "Invalid phone number" }),
+  }),
+
   position: z.string().min(3, "Position is required"),
   serviceDescription: z
     .string()
-    .min(20, { message: "must contain atleast 20 characters" })
-    .max(1000, { message: "minimum of 1000 characters" }),
+    .min(20, { message: "Must contain at least 20 characters" })
+    .max(1000, { message: "Maximum of 1000 characters allowed" }),
+
   facebookUrl: z
     .string()
+    .optional()
     .refine(
       (value) =>
-        value === "" ||
+        !value ||
         /^\b(?:https?:\/\/)?(?:www\.)?[^ "]+\.[a-zA-Z]{2,}\b/.test(value),
-      {
-        message: "Invalid URL",
-        // specify the field path for error
-      }
-    )
-    .optional(),
+      { message: "Invalid URL" }
+    ),
+
   youtubeUrl: z
     .string()
+    .optional()
     .refine(
       (value) =>
-        value === "" ||
+        !value ||
         /^\b(?:https?:\/\/)?(?:www\.)?[^ "]+\.[a-zA-Z]{2,}\b/.test(value),
-      {
-        message: "Invalid URL",
-      }
-    )
-    .optional(),
+      { message: "Invalid URL" }
+    ),
+
   instagramUrl: z
     .string()
+    .optional()
     .refine(
       (value) =>
-        value === "" ||
+        !value ||
         /^\b(?:https?:\/\/)?(?:www\.)?[^ "]+\.[a-zA-Z]{2,}\b/.test(value),
-      {
-        message: "Invalid URL",
-      }
-    )
-    .optional(),
+      { message: "Invalid URL" }
+    ),
+
   twitterUrl: z
     .string()
+    .optional()
     .refine(
       (value) =>
-        value === "" ||
+        !value ||
         /^\b(?:https?:\/\/)?(?:www\.)?[^ "]+\.[a-zA-Z]{2,}\b/.test(value),
-      {
-        message: "Invalid URL",
-      }
-    )
-    .optional(),
+      { message: "Invalid URL" }
+    ),
+
   linkedinUrl: z
     .string()
+    .optional()
     .refine(
       (value) =>
-        value === "" ||
+        !value ||
         /^\b(?:https?:\/\/)?(?:www\.)?[^ "]+\.[a-zA-Z]{2,}\b/.test(value),
-      {
-        message: "Invalid URL",
-      }
-    )
-    .optional(),
+      { message: "Invalid URL" }
+    ),
+
   whatsappNumber: z
-    .string()
-    .refine(refinePhoneNumber, { message: "Invalid phone number" })
+    .object({
+      countryCode: z.string().length(2, "Invalid country code"),
+      number: z
+        .string()
+        .refine(refinePhoneNumber, { message: "Invalid phone number" }),
+    })
     .optional(),
+
   skypeInviteUrl: z
     .string()
+    .optional()
     .refine(
       (value) =>
-        value === "" ||
+        !value ||
         /^(?:https?:\/\/)?(?:join\.skype\.com\/invite\/[a-zA-Z0-9_-]+)$/.test(
           value
         ),
-      {
-        message: "Invalid URL",
-      }
-    )
-    .optional(),
+      { message: "Invalid URL" }
+    ),
+
   websiteUrl: z
     .string()
+    .optional()
     .refine(
       (value) =>
-        value === "" ||
+        !value ||
         /^\b(?:https?:\/\/)?(?:www\.)?[^ "]+\.[a-zA-Z]{2,}\b/.test(value),
-      {
-        message: "Invalid URL",
-      }
-    )
-    .optional(),
+      { message: "Invalid URL" }
+    ),
 });
 
 // export const serviceSchema = z.object({

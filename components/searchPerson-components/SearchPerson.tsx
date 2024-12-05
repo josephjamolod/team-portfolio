@@ -28,7 +28,7 @@ export interface Staff {
   instagramSrc: string;
   websiteSrc: string;
   coverSrc: string;
-  contactNumber: string;
+  contactNumber: { countryCode: string; number: string };
   tools: string[]; // Array of strings for tool image URLs
   services: Services[];
 }
