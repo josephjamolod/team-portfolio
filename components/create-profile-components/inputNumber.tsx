@@ -18,6 +18,12 @@ interface FormFieldPhoneInputProps<T extends FieldValues> {
   isOptional?: boolean; // Indicate if the field is optional
 }
 
+interface CountryData {
+  countryCode?: string; // ISO Alpha-2 country code, e.g., "US", "PH"
+  dialCode?: string; // Dial code, e.g., "+1", "+63"
+  name?: string; // Country name, e.g., "United States", "Philippines"
+}
+
 const FormFieldPhoneInput = <T extends FieldValues>({
   control,
   name,
@@ -30,7 +36,7 @@ const FormFieldPhoneInput = <T extends FieldValues>({
 
   const handlePhoneChange = (
     value: string,
-    countryData: any,
+    countryData: CountryData,
     onChange: (updatedValue: { countryCode: string; number: string }) => void
   ) => {
     // console.log("countryData:", countryData); // Debugging log

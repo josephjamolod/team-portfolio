@@ -12,8 +12,5 @@ export default function SearchBar({ margin }: { margin: string }) {
         <span className="pr-0 xl:pr-12 "> Search Person </span>
       </div>
     </button>
-    // <button className="double-gradient-border border text-center border-[#624ced] font-ubuntu text-primary font-bold text-base leading-[1.8em]  ">
-    //   Button Text
-    // </button>
   );
 }

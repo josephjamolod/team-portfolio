@@ -33,7 +33,9 @@ export default function Header() {
         </ul>
       </div>
       <div className="hidden lg:flex items-center gap-x-4">
-        <SearchBar margin="mx-3" />
+        <Link href={"/search-person"}>
+          <SearchBar margin="mx-3" />
+        </Link>
         <Button
           variant={"outline"}
           className="rounded-full primary-button h-11 text-base leading-[1.8em] hover:bg-[#5139edb5] hover:text-white transition-colors duration-300"

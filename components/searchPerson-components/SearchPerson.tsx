@@ -99,7 +99,7 @@ function SearchPerson() {
         <div className=" mx-auto pt-16">
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">
-              Top Developers
+              DOLOMAJ&prime;S STAFF
             </h1>
             <button
               onClick={() => setIsSidebarOpen(true)}

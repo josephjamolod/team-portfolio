@@ -141,7 +141,7 @@ export default function CreateProfileForm({
       });
       toast.success("User created successfully!");
       if (response?.userRef) {
-        router.push(`/meet-the-team/${response.userRef}`);
+        router.push(`/meet-the-team`);
       } else {
         console.error("UserRef is missing in the response");
       }
