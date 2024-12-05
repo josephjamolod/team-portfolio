@@ -26,7 +26,7 @@ export const StaffCard: React.FC<StaffCardProps> = ({
             src={staff.profileSrc}
             alt={staff.name}
             fill
-            sizes="50px"
+            sizes="(max-width: 768px) 100vw, 50vw"
             className=" rounded-full object-cover"
           />
         </div>

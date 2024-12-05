@@ -151,7 +151,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
             <div className="relative w-12 h-12">
               <Image
                 fill
-                sizes="50px"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 src={staff.profileSrc}
                 alt={staff.name}
                 className=" rounded-full object-cover border-2 border-gray-100"

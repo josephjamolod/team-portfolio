@@ -22,7 +22,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
           src={imageUrl}
           alt={name}
           fill
-          sizes="50"
+          sizes="(max-width: 768px) 100vw, 50vw"
           className="rounded-full mx-auto object-cover border-2 border-gray-100"
         />
         <Badge
