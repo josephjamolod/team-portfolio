@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
 import React from "react";
 
 interface ProfileSectionProps {
@@ -16,15 +17,17 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
 }) => {
   return (
     <div className="md:py-6 md:px-14 p-6 bg-white ">
-      <div className="relative">
-        <img
+      <div className="relative w-32 h-32 place-self-center">
+        <Image
           src={imageUrl}
           alt={name}
-          className="w-32 h-32 rounded-full mx-auto object-cover border-2 border-gray-100"
+          fill
+          sizes="50"
+          className="rounded-full mx-auto object-cover border-2 border-gray-100"
         />
         <Badge
           variant={"secondary"}
-          className="absolute bg-green-200 hover:bg-green-300 bottom-2 right-2 text-green-800"
+          className="absolute bg-green-200 hover:bg-green-300 bottom-2 -right-20   text-green-800"
         >
           {status.toLowerCase()}
         </Badge>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Badge } from "@/components/ui/badge";
-import { Staff } from "../../app/(public)/search-person/page";
+import { Staff } from "./SearchPerson";
+import Image from "next/image";
 
 interface StaffCardProps {
   staff: Staff;
@@ -20,11 +21,13 @@ export const StaffCard: React.FC<StaffCardProps> = ({
         ${isSelected ? "ring-2 ring-[#624ced] shadow-md" : "hover:shadow-md"}`}
     >
       <div className="flex items-center gap-4 mb-4">
-        <div className="relative">
-          <img
+        <div className="relative min-w-16 h-16 ">
+          <Image
             src={staff.profileSrc}
             alt={staff.name}
-            className="min-w-16 h-16 rounded-full object-cover"
+            fill
+            sizes="50"
+            className=" rounded-full object-cover"
           />
         </div>
         <div>

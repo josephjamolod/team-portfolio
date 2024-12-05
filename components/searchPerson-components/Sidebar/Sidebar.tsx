@@ -24,6 +24,7 @@ import { ToolsTab } from "@/components/profile-components/components/AssetsTab";
 import { ServicesTab } from "@/components/profile-components/components/ServicesTab";
 import { SocialActions } from "@/components/profile-components/components/SocialActions";
 import { Staff } from "../SearchPerson";
+import Image from "next/image";
 
 interface SidebarProps {
   staff: Staff;
@@ -52,7 +53,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
         isOpen ? "w-[340px] 2xl:w-[500px]" : "w-20"
       )}
     >
-      <CollapsibleTrigger className="hidden lg:flex absolute -right-3 top-6 z-10 h-6 w-6 items-center justify-center rounded-full border bg-white shadow-sm">
+      <CollapsibleTrigger className="hidden lg:flex absolute -right-3 top-[137px] z-10 h-6 w-6 lg:h-8 lg:w-8 items-center justify-center rounded-full border border-[#624ced] text-[#624ced] text-2xl bg-[#efecff] shadow-sm">
         {isOpen ? <FiChevronLeft /> : <FiChevronRight />}
       </CollapsibleTrigger>
 
@@ -61,7 +62,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
         {onClose && (
           <button
             onClick={onClose}
-            className="lg:hidden absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-900"
+            className="lg:hidden absolute top-20 right-4 p-2 text-gray-500 hover:text-gray-900"
           >
             <FiX className="w-5 h-5" />
           </button>
@@ -105,7 +106,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
               </button>
               <span className="font-medium text-gray-900 flex items-center">
                 <Flag
-                  code={staff.contactNumber.countryCode} // ISO Alpha-2 code, e.g., "PH"
+                  code={staff.contactNumber.countryCode}
                   style={{
                     width: "1.5rem",
                     height: "2rem",
@@ -147,11 +148,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
         {/* Collapsed State Content */}
         {!isOpen && (
           <div className="flex flex-col items-center gap-6 p-4">
-            <div className="relative">
-              <img
+            <div className="relative w-12 h-12">
+              <Image
+                fill
+                sizes="50"
                 src={staff.profileSrc}
                 alt={staff.name}
-                className="w-12 h-12 rounded-full object-cover border-2 border-gray-100"
+                className=" rounded-full object-cover border-2 border-gray-100"
               />
               <span
                 className={

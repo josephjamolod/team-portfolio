@@ -14,14 +14,14 @@ interface FormFieldPhoneInputProps<T extends FieldValues> {
   name: Path<T>;
   label: string;
   placeholder: string;
-  country?: string; // Default country for the phone input
-  isOptional?: boolean; // Indicate if the field is optional
+  country?: string;
+  isOptional?: boolean;
 }
 
 interface CountryData {
-  countryCode?: string; // ISO Alpha-2 country code, e.g., "US", "PH"
-  dialCode?: string; // Dial code, e.g., "+1", "+63"
-  name?: string; // Country name, e.g., "United States", "Philippines"
+  countryCode?: string;
+  dialCode?: string;
+  name?: string;
 }
 
 const FormFieldPhoneInput = <T extends FieldValues>({
@@ -29,7 +29,7 @@ const FormFieldPhoneInput = <T extends FieldValues>({
   name,
   label,
   placeholder,
-  country = "ph", // Default to "ph" (Philippines)
+  country = "ph",
   isOptional = false,
 }: FormFieldPhoneInputProps<T>) => {
   const { formState } = useFormContext<T>();
@@ -39,17 +39,12 @@ const FormFieldPhoneInput = <T extends FieldValues>({
     countryData: CountryData,
     onChange: (updatedValue: { countryCode: string; number: string }) => void
   ) => {
-    // console.log("countryData:", countryData); // Debugging log
-
     const updatedValue = {
-      countryCode: countryData?.countryCode || "", // Use dialCode directly, fallback to empty string
-      number: value || "", // Ensure the value is a string
+      countryCode: countryData?.countryCode || "",
+      number: value || "",
     };
 
-    // console.log("Country Code:", updatedValue.countryCode); // Logs the dial code
-    // console.log("Number:", updatedValue.number); // Logs the phone number
-
-    onChange(updatedValue); // Update form state with the structured object
+    onChange(updatedValue);
   };
 
   return (

@@ -19,7 +19,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   description,
   avatarUrl,
   coverUrl,
-  email,
+  // email,
   number,
   position,
 }) => {
