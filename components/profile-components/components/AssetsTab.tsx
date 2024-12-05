@@ -7,7 +7,7 @@ interface ToolsTab {
 
 export const ToolsTab: React.FC<ToolsTab> = ({ tools }) => {
   return (
-    <div className="p-6 grid grid-cols-2  md:grid-cols-3 gap-4">
+    <div className="p-6 grid grid-cols-2 gap-4">
       {tools?.map((tool, index) => (
         <AssetCard key={index} tool={tool} />
       ))}

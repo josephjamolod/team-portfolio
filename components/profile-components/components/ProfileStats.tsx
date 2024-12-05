@@ -32,22 +32,18 @@ export const ProfileStats: React.FC<ProfileStatsProps> = ({
   linkedin,
 }) => {
   const sources = [
-    { src: linkedin, icon: <FiLinkedin size={26} key="linkedin" /> },
-    { src: whatsApp, icon: <HiOutlinePhone size={26} key="phone" /> },
-    { src: skype, icon: <TfiSkype size={26} key="skype" /> },
-    { src: fb, icon: <SlSocialFacebook size={26} key="fb" /> },
-    { src: x, icon: <FaXTwitter size={26} key="twitter" /> },
-    { src: insta, icon: <IoLogoInstagram size={26} key="instagram" /> },
-    { src: web, icon: <GoGlobe size={26} key="globe" /> },
-    { src: yt, icon: <LuYoutube size={26} key="yt" /> },
+    { src: linkedin, icon: <FiLinkedin size={20} key="linkedin" /> },
+    { src: whatsApp, icon: <HiOutlinePhone size={20} key="phone" /> },
+    { src: skype, icon: <TfiSkype size={20} key="skype" /> },
+    { src: fb, icon: <SlSocialFacebook size={20} key="fb" /> },
+    { src: x, icon: <FaXTwitter size={20} key="twitter" /> },
+    { src: insta, icon: <IoLogoInstagram size={20} key="instagram" /> },
+    { src: web, icon: <GoGlobe size={20} key="globe" /> },
+    { src: yt, icon: <LuYoutube size={20} key="yt" /> },
   ];
 
   return (
-    <div className="px-6 py-4 flex flex-col gap-y-2 items-center border-t border-gray-200 text-[#624ced]">
-      <h1 className=" px-2 text-[12px] w-full items-start font-bold text-muted-foreground">
-        SOCIALS
-      </h1>
-
+    <div className=" flex flex-col gap-y-2 items-center ">
       <div className="flex w-full   justify-between">
         {sources.map((source, index) => {
           return (

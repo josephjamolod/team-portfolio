@@ -1,5 +1,5 @@
-import React from 'react';
-import clsx from 'clsx';
+import React from "react";
+import clsx from "clsx";
 
 interface Tab {
   name: string;
@@ -12,17 +12,20 @@ interface ProfileTabsProps {
   onTabChange: (tab: string) => void;
 }
 
-export const ProfileTabs: React.FC<ProfileTabsProps> = ({ tabs, onTabChange }) => {
+export const ProfileTabs: React.FC<ProfileTabsProps> = ({
+  tabs,
+  onTabChange,
+}) => {
   return (
-    <div className="px-6 border-t border-gray-200">
+    <div className="px-6 ">
       <div className="flex gap-6">
         {tabs.map((tab) => (
           <button
             key={tab.name}
             onClick={() => onTabChange(tab.name)}
             className={clsx(
-              'py-4 relative',
-              tab.isActive ? 'text-black' : 'text-gray-500 hover:text-gray-700'
+              "py-4 relative",
+              tab.isActive ? "text-black" : "text-gray-500 hover:text-gray-700"
             )}
           >
             <span className="flex items-center gap-2">
@@ -41,4 +44,4 @@ export const ProfileTabs: React.FC<ProfileTabsProps> = ({ tabs, onTabChange }) =
       </div>
     </div>
   );
-}
+};

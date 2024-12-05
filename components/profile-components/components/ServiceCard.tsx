@@ -10,7 +10,10 @@ export const ServiceCard: React.FC<Service> = ({
   return (
     <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
       <div className="flex justify-between items-start mb-2">
-        <h3 className="font-medium text-[#624ced]">{name}</h3>
+        <h3 className="text-sm font-medium text-[#624ced] uppercase mb-3">
+          {name}
+        </h3>
+
         <span
           className={`px-2 py-1 rounded-full text-xs capitalize border ${
             isActive
@@ -21,7 +24,7 @@ export const ServiceCard: React.FC<Service> = ({
           {isActive ? " active" : "inactive"}
         </span>
       </div>
-      <p className="text-sm text-gray-600 mb-3">{description}</p>
+      <p className="text-sm mb-3">{description}</p>
       <div className="flex items-center gap-1">
         <span className="text-sm text-gray-500">Per Hour:</span>
         <span className="font-medium">${perHour}</span>

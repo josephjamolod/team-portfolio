@@ -8,7 +8,7 @@ interface ServicesTabProps {
 
 export const ServicesTab: React.FC<ServicesTabProps> = ({ services }) => {
   return (
-    <div className="p-6 space-y-4">
+    <div className="py-6 space-y-4">
       {services?.map((service, index) => (
         <ServiceCard key={index} {...service} id={index} />
       ))}
