@@ -41,6 +41,7 @@ import FormFieldInput from "./FormFieldInput";
 import { FirebaseError } from "firebase/app";
 import FormFieldPhoneInput from "./inputNumber";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export default function CreateProfileForm({
   children,
@@ -52,6 +53,7 @@ export default function CreateProfileForm({
 }: CreateProfileFormPropType) {
   const router = useRouter();
   const [services, setServices] = useState<Service[]>([]);
+  const [submitLoading, setSubmitLoading] = useState(false);
 
   const filterServices = (services: Service[], serviceId: number): Service[] =>
     services.filter((service) => service.id !== serviceId);
@@ -94,15 +96,20 @@ export default function CreateProfileForm({
   }, [profilePhoto, coverPhoto, form, services]);
 
   const onSubmit = async (data: z.infer<typeof createProfileSchema>) => {
+    setSubmitLoading(false);
     try {
+      setSubmitLoading(true);
       // Check if images are provided
       if (!images || images.length === 0) {
+        setSubmitLoading(false);
         toast.error("Please provide image tools");
+
         return; // Stop execution if images are missing
       }
 
       // Check if user exists
       if (!user) {
+        setSubmitLoading(false);
         toast.error("User not authenticated");
         return; // Stop execution if user is missing
       }
@@ -128,6 +135,7 @@ export default function CreateProfileForm({
 
       if (!isValidCover || !isValidProfile) {
         toast.error("Invalid link for profile or cover photo");
+        setSubmitLoading(false);
         console.log("Invalid photo links");
         return; // Stop execution if photos are invalid
       }
@@ -139,6 +147,7 @@ export default function CreateProfileForm({
         tools,
         user,
       });
+      setSubmitLoading(false);
       toast.success("User created successfully!");
       if (response?.userRef) {
         router.push(`/meet-the-team`);
@@ -154,6 +163,8 @@ export default function CreateProfileForm({
       } else {
         console.error("Unexpected error:", error);
       }
+    } finally {
+      setSubmitLoading(false);
     }
   };
 
@@ -362,9 +373,22 @@ export default function CreateProfileForm({
               </div>
               <Button
                 type="submit"
-                className="w-full rounded-md hover:opacity-100 opacity-85 h-12 text-xl hover:shadow-lg bg-gradient-to-r from-[#988ce6] to-[#624ced] mt-[20px] transform transition-opacity duration-300"
+                disabled={submitLoading}
+                className={cn(
+                  "w-full rounded-md h-12 text-xl mt-[20px] transform transition-opacity duration-300",
+                  submitLoading
+                    ? "bg-[#7a6ff1] opacity-80 cursor-not-allowed" // Lighter color and disabled styles when loading
+                    : "bg-[#624ced] hover:bg-[#5643d1] hover:shadow-lg"
+                )}
               >
-                Create Profile
+                {submitLoading ? (
+                  <div className="flex justify-center gap-x-3 items-center">
+                    <span>Creating your profile</span>
+                    <div className="w-4 h-4 border-4 border-t-[#624ced] border-gray-300 rounded-full animate-spin"></div>
+                  </div>
+                ) : (
+                  "Create Profile"
+                )}
               </Button>
             </div>
           </form>
