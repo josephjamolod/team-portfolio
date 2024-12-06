@@ -8,6 +8,8 @@ import { Services } from "@/app/(public)/meet-the-team/[id]/page";
 import { Sidebar } from "./Sidebar/Sidebar";
 import { SearchBar } from "./SearchBar";
 import { StaffCard } from "./DeveloperCard";
+import { toast } from "react-toastify";
+import { Skeleton } from "../ui/skeleton";
 
 export interface Staff {
   id: string;
@@ -34,6 +36,7 @@ export interface Staff {
 }
 
 function SearchPerson() {
+  const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<Staff[]>([]);
   const [selectedUser, setSelectedUser] = useState<Staff | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -56,7 +59,10 @@ function SearchPerson() {
           setSelectedUser(usersData[0]); // Set the first user as selected by default
         }
       } catch (error) {
+        toast.error("Failed to fetch staff data.");
         console.error("Error fetching users:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -86,11 +92,28 @@ function SearchPerson() {
           isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
-        {selectedUser && (
-          <Sidebar
-            staff={selectedUser}
-            onClose={() => setIsSidebarOpen(false)}
-          />
+        {loading ? (
+          <div className="px-14 relative h-full transition-all duration-300 flex flex-col gap-y-4 items-center bg-white ease-in-out iw-[340px] 2xl:w-[500px] pt-28">
+            <Skeleton className="h-32 w-32 rounded-full" />
+            <Skeleton className="h-6 w-[250px]" />
+            <Skeleton className="h-12 w-[400px] mt-6" />
+            <Skeleton className="h-4 w-[250px] place-self-start" />
+            <Skeleton className="h-20 w-[400px] mt-4" />
+            <Skeleton className="h-20 w-[400px] mt-4" />
+            <div className="flex px-8 gap-x-4 pt-4 items-start justify-start w-full">
+              <Skeleton className="h-6 w-[50px]" />
+              <Skeleton className="h-6 w-[50px]" />
+            </div>
+
+            <Skeleton className="h-80 w-80 " />
+          </div>
+        ) : (
+          selectedUser && (
+            <Sidebar
+              staff={selectedUser}
+              onClose={() => setIsSidebarOpen(false)}
+            />
+          )
         )}
       </div>
 
@@ -133,7 +156,27 @@ function SearchPerson() {
 
           <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
-          {filteredUsers.length === 0 ? (
+          {loading ? (
+            <div className="space-y-4 lg:space-y-6 grid grid-cols-1 border border-none rounded-lg bg-gray-200 max-h-[600px] overflow-hidden overflow-y-auto p-4">
+              {[1, 2, 3].map((_, i) => {
+                return (
+                  <div key={i} className="flex flex-col  ">
+                    <div className="flex space-x-4 pb-4">
+                      <Skeleton className="h-12 w-12 rounded-full" />
+                      <div className="space-y-2">
+                        <Skeleton className="h-4 w-[250px]" />
+                        <Skeleton className="h-4 w-[200px]" />
+                      </div>
+                    </div>
+
+                    <div className="w-full">
+                      <Skeleton className="h-[125px] w-full rounded-xl" />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : filteredUsers.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-gray-500">
                 No staff found matching &#8243;{searchQuery}&#8243;
