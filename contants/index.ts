@@ -15,6 +15,8 @@ export const formDefaultVals = {
   youtubeUrl: "",
 };
 
+//Our Services
+
 import videoEdit from "@/public/assets/images/videoEdit.jpg";
 import assistance from "@/public/assets/images/assistance.jpg";
 import webDesign from "@/public/assets/images/webDesign.png";
@@ -59,5 +61,35 @@ export const services: Card[] = [
     category:
       "We manage your social media platforms with strategic content and engagement tactics to grow your online community and drive interaction.",
     src: socialMed,
+  },
+];
+
+//Why Choose Us
+
+interface whyChooseUsTpye {
+  text: string;
+  description: string;
+}
+
+export const messages: whyChooseUsTpye[] = [
+  {
+    text: "Expert Team:",
+    description:
+      "Our team comprises experienced professionals who are passionate about delivering excellence in every project.",
+  },
+  {
+    text: "Customized Solutions:",
+    description:
+      "We tailor our services to meet your specific requirements, ensuring optimal results and satisfaction.",
+  },
+  {
+    text: "Innovative Approach:",
+    description:
+      "We leverage the latest tools and technologies to provide cutting-edge solutions that keep you ahead of the competition.",
+  },
+  {
+    text: "Customer-Centric:",
+    description:
+      "Our clients are at the heart of everything we do. We prioritize your needs and work collaboratively to achieve your goals.",
   },
 ];
