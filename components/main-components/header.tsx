@@ -33,9 +33,8 @@ export default function Header() {
         </ul>
       </div>
       <div className="hidden lg:flex items-center gap-x-4">
-        <Link href={"/search-person"}>
-          <SearchBar margin="mx-3" />
-        </Link>
+        <SearchBar margin="mx-3" />
+
         <Link href={"/meet-the-team"}>
           <Button
             variant={"outline"}

@@ -69,7 +69,7 @@ export function Menu({ user, logOutUser }: UserAndLogOutUserType) {
             </SheetTrigger>
           </Link>
 
-          <Link href={"#"}>
+          <Link href={"/meet-the-team"}>
             <SheetTrigger className="border rounded-md shadow-sm font-medium w-full hover:bg-accent h-9 px-4 py-2 items-center flex justify-center">
               Meet The Team
             </SheetTrigger>
