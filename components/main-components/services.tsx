@@ -9,7 +9,10 @@ export default function Services() {
   ));
 
   return (
-    <div className="flex flex-col justify-center pt-5  px-10 md:px-20 3xl:px-60 ">
+    <div
+      id="services"
+      className="flex flex-col justify-center pt-5  px-10 md:px-20 3xl:px-60 "
+    >
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight ">
         Our Services
       </h1>
