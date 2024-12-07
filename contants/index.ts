@@ -66,7 +66,7 @@ export const services: Card[] = [
 
 //Why Choose Us
 
-interface whyChooseUsTpye {
+export interface whyChooseUsTpye {
   text: string;
   description: string;
 }
