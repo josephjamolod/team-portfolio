@@ -34,7 +34,7 @@ import { toast } from "react-toastify";
 import { Service } from "./(service)/serviceForm";
 import ServiceForm from "./(service)/serviceForm";
 import ServiceList from "./(service)/serviceList";
-import { formDefaultVals } from "@/contants";
+import { formDefaultVals, resetFormValues } from "@/contants";
 import { CreateProfileFormPropType } from "./type";
 import FormFieldInput from "./FormFieldInput";
 import { FirebaseError } from "firebase/app";
@@ -45,6 +45,7 @@ import { cn } from "@/lib/utils";
 export default function CreateProfileForm({
   children,
   user,
+  userData,
   updateUser,
   updateUserLoader,
   loading,
@@ -52,12 +53,14 @@ export default function CreateProfileForm({
   coverPhoto,
   images,
   setImages,
+  services,
+  setServices,
 }: CreateProfileFormPropType) {
-  const [services, setServices] = useState<Service[]>([]);
+  // const [services, setServices] = useState<Service[]>([]);
   const isLoading = updateUserLoader || loading;
 
   const filterServices = (services: Service[], serviceId: number): Service[] =>
-    services.filter((service) => service.id !== serviceId);
+    services.filter((_, index) => index !== serviceId);
 
   const handleAddService = (service: Service) => {
     setServices((prev) => [...prev, service]);
@@ -71,11 +74,13 @@ export default function CreateProfileForm({
     resolver: zodResolver(createProfileSchema),
     defaultValues: {
       ...formDefaultVals,
-      services: services,
     },
   });
 
+  const { reset } = form;
+
   useEffect(() => {
+    resetFormValues(reset, userData);
     form.setValue("services", services);
     if (services.length !== 0 && form.formState.errors.services) {
       form.clearErrors("services");
@@ -94,7 +99,7 @@ export default function CreateProfileForm({
         form.clearErrors("coverPhotoUrl");
       }
     }
-  }, [profilePhoto, coverPhoto, form, services]);
+  }, [profilePhoto, coverPhoto, form, services, userData, reset]);
 
   const onSubmit = async (data: z.infer<typeof createProfileSchema>) => {
     try {

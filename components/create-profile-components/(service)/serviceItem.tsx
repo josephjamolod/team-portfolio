@@ -4,13 +4,15 @@ import { Service } from "./serviceForm";
 interface ServiceItemProps {
   service: Service;
   onDelete: (serviceId: number) => void;
+  id: number;
 }
 
-const ServiceItem: React.FC<ServiceItemProps> = ({ service, onDelete }) => {
+const ServiceItem: React.FC<ServiceItemProps> = ({ service, onDelete, id }) => {
   return (
     <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col">
       <button
-        onClick={() => onDelete(service.id)}
+        type="button"
+        onClick={() => onDelete(id)}
         className="self-end text-red-600 hover:text-red-800 p-2 rounded-full hover:bg-red-100 transition-colors"
         aria-label="Delete service"
       >

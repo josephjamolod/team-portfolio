@@ -19,7 +19,12 @@ function CreateProfile() {
     updateUserMutation,
     loading,
     isLoadingUpdateMutation,
+    services,
+    setServices,
+    userData,
   } = useAuth();
+
+  console.log(userData);
 
   return (
     <div className="h-full bg-[#efecff93]  py-12 px-4 sm:px-6 lg:px-8 w-full">
@@ -122,6 +127,7 @@ function CreateProfile() {
             </div>
             <CreateProfileForm
               user={user}
+              userData={userData}
               loading={loading}
               updateUserLoader={isLoadingUpdateMutation}
               updateUser={updateUserMutation}
@@ -129,6 +135,8 @@ function CreateProfile() {
               coverPhoto={coverPhoto}
               images={images}
               setImages={setImages}
+              services={services}
+              setServices={setServices}
             >
               <div className="flex items-center w-full justify-center">
                 <Image

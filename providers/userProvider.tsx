@@ -23,6 +23,8 @@ import {
 } from "@/src/lib/firebase/config/auth";
 import { createUserProfile } from "@/src/lib/firebase/store/users.action";
 import { CreateUserProfileProp } from "@/components/create-profile-components/type";
+import { Staff } from "@/components/searchPerson-components/SearchPerson";
+import { Service } from "@/components/create-profile-components/(service)/serviceForm";
 
 // Define a type for your user, matching the properties provided by Firebase
 export type User = {
@@ -40,6 +42,7 @@ export type UserProviderContextType = {
     CreateUserProfileProp,
     unknown
   >;
+  userData: Staff | undefined;
   isLoadingUpdateMutation: boolean;
   logOutUser: () => void;
   loading: boolean;
@@ -49,6 +52,8 @@ export type UserProviderContextType = {
   setCoverPhoto: Dispatch<SetStateAction<string | null>>;
   images: ImageFile[] | [];
   setImages: Dispatch<SetStateAction<ImageFile[]>>;
+  services: Service[];
+  setServices: Dispatch<SetStateAction<Service[]>>;
 };
 
 // Create the AuthContext object
@@ -63,6 +68,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
   const [coverPhoto, setCoverPhoto] = useState<string | null>(null);
   const [images, setImages] = useState<ImageFile[]>([]);
+  const [services, setServices] = useState<Service[]>([]);
 
   const { user, userUid, loading: isLoading } = useUserSession();
 
@@ -70,7 +76,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     queryKey: ["current-active-user", userUid],
     queryFn: async () => {
       const data = await currentAuthUserDetails({ id: userUid! });
-      return { uid: userUid, ...data };
+      setCoverPhoto(data?.coverSrc as string);
+      setProfilePhoto(data?.profileSrc as string);
+      // Map tools (string[]) to ImageFile objects with preview
+      const newFiles: ImageFile[] = (data?.tools || []).map((tool) => {
+        return {
+          preview: tool, // Use tool string as preview
+        } as ImageFile;
+      });
+
+      setImages([...newFiles]); // Correctly update the images
+      setServices(data?.services as Service[]);
+      return { uid: userUid, ...data } as Staff;
     },
     staleTime: 1000 * 60 * 5,
     enabled: !!userUid,
@@ -100,6 +117,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     <AuthContext.Provider
       value={{
         user,
+        userData,
         updateUserMutation,
         isLoadingUpdateMutation,
         logOutUser,
@@ -110,6 +128,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setCoverPhoto,
         images,
         setImages,
+        services,
+        setServices,
       }}
     >
       {children}

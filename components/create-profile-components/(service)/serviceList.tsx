@@ -17,9 +17,10 @@ const ServiceList: React.FC<ServiceListProps> = ({
 
   return (
     <div className="space-y-4">
-      {services.map((service) => (
+      {services.map((service, index) => (
         <ServiceItem
-          key={service.id}
+          key={index}
+          id={index}
           service={service}
           onDelete={onDeleteService}
         />

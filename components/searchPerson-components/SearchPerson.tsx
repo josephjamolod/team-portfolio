@@ -20,7 +20,7 @@ export interface Staff {
   twitterSrc: string;
   linkedinSrc: string;
   serviceDescription: string;
-  whatsappNumber: string;
+  whatsappNumber: { countryCode: string; number: string };
   skypeInviteSrc: string;
   profileSrc: string;
   youtubeSrc: string;

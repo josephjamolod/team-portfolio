@@ -4,6 +4,8 @@ import { ImageFile } from "./uploadTools";
 import { createProfileSchema } from "@/schema";
 import { z } from "zod";
 import { UseMutateFunction } from "@tanstack/react-query";
+import { Service } from "./(service)/serviceForm";
+import { Staff } from "../searchPerson-components/SearchPerson";
 
 export interface PhotoType {
   profile: string;
@@ -13,6 +15,7 @@ export interface PhotoType {
 export interface CreateProfileFormPropType {
   children: React.ReactNode;
   user: User | null;
+  userData: Staff | undefined;
   updateUser: UseMutateFunction<void, Error, CreateUserProfileProp, unknown>;
   loading: boolean;
   updateUserLoader: boolean;
@@ -20,6 +23,8 @@ export interface CreateProfileFormPropType {
   coverPhoto: string | null;
   setImages: Dispatch<SetStateAction<ImageFile[]>>;
   images: ImageFile[] | [];
+  services: Service[];
+  setServices: Dispatch<SetStateAction<Service[]>>;
 }
 
 interface PhotoLinks {

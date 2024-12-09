@@ -13,6 +13,38 @@ export const formDefaultVals = {
   websiteUrl: "",
   whatsappNumber: { countryCode: "PH", number: "" },
   youtubeUrl: "",
+  services: [],
+};
+
+export const resetFormValues = (
+  reset: UseFormReset<z.infer<typeof createProfileSchema>>, // Replace with your schema
+  userData: Staff | undefined
+) => {
+  if (userData) {
+    reset({
+      name: userData.name ?? "",
+      lastName: userData.lastname ?? "",
+      email: userData.email ?? "",
+      contactNumber: userData.contactNumber ?? {
+        countryCode: "PH",
+        number: "",
+      },
+      position: userData.position ?? "",
+      serviceDescription: userData.serviceDescription ?? "",
+      facebookUrl: userData.facebookSrc ?? "",
+      instagramUrl: userData.instagramSrc ?? "",
+      linkedinUrl: userData.linkedinSrc ?? "",
+      skypeInviteUrl: userData.skypeInviteSrc ?? "",
+      twitterUrl: userData.twitterSrc ?? "",
+      websiteUrl: userData.websiteSrc ?? "",
+      whatsappNumber: userData.whatsappNumber ?? {
+        countryCode: "PH",
+        number: "",
+      },
+      youtubeUrl: userData.youtubeSrc ?? "",
+      services: userData.services ?? [],
+    });
+  }
 };
 
 //Our Services
@@ -24,6 +56,10 @@ import leadGen from "@/public/assets/images/leadGen.jpg";
 import contWrite from "@/public/assets/images/contWrite.jpg";
 import socialMed from "@/public/assets/images/socialMed.jpg";
 import { Card } from "@/components/ui/apple-cards-carousel";
+import { Staff } from "@/components/searchPerson-components/SearchPerson";
+import { UseFormReset } from "react-hook-form";
+import { z } from "zod";
+import { createProfileSchema } from "@/schema";
 
 export const services: Card[] = [
   {
