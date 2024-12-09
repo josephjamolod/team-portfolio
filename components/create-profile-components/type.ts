@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import { ImageFile } from "./uploadTools";
 import { createProfileSchema } from "@/schema";
 import { z } from "zod";
+import { UseMutateFunction } from "@tanstack/react-query";
 
 export interface PhotoType {
   profile: string;
@@ -12,6 +13,9 @@ export interface PhotoType {
 export interface CreateProfileFormPropType {
   children: React.ReactNode;
   user: User | null;
+  updateUser: UseMutateFunction<void, Error, CreateUserProfileProp, unknown>;
+  loading: boolean;
+  updateUserLoader: boolean;
   profilePhoto: string | null;
   coverPhoto: string | null;
   setImages: Dispatch<SetStateAction<ImageFile[]>>;

@@ -1,113 +1,13 @@
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { firebaseAuth, firebaseDb, firebaseStorage } from "../config/firebase";
+import { firebaseDb, firebaseStorage } from "../config/firebase";
 import { ImageFile } from "@/components/create-profile-components/uploadTools";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { User } from "@/providers/userProvider";
-import {
-  createSession,
-  deleteSession,
-  getSession,
-  signUserId,
-  verifySignUserId,
-} from "../config/session";
 
 import { toast } from "react-toastify";
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import {
   CreateUserProfileProp,
   PhotoType,
 } from "@/components/create-profile-components/type";
-
-type SignedUserIdJwtPayload = {
-  uid: string;
-  iat: number;
-  exp: number;
-};
-
-export async function fetchUser(): Promise<User | null> {
-  return new Promise(async (resolve) => {
-    // Await sessionCookie to get the actual value instead of the Promise
-    const sessionCookie = await getSession(); // Get the session cookie asynchronously
-    onAuthStateChanged(firebaseAuth, async (firebaseUser) => {
-      if (firebaseUser) {
-        try {
-          // Await the result of signUserId to ensure we have the correct user ID
-          const signUser = await signUserId(firebaseUser.uid);
-          const cookie = sessionCookie ?? signUser;
-
-          // Await the result of verifySignUserId to get the correct session payload
-          const cookieSession = (await verifySignUserId(
-            cookie
-          )) as SignedUserIdJwtPayload | null;
-
-          // Handle cases when no session cookie exists or invalid session
-          if (!sessionCookie) {
-            await createSession(firebaseUser.uid);
-          }
-
-          // Handle mismatch between the session cookie and Firebase user
-          if (!cookieSession || cookieSession.uid !== firebaseUser.uid) {
-            await signOut(firebaseAuth); // Sign out Firebase user
-            await deleteSession(); // Delete the session
-            resolve(null); // Return null if session is invalid
-          } else {
-            resolve({
-              uid: firebaseUser.uid,
-              email: firebaseUser.email,
-              displayName: firebaseUser.displayName,
-              photoURL: firebaseUser.photoURL,
-            });
-          }
-        } catch (error) {
-          console.error("Error verifying session:", error);
-          resolve(null);
-        }
-      } else {
-        // If no firebase user, delete session if it exists
-        if (sessionCookie) {
-          await deleteSession();
-        }
-        resolve(null); // Return null if no Firebase user
-      }
-    });
-  });
-}
-
-// export async function fetchUser(): Promise<User | null> {
-//   return new Promise(async (resolve) => {
-//     const sessionCookie = await getSession();
-//     onAuthStateChanged(firebaseAuth, async (firebaseUser) => {
-//       if (firebaseUser) {
-//         const signUser = await signUserId(firebaseUser.uid);
-//         const cookie = sessionCookie ?? signUser;
-
-//         const cookieSession = (await verifySignUserId(
-//           cookie
-//         )) as SignedUserIdJwtPayload | null;
-
-//         if (!sessionCookie) {
-//           await createSession(firebaseUser.uid);
-//         }
-
-//         if (!cookieSession || cookieSession.uid !== firebaseUser.uid) {
-//           await signOut(firebaseAuth);
-//           await deleteSession();
-//         }
-//         resolve({
-//           uid: firebaseUser.uid,
-//           email: firebaseUser.email,
-//           displayName: firebaseUser.displayName,
-//           photoURL: firebaseUser.photoURL,
-//         });
-//       } else {
-//         if (sessionCookie) {
-//           await deleteSession();
-//         }
-//         resolve(null);
-//       }
-//     });
-//   });
-// }
 
 export const dataURLToBlob = (dataURL: string): Blob => {
   const byteString = atob(dataURL.split(",")[1]);
@@ -241,13 +141,13 @@ export const createUserProfile = async ({
   await setDoc(userDocRef, userProfileData);
 
   // Fetch the saved document to verify and log
-  const savedDoc = await getDoc(userDocRef);
+  // const savedDoc = await getDoc(userDocRef);
 
-  if (savedDoc.exists()) {
-    console.log("Document data from Firebase:", savedDoc.data());
-    return savedDoc.data(); // Return the data for further processing if needed
-  } else {
-    console.log("No document found in Firebase.");
-    return null;
-  }
+  // if (savedDoc.exists()) {
+  //   console.log("Document data from Firebase:", savedDoc.data());
+  //   return savedDoc.data() as Staff; // Return the data for further processing if needed
+  // } else {
+  //   console.log("No document found in Firebase.");
+  //   return null;
+  // }
 };

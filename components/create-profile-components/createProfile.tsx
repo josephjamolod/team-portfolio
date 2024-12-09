@@ -16,6 +16,9 @@ function CreateProfile() {
     user,
     setImages,
     images,
+    updateUserMutation,
+    loading,
+    isLoadingUpdateMutation,
   } = useAuth();
 
   return (
@@ -119,6 +122,9 @@ function CreateProfile() {
             </div>
             <CreateProfileForm
               user={user}
+              loading={loading}
+              updateUserLoader={isLoadingUpdateMutation}
+              updateUser={updateUserMutation}
               profilePhoto={profilePhoto}
               coverPhoto={coverPhoto}
               images={images}

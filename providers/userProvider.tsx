@@ -9,8 +9,7 @@ import {
 } from "react";
 import { ImageFile } from "@/components/create-profile-components/uploadTools";
 import {
-  QueryObserverResult,
-  RefetchOptions,
+  UseMutateFunction,
   useMutation,
   useQuery,
   useQueryClient,
@@ -18,7 +17,12 @@ import {
 
 import { useRouter } from "next/navigation";
 import { useUserSession } from "@/hooks/useUserSession";
-import { signOutHandler } from "@/src/lib/firebase/config/auth";
+import {
+  currentAuthUserDetails,
+  signOutHandler,
+} from "@/src/lib/firebase/config/auth";
+import { createUserProfile } from "@/src/lib/firebase/store/users.action";
+import { CreateUserProfileProp } from "@/components/create-profile-components/type";
 
 // Define a type for your user, matching the properties provided by Firebase
 export type User = {
@@ -30,8 +34,15 @@ export type User = {
 
 export type UserProviderContextType = {
   user: User | null;
+  updateUserMutation: UseMutateFunction<
+    void,
+    Error,
+    CreateUserProfileProp,
+    unknown
+  >;
+  isLoadingUpdateMutation: boolean;
   logOutUser: () => void;
-  isLoading: boolean;
+  loading: boolean;
   profilePhoto: null | string;
   setProfilePhoto: Dispatch<SetStateAction<string | null>>;
   coverPhoto: null | string;
@@ -54,20 +65,45 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [images, setImages] = useState<ImageFile[]>([]);
 
   const { user, userUid, loading: isLoading } = useUserSession();
-  console.log(user);
+
+  const { data: userData, isPending: isUserLoading } = useQuery({
+    queryKey: ["current-active-user", userUid],
+    queryFn: async () => {
+      const data = await currentAuthUserDetails({ id: userUid! });
+      return { uid: userUid, ...data };
+    },
+    staleTime: 1000 * 60 * 5,
+    enabled: !!userUid,
+  });
+
+  const { mutate: updateUserMutation, isPending: isLoadingUpdateMutation } =
+    useMutation({
+      mutationFn: createUserProfile,
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ["current-active-user", user?.uid],
+        });
+        router.push(`/meet-the-team`);
+      },
+    });
+
+  console.log(userData?.email);
 
   const logOutUser = async () => {
     await signOutHandler();
     router.push("/login");
   };
 
+  const loading = isLoading || isUserLoading;
+
   return (
     <AuthContext.Provider
       value={{
         user,
-
+        updateUserMutation,
+        isLoadingUpdateMutation,
         logOutUser,
-        isLoading,
+        loading,
         profilePhoto,
         setProfilePhoto,
         coverPhoto,
