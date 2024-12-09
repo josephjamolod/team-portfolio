@@ -2,7 +2,7 @@ import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { toast } from "react-toastify";
 import { firebaseAuth } from "./firebase";
 import { FirebaseError } from "firebase/app";
-import { createSession } from "./session";
+import { createSession, deleteSession } from "./session";
 
 export const loginHandler = async (email: string, password: string) => {
   try {
@@ -31,5 +31,6 @@ export const loginHandler = async (email: string, password: string) => {
 
 export const signOutHandler = async () => {
   const res = await signOut(firebaseAuth);
+  await deleteSession();
   return res;
 };
