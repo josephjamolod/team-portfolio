@@ -7,8 +7,6 @@ import {
   useContext,
   useState,
 } from "react";
-import { signOut } from "firebase/auth";
-import { firebaseAuth } from "@/src/lib/firebase/config/firebase";
 import { ImageFile } from "@/components/create-profile-components/uploadTools";
 import {
   QueryObserverResult,
@@ -19,9 +17,6 @@ import {
 } from "@tanstack/react-query";
 
 import { useRouter } from "next/navigation";
-import Loading from "@/app/loading";
-import { fetchUser } from "@/src/lib/firebase/store/users.action";
-import { deleteSession } from "@/src/lib/firebase/config/session";
 import { useUserSession } from "@/hooks/useUserSession";
 import { signOutHandler } from "@/src/lib/firebase/config/auth";
 
@@ -35,9 +30,6 @@ export type User = {
 
 export type UserProviderContextType = {
   user: User | null;
-  // refetch: (
-  //   options?: RefetchOptions
-  // ) => Promise<QueryObserverResult<User | null, Error>>;
   logOutUser: () => void;
   isLoading: boolean;
   profilePhoto: null | string;
@@ -64,41 +56,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { user, userUid, loading: isLoading } = useUserSession();
   console.log(user);
 
-  // const {
-  //   data: user = null,
-  //   isPending: isUserLoading,
-  //   refetch,
-  // } = useQuery({
-  //   queryKey: ["current-auth-user"],
-  //   queryFn: fetchUser,
-  //   staleTime: 1000 * 60 * 5, // Cache user data for 5 minutes
-  // });
-
-  // const { mutate: logOutUser, isPending: isLoadingSignOutMutation } =
-  //   useMutation({
-  //     mutationFn: async () => {
-  //       await signOut(firebaseAuth);
-  //       deleteSession();
-  //       refetch();
-  //       router.push("/login");
-  //     },
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries({
-  //         queryKey: ["current-auth-user"],
-  //       });
-  //     },
-  //   });
-
   const logOutUser = async () => {
     await signOutHandler();
     router.push("/login");
   };
 
-  // const isLoading = isUserLoading || isLoadingSignOutMutation;
-
-  // if (isLoading) {
-  //   return <Loading />; // Or a loading spinner
-  // }
   return (
     <AuthContext.Provider
       value={{
