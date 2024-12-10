@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { IoShieldHalf } from "react-icons/io5";
+import { IoSettingsOutline, IoShieldHalf } from "react-icons/io5";
 
 import {
   DropdownMenu,
@@ -30,11 +30,13 @@ import { Button } from "../ui/button";
 export interface UserAndLogOutUserType {
   user: User | null;
   logOutUser: () => void;
+  isOldDataPresent: boolean | undefined;
 }
 
 export default function ProfileDropdown({
   user,
   logOutUser,
+  isOldDataPresent,
 }: UserAndLogOutUserType) {
   const [position, setPosition] = React.useState("bottom");
 
@@ -67,28 +69,37 @@ export default function ProfileDropdown({
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
 
-        {user && (
-          <Link href={"/create-profile"}>
-            <Button className="w-full   " variant={"outline"}>
-              Create Profile
-            </Button>
-          </Link>
-        )}
+        <div className="flex flex-col gap-y-1">
+          {user && (
+            <Link href={"/create-profile"}>
+              <Button
+                className="w-full flex justify-start pl-12"
+                variant={"outline"}
+              >
+                <IoSettingsOutline />
+                {isOldDataPresent ? "Update Profile" : "Create Profile"}
+              </Button>
+            </Link>
+          )}
 
-        {user ? (
-          <SignOutBtn logOutUser={logOutUser} variant="outline" />
-        ) : (
-          <Link href={"/login"}>
-            <DropdownMenuRadioGroup
-              value={position}
-              onValueChange={setPosition}
-            >
-              <DropdownMenuRadioItem value="bottom" className="cursor-pointer">
-                Sign In
-              </DropdownMenuRadioItem>
-            </DropdownMenuRadioGroup>
-          </Link>
-        )}
+          {user ? (
+            <SignOutBtn logOutUser={logOutUser} variant="outline" />
+          ) : (
+            <Link href={"/login"}>
+              <DropdownMenuRadioGroup
+                value={position}
+                onValueChange={setPosition}
+              >
+                <DropdownMenuRadioItem
+                  value="bottom"
+                  className="cursor-pointer"
+                >
+                  Sign In
+                </DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </Link>
+          )}
+        </div>
       </DropdownMenuContent>
     </DropdownMenu>
   );

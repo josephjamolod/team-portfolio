@@ -11,13 +11,17 @@ import SearchBar from "../header-components/searchBar";
 import { useAuth } from "@/providers/userProvider";
 
 export default function Header() {
-  const { user, logOutUser } = useAuth();
+  const { user, logOutUser, isOldDataPresent } = useAuth();
   return (
     <header className="fixed z-50 w-full flex items-center justify-between h-[74px] border border-b-[#CAC2FF80] pr-5 xl:px-10 bg-white shadow-sm">
       <div className="flex items-center mx-3">
         <ul className="hidden lg:flex gap-x-12 items-center">
           <Image src={logo} alt="logo" height={200} width={200} />
-          <ProfileDropdown user={user} logOutUser={logOutUser} />
+          <ProfileDropdown
+            isOldDataPresent={isOldDataPresent}
+            user={user}
+            logOutUser={logOutUser}
+          />
           <Link
             className="hover:underline text-lg hover:text-muted-foreground duration-300 font-semibold "
             href={"/"}
@@ -54,7 +58,11 @@ export default function Header() {
       <div className="flex lg:hidden w-full justify-between">
         <Image src={logo} alt="logo" height={150} width={150} />
         <div className="flex lg:hidden">
-          <Menu user={user} logOutUser={logOutUser} />
+          <Menu
+            isOldDataPresent={isOldDataPresent}
+            user={user}
+            logOutUser={logOutUser}
+          />
         </div>
       </div>
     </header>

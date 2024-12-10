@@ -1,5 +1,7 @@
 "use client";
 
+import { GoSignOut } from "react-icons/go";
+
 import { Button } from "../ui/button";
 
 type SignOutBtnProps = {
@@ -18,8 +20,13 @@ export default function SignOutBtn({ variant, logOutUser }: SignOutBtnProps) {
     await logOutUser();
   };
   return (
-    <Button className="w-full" variant={variant} onClick={handleSignOut}>
-      Sign Out
+    <Button
+      className="w-full flex lg:justify-start lg:pl-12"
+      variant={variant}
+      onClick={handleSignOut}
+    >
+      <GoSignOut />
+      <span> Sign Out</span>
     </Button>
   );
 }

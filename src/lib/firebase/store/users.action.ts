@@ -9,6 +9,7 @@ import {
   PhotoType,
 } from "@/components/create-profile-components/type";
 import { Service } from "@/components/create-profile-components/(service)/serviceForm";
+import { User } from "@/providers/userProvider";
 
 export const dataURLToBlob = (dataURL: string): Blob => {
   const byteString = atob(dataURL.split(",")[1]);
@@ -145,3 +146,25 @@ export const filterServices = (
   services: Service[],
   serviceId: number
 ): Service[] => services.filter((_, index) => index !== serviceId);
+
+interface ValidateInputsProps {
+  images: [] | ImageFile[];
+  user: User | null;
+}
+
+export const validateInputs = ({
+  images,
+  user,
+}: ValidateInputsProps): boolean => {
+  if (!images || images.length === 0) {
+    toast.error("Please provide image tools");
+    return false;
+  }
+
+  if (!user) {
+    toast.error("User not authenticated");
+    return false;
+  }
+
+  return true;
+};

@@ -25,6 +25,7 @@ import { Textarea } from "../ui/textarea";
 import {
   uploadImageTools,
   uploadPhoto,
+  validateInputs,
 } from "@/src/lib/firebase/store/users.action";
 import UploadTools from "./uploadTools";
 import { useEffect } from "react";
@@ -55,8 +56,11 @@ export default function CreateProfileForm({
   services,
   handleAddService,
   handleDeleteService,
+  isOldDataPresent,
 }: CreateProfileFormPropType) {
   const isLoading = updateUserLoader || loading;
+
+  // console.log(userData);
 
   const form = useForm<z.infer<typeof createProfileSchema>>({
     resolver: zodResolver(createProfileSchema),
@@ -100,40 +104,25 @@ export default function CreateProfileForm({
 
   const onSubmit = async (data: z.infer<typeof createProfileSchema>) => {
     try {
-      // Check if images are provided
-      if (!images || images.length === 0) {
-        toast.error("Please provide image tools");
-        return; // Stop execution if images are missing
-      }
-
-      // Check if user exists
-      if (!user) {
-        toast.error("User not authenticated");
-        return; // Stop execution if user is missing
-      }
-
+      // Validate inputs
+      if (!validateInputs({ images, user })) return;
       // Prepare photo URLs
       const photo = {
         profile: form.getValues("profilePictureUrl"),
         cover: form.getValues("coverPhotoUrl"),
       };
-
       // Upload photos
       const photoLinks = await uploadPhoto({
         profile: photo.profile,
         cover: photo.cover,
       });
-
       // Upload tools
       const tools = await uploadImageTools(images);
-
       // Validate photo URLs
       const isValidProfile = await isValidPhotoUrl(photoLinks?.profileLink);
       const isValidCover = await isValidPhotoUrl(photoLinks?.coverPhotoLink);
-
       if (!isValidCover || !isValidProfile) {
         toast.error("Invalid link for profile or cover photo");
-
         console.log("Invalid photo links");
         return; // Stop execution if photos are invalid
       }
@@ -369,11 +358,17 @@ export default function CreateProfileForm({
               >
                 {updateUserLoader ? (
                   <div className="flex justify-center gap-x-3 items-center">
-                    <span>Creating your profile</span>
+                    <span>
+                      {isOldDataPresent
+                        ? "Updating your profile"
+                        : "Creating your profile"}
+                    </span>
                     <div className="w-4 h-4 border-4 border-t-[#624ced] border-gray-300 rounded-full animate-spin"></div>
                   </div>
                 ) : (
-                  "Create Profile"
+                  <span>
+                    {isOldDataPresent ? "Update Profile" : "Create Profile"}
+                  </span>
                 )}
               </Button>
             </div>

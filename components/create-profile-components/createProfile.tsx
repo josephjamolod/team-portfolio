@@ -6,6 +6,7 @@ import Image from "next/image";
 import ImageUpload from "./imageUpload";
 import CreateProfileForm from "./createProfileForm";
 import { useAuth } from "@/providers/userProvider";
+import Loading from "@/app/loading";
 
 function CreateProfile() {
   const {
@@ -23,17 +24,18 @@ function CreateProfile() {
     userData,
     handleAddService,
     handleDeleteService,
+    isOldDataPresent,
   } = useAuth();
 
-  console.log(userData);
-
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div className="h-full bg-[#efecff93]  py-12 px-4 sm:px-6 lg:px-8 w-full">
       <div className="max-w-3xl h-full mx-auto">
         <div className="bg-white shadow rounded-sm sm:rounded-lg">
           <div className="px-4 md:px-14 py-5">
             <h1 className="text-2xl font-bold text-[#624ced] mb-8">
-              Create Profile
+              {isOldDataPresent ? "Update Profile" : "   Create Profile"}
             </h1>
 
             <div className="space-y-8">
@@ -139,6 +141,7 @@ function CreateProfile() {
               services={services}
               handleAddService={handleAddService}
               handleDeleteService={handleDeleteService}
+              isOldDataPresent={isOldDataPresent}
             >
               <div className="flex items-center w-full justify-center">
                 <Image

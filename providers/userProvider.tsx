@@ -50,6 +50,7 @@ export type UserProviderContextType = {
   isLoadingUpdateMutation: boolean;
   logOutUser: () => void;
   loading: boolean;
+  isOldDataPresent: boolean | undefined;
   profilePhoto: null | string;
   setProfilePhoto: Dispatch<SetStateAction<string | null>>;
   coverPhoto: null | string;
@@ -99,7 +100,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
       setImages([...newFiles]);
       setServices(data?.services as Service[]);
-      return { uid: userUid, ...data } as Staff;
+      return { ...data } as Staff;
     },
     staleTime: 1000 * 60 * 5,
     enabled: !!userUid,
@@ -131,6 +132,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setServices((prev) => filterServices(prev, serviceId));
   };
 
+  const isOldDataPresent = userData && Object.keys(userData).length > 0;
   const loading = isLoading || isUserLoading;
 
   return (
@@ -142,6 +144,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         isLoadingUpdateMutation,
         logOutUser,
         loading,
+        isOldDataPresent,
         profilePhoto,
         setProfilePhoto,
         coverPhoto,

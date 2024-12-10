@@ -26,6 +26,7 @@ export interface CreateProfileFormPropType {
   services: Service[];
   handleAddService: (service: Service) => void;
   handleDeleteService: (serviceId: number) => void;
+  isOldDataPresent: boolean | undefined;
 }
 
 interface PhotoLinks {

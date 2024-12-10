@@ -4,6 +4,7 @@ import logo from "@/public/assets/images/logo.png";
 
 import { Button } from "@/components/ui/button";
 import { LuBellRing } from "react-icons/lu";
+import { IoSettingsOutline } from "react-icons/io5";
 
 import {
   Sheet,
@@ -26,7 +27,11 @@ import SignOutBtn from "../auth-components/signOutBtn";
 import React from "react";
 import { UserAndLogOutUserType } from "../main-components/profileDropdown";
 
-export function Menu({ user, logOutUser }: UserAndLogOutUserType) {
+export function Menu({
+  user,
+  logOutUser,
+  isOldDataPresent,
+}: UserAndLogOutUserType) {
   // const { user, logOutUser } = useAuth();
 
   return (
@@ -78,12 +83,24 @@ export function Menu({ user, logOutUser }: UserAndLogOutUserType) {
         <SheetFooter>
           <SheetClose asChild>
             {user ? (
-              <SignOutBtn logOutUser={logOutUser} variant="default" />
+              <div className="w-full flex flex-col gap-y-4">
+                {" "}
+                {user && (
+                  <Link href={"/create-profile"}>
+                    <Button className="w-full   " variant={"default"}>
+                      <IoSettingsOutline />
+                      {isOldDataPresent ? "Update Profile" : "Create Profile"}
+                    </Button>
+                  </Link>
+                )}
+                <SignOutBtn logOutUser={logOutUser} variant="default" />
+              </div>
             ) : (
               <Social cn="text-2xl" />
             )}
           </SheetClose>
         </SheetFooter>
+
         {!user && (
           <div className="flex flex-col gap-y-2 pt-4">
             <label className="text-[#b071ec] text-xs">Staff Only</label>
