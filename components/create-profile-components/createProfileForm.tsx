@@ -27,14 +27,13 @@ import {
   uploadPhoto,
 } from "@/src/lib/firebase/store/users.action";
 import UploadTools from "./uploadTools";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { isValidPhotoUrl } from "@/schema/validators";
 import { toast } from "react-toastify";
 
-import { Service } from "./(service)/serviceForm";
-import ServiceForm from "./(service)/serviceForm";
+import ServiceForm, { Service } from "./(service)/serviceForm";
 import ServiceList from "./(service)/serviceList";
-import { formDefaultVals, resetFormValues } from "@/contants";
+import { formDefaultVals, renderDataAsDefVal } from "@/contants";
 import { CreateProfileFormPropType } from "./type";
 import FormFieldInput from "./FormFieldInput";
 import { FirebaseError } from "firebase/app";
@@ -54,59 +53,56 @@ export default function CreateProfileForm({
   images,
   setImages,
   services,
-  setServices,
+  handleAddService,
+  handleDeleteService,
 }: CreateProfileFormPropType) {
-  // const [services, setServices] = useState<Service[]>([]);
   const isLoading = updateUserLoader || loading;
-
-  const filterServices = (services: Service[], serviceId: number): Service[] =>
-    services.filter((_, index) => index !== serviceId);
-
-  const handleAddService = (service: Service) => {
-    setServices((prev) => [...prev, service]);
-  };
-
-  const handleDeleteService = (serviceId: number) => {
-    setServices((prev) => filterServices(prev, serviceId));
-  };
 
   const form = useForm<z.infer<typeof createProfileSchema>>({
     resolver: zodResolver(createProfileSchema),
     defaultValues: {
       ...formDefaultVals,
+      services: services as Service[],
     },
   });
 
-  const { reset } = form;
+  // Render the old data (if there is) of the user to the Inputs
+  useEffect(() => {
+    if (userData) {
+      renderDataAsDefVal(form.reset, userData);
+    }
+  }, [userData, form.reset]);
 
   useEffect(() => {
-    resetFormValues(reset, userData);
     form.setValue("services", services);
-    if (services.length !== 0 && form.formState.errors.services) {
+    if (services?.length !== 0 && form.formState.errors.services) {
       form.clearErrors("services");
     }
+  }, [services, form]);
 
+  useEffect(() => {
     if (profilePhoto) {
       form.setValue("profilePictureUrl", profilePhoto);
       if (form.formState.errors.profilePictureUrl) {
         form.clearErrors("profilePictureUrl");
       }
     }
+  }, [profilePhoto, form]);
 
+  useEffect(() => {
     if (coverPhoto) {
       form.setValue("coverPhotoUrl", coverPhoto);
       if (form.formState.errors.coverPhotoUrl) {
         form.clearErrors("coverPhotoUrl");
       }
     }
-  }, [profilePhoto, coverPhoto, form, services, userData, reset]);
+  }, [coverPhoto, form]);
 
   const onSubmit = async (data: z.infer<typeof createProfileSchema>) => {
     try {
       // Check if images are provided
       if (!images || images.length === 0) {
         toast.error("Please provide image tools");
-
         return; // Stop execution if images are missing
       }
 
@@ -141,24 +137,13 @@ export default function CreateProfileForm({
         console.log("Invalid photo links");
         return; // Stop execution if photos are invalid
       }
-
-      // Create user profile
-      // const response = await createUserProfile({
-      //   data,
-      //   photoLinks,
-      //   tools,
-      //   user,
-      // });
       updateUser({
         data,
         photoLinks,
         tools,
         user,
       });
-
       toast.success("User created successfully!");
-
-      // router.push(response.)
     } catch (error) {
       // Handle Firebase errors specifically
       if (error instanceof FirebaseError) {
@@ -275,7 +260,7 @@ export default function CreateProfileForm({
                     Your services
                   </h1>
                   <ServiceForm onAddService={handleAddService} />
-                  {services.length != 0 && (
+                  {services && services.length != 0 && (
                     <h2 className="text-2xl font-bold mb-6 text-gray-800">
                       Services :{" "}
                       <span className="text-[#624ced] font-bold">
@@ -287,7 +272,7 @@ export default function CreateProfileForm({
                   <span className="text-sm text-red-500 block">
                     {form.formState.errors.services?.message}
                   </span>
-                  {services.length != 0 && (
+                  {services && services.length != 0 && (
                     <div className="max-h-[30vh] overflow-y-auto pr-2 bg-[#efecff] rounded-lg p-4 mb-4">
                       <ServiceList
                         services={services}

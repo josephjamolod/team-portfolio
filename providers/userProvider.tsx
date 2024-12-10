@@ -5,6 +5,7 @@ import {
   Dispatch,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from "react";
 import { ImageFile } from "@/components/create-profile-components/uploadTools";
@@ -21,7 +22,10 @@ import {
   currentAuthUserDetails,
   signOutHandler,
 } from "@/src/lib/firebase/config/auth";
-import { createUserProfile } from "@/src/lib/firebase/store/users.action";
+import {
+  createUserProfile,
+  filterServices,
+} from "@/src/lib/firebase/store/users.action";
 import { CreateUserProfileProp } from "@/components/create-profile-components/type";
 import { Staff } from "@/components/searchPerson-components/SearchPerson";
 import { Service } from "@/components/create-profile-components/(service)/serviceForm";
@@ -53,7 +57,8 @@ export type UserProviderContextType = {
   images: ImageFile[] | [];
   setImages: Dispatch<SetStateAction<ImageFile[]>>;
   services: Service[];
-  setServices: Dispatch<SetStateAction<Service[]>>;
+  handleAddService: (service: Service) => void;
+  handleDeleteService: (serviceId: number) => void;
 };
 
 // Create the AuthContext object
@@ -67,10 +72,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
   const [coverPhoto, setCoverPhoto] = useState<string | null>(null);
-  const [images, setImages] = useState<ImageFile[]>([]);
   const [services, setServices] = useState<Service[]>([]);
-
+  const [images, setImages] = useState<ImageFile[]>([]);
   const { user, userUid, loading: isLoading } = useUserSession();
+
+  // Reset states when `userUid` changes
+  useEffect(() => {
+    if (!userUid) {
+      setProfilePhoto(null);
+      setCoverPhoto(null);
+      setServices([]);
+      setImages([]);
+    }
+  }, [userUid]);
 
   const { data: userData, isPending: isUserLoading } = useQuery({
     queryKey: ["current-active-user", userUid],
@@ -78,20 +92,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const data = await currentAuthUserDetails({ id: userUid! });
       setCoverPhoto(data?.coverSrc as string);
       setProfilePhoto(data?.profileSrc as string);
-      // Map tools (string[]) to ImageFile objects with preview
       const newFiles: ImageFile[] = (data?.tools || []).map((tool) => {
         return {
-          preview: tool, // Use tool string as preview
+          preview: tool,
         } as ImageFile;
       });
-
-      setImages([...newFiles]); // Correctly update the images
+      setImages([...newFiles]);
       setServices(data?.services as Service[]);
       return { uid: userUid, ...data } as Staff;
     },
     staleTime: 1000 * 60 * 5,
     enabled: !!userUid,
   });
+
+  // console.log(userData);
 
   const { mutate: updateUserMutation, isPending: isLoadingUpdateMutation } =
     useMutation({
@@ -104,11 +118,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       },
     });
 
-  console.log(userData?.email);
-
   const logOutUser = async () => {
     await signOutHandler();
     router.push("/login");
+  };
+
+  const handleAddService = (service: Service) => {
+    setServices((prev: Service[]) => (prev ? [...prev, service] : [service]));
+  };
+
+  const handleDeleteService = (serviceId: number) => {
+    setServices((prev) => filterServices(prev, serviceId));
   };
 
   const loading = isLoading || isUserLoading;
@@ -129,7 +149,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         images,
         setImages,
         services,
-        setServices,
+        handleAddService,
+        handleDeleteService,
       }}
     >
       {children}

@@ -24,7 +24,8 @@ export interface CreateProfileFormPropType {
   setImages: Dispatch<SetStateAction<ImageFile[]>>;
   images: ImageFile[] | [];
   services: Service[];
-  setServices: Dispatch<SetStateAction<Service[]>>;
+  handleAddService: (service: Service) => void;
+  handleDeleteService: (serviceId: number) => void;
 }
 
 interface PhotoLinks {

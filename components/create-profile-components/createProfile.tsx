@@ -20,8 +20,9 @@ function CreateProfile() {
     loading,
     isLoadingUpdateMutation,
     services,
-    setServices,
     userData,
+    handleAddService,
+    handleDeleteService,
   } = useAuth();
 
   console.log(userData);
@@ -136,7 +137,8 @@ function CreateProfile() {
               images={images}
               setImages={setImages}
               services={services}
-              setServices={setServices}
+              handleAddService={handleAddService}
+              handleDeleteService={handleDeleteService}
             >
               <div className="flex items-center w-full justify-center">
                 <Image

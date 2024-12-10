@@ -8,6 +8,7 @@ import {
   CreateUserProfileProp,
   PhotoType,
 } from "@/components/create-profile-components/type";
+import { Service } from "@/components/create-profile-components/(service)/serviceForm";
 
 export const dataURLToBlob = (dataURL: string): Blob => {
   const byteString = atob(dataURL.split(",")[1]);
@@ -136,18 +137,11 @@ export const createUserProfile = async ({
     tools,
     timestamp: serverTimestamp(),
   };
-
   // Save the document to Firestore
   await setDoc(userDocRef, userProfileData);
-
-  // Fetch the saved document to verify and log
-  // const savedDoc = await getDoc(userDocRef);
-
-  // if (savedDoc.exists()) {
-  //   console.log("Document data from Firebase:", savedDoc.data());
-  //   return savedDoc.data() as Staff; // Return the data for further processing if needed
-  // } else {
-  //   console.log("No document found in Firebase.");
-  //   return null;
-  // }
 };
+
+export const filterServices = (
+  services: Service[],
+  serviceId: number
+): Service[] => services.filter((_, index) => index !== serviceId);

@@ -13,10 +13,10 @@ export const formDefaultVals = {
   websiteUrl: "",
   whatsappNumber: { countryCode: "PH", number: "" },
   youtubeUrl: "",
-  services: [],
+  // services: [],
 };
 
-export const resetFormValues = (
+export const renderDataAsDefVal = (
   reset: UseFormReset<z.infer<typeof createProfileSchema>>, // Replace with your schema
   userData: Staff | undefined
 ) => {
