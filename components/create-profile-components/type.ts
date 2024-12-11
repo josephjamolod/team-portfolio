@@ -29,7 +29,7 @@ export interface CreateProfileFormPropType {
   isOldDataPresent: boolean | undefined;
 }
 
-interface PhotoLinks {
+export interface PhotoLinks {
   coverPhotoLink: string | null;
   profileLink: string | null;
 }

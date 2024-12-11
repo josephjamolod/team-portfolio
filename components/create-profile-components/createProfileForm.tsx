@@ -23,21 +23,21 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "../ui/textarea";
 import {
+  isHttpUrl,
   uploadImageTools,
   uploadPhoto,
   validateInputs,
 } from "@/src/lib/firebase/store/users.action";
 import UploadTools from "./uploadTools";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { isValidPhotoUrl } from "@/schema/validators";
 import { toast } from "react-toastify";
 
 import ServiceForm, { Service } from "./(service)/serviceForm";
 import ServiceList from "./(service)/serviceList";
 import { formDefaultVals, renderDataAsDefVal } from "@/contants";
-import { CreateProfileFormPropType } from "./type";
+import { CreateProfileFormPropType, PhotoLinks } from "./type";
 import FormFieldInput from "./FormFieldInput";
-import { FirebaseError } from "firebase/app";
 import FormFieldPhoneInput from "./inputNumber";
 
 import { cn } from "@/lib/utils";
@@ -58,7 +58,8 @@ export default function CreateProfileForm({
   handleDeleteService,
   isOldDataPresent,
 }: CreateProfileFormPropType) {
-  const isLoading = updateUserLoader || loading;
+  const [formLoading, setFormLoading] = useState(false);
+  const isLoading = updateUserLoader || loading || formLoading;
 
   // console.log(userData);
 
@@ -104,42 +105,81 @@ export default function CreateProfileForm({
 
   const onSubmit = async (data: z.infer<typeof createProfileSchema>) => {
     try {
-      // Validate inputs
-      if (!validateInputs({ images, user })) return;
-      // Prepare photo URLs
+      setFormLoading(true);
+
+      if (!validateInputs({ images, user })) {
+        setFormLoading(false);
+        return;
+      }
+
       const photo = {
         profile: form.getValues("profilePictureUrl"),
         cover: form.getValues("coverPhotoUrl"),
       };
-      // Upload photos
-      const photoLinks = await uploadPhoto({
-        profile: photo.profile,
-        cover: photo.cover,
-      });
-      // Upload tools
-      const tools = await uploadImageTools(images);
-      // Validate photo URLs
-      const isValidProfile = await isValidPhotoUrl(photoLinks?.profileLink);
-      const isValidCover = await isValidPhotoUrl(photoLinks?.coverPhotoLink);
-      if (!isValidCover || !isValidProfile) {
-        toast.error("Invalid link for profile or cover photo");
-        console.log("Invalid photo links");
-        return; // Stop execution if photos are invalid
+
+      let photoLinks: PhotoLinks = {
+        profileLink: photo.profile || "",
+        coverPhotoLink: photo.cover || "",
+      };
+
+      // Check if profile and cover are already links
+      if (!isHttpUrl(photo.profile) || !isHttpUrl(photo.cover)) {
+        const uploadedPhotos = await uploadPhoto({
+          profile: !isHttpUrl(photo.profile) ? photo.profile : "",
+          cover: !isHttpUrl(photo.cover) ? photo.cover : "",
+        });
+
+        photoLinks = {
+          profileLink: uploadedPhotos?.profileLink || photoLinks.profileLink,
+          coverPhotoLink:
+            uploadedPhotos?.coverPhotoLink || photoLinks.coverPhotoLink,
+        };
       }
-      updateUser({
-        data,
-        photoLinks,
-        tools,
-        user,
-      });
-      toast.success("User created successfully!");
-    } catch (error) {
-      // Handle Firebase errors specifically
-      if (error instanceof FirebaseError) {
-        toast.error("Something went wrong creating your profile");
+
+      if (
+        !(await isValidPhotoUrl(photoLinks.profileLink)) ||
+        !(await isValidPhotoUrl(photoLinks.coverPhotoLink))
+      ) {
+        toast.error("Invalid photo links");
+        setFormLoading(false);
+        return;
+      }
+
+      const isAllLinks = images.every((image) => isHttpUrl(image.preview));
+
+      if (isAllLinks) {
+        // Call updateUser directly with images as links
+        await updateUser({
+          data,
+          photoLinks,
+          tools: images.map((item) => item.preview) as string[], // Pass images directly
+          user,
+        });
       } else {
-        console.error("Unexpected error:", error);
+        // Filter for Blobs and upload them
+        const imagesToUpload = images.filter((image) => {
+          return image.croppedImage && !isHttpUrl(image.croppedImage);
+        });
+
+        const tools =
+          imagesToUpload.length > 0
+            ? await uploadImageTools(imagesToUpload)
+            : [];
+
+        await updateUser({
+          data,
+          photoLinks,
+          tools, // Pass tools after uploading
+          user,
+        });
       }
+
+      toast.success("User updated successfully!");
+    } catch (error) {
+      console.error("Error: ", error);
+      toast.error("Failed to update profile. Please try again.");
+    } finally {
+      setFormLoading(false);
     }
   };
 

@@ -106,6 +106,13 @@ export const uploadImageTools = async (
   }
 };
 
+export const isHttpUrl = (url: string | undefined): boolean => {
+  if (!url || typeof url !== "string") {
+    return false; // Return false if url is undefined or not a string
+  }
+  return url.startsWith("http://") || url.startsWith("https://");
+};
+
 export const createUserProfile = async ({
   data,
   user,
