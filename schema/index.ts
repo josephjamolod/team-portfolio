@@ -9,12 +9,12 @@ export const loginSchema = z.object({
 export const serviceSchema = z.object({
   name: z
     .string()
-    .min(15, "Service name is required")
+    .min(10, "Service name is required")
     .max(100, "Service name must be less than 100 characters"),
   description: z
     .string()
-    .min(50, "Service description is required")
-    .max(500, "Service description must be less than 500 characters"),
+    .min(20, "Service description is required")
+    .max(1000, "Service description must be less than 500 characters"),
   perHour: z.number().positive("Please add rate"),
   isActive: z.boolean(),
 });

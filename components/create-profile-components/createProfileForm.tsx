@@ -150,20 +150,21 @@ export default function CreateProfileForm({
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="space-y-5">
-              <span className="text-sm text-red-500 block">
-                {form.formState.errors.profilePictureUrl?.message
-                  ? "Profile is required"
-                  : ""}
-              </span>
-              <span className="text-sm text-red-500 block">
-                {form.formState.errors.coverPhotoUrl?.message
-                  ? "Cover is required"
-                  : ""}
-              </span>
-
               <h1 className="text-2xl font-bold mb-6 text-gray-800">
                 Profile Info
               </h1>
+              <div className="flex gap-y-2 flex-col">
+                <span className="text-sm text-red-500 block">
+                  {form.formState.errors.profilePictureUrl?.message
+                    ? "Profile is required"
+                    : ""}
+                </span>
+                <span className="text-sm text-red-500 block">
+                  {form.formState.errors.coverPhotoUrl?.message
+                    ? "Cover is required"
+                    : ""}
+                </span>
+              </div>
               <div className="flex flex-col lg:flex-row gap-y-5 gap-x-5">
                 {/* Name input field */}
                 <FormFieldInput
@@ -259,7 +260,8 @@ export default function CreateProfileForm({
                     </h2>
                   )}
                   <span className="text-sm text-red-500 block">
-                    {form.formState.errors.services?.message}
+                    {form.formState.errors.services?.message &&
+                      "Please provide your service"}
                   </span>
                   {services && services.length != 0 && (
                     <div className="max-h-[30vh] overflow-y-auto pr-2 bg-[#efecff] rounded-lg p-4 mb-4">
