@@ -17,7 +17,7 @@ export const Calendly = () => {
   }
 
   return (
-    <div className="border rounded-full bg-[#6434d3] text-secondary py-2 px-4 w-fit font-semibold hover:shadow-lg mb-4">
+    <div className="border rounded-full bg-[#6434d3] hover:bg-[#5139edb5] text-secondary dark:text-white py-2 px-4 w-fit font-semibold hover:shadow-lg mb-4 transition-colors duration-300">
       <PopupButton
         url="https://calendly.com/josephjam627"
         rootElement={rootElement}
