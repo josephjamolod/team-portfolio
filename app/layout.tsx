@@ -45,9 +45,9 @@ export default function RootLayout({
           <QueryProvider>
             <AuthProvider>
               {/* <GridBackgroundDemo /> */}
-              {/* <div className="main -z-10 dark:bg-black">
+              <div className=" -z-10 dark:bg-black">
                 <div className="gradient dark:bg-black" />
-              </div> */}
+              </div>
               <Header />
               {children}
             </AuthProvider>

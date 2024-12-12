@@ -2,16 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.main {
-  width: 100vw;
-  min-height: 100vh;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  padding: 120px 24px 160px 24px;
-  pointer-events: none;
-}
-
 /* global.css */
 
 p {
@@ -104,28 +94,6 @@ p {
   border: 2px solid #0f0d0c; /* Solid red inner border */
   border-radius: 25px; /* Match button's rounded corners */
   z-index: -2; /* Send the solid border behind the button */
-}
-
-.main:before {
-  background: radial-gradient(circle, rgba(2, 0, 36, 0) 0, #fafafaab 10%);
-  position: absolute;
-  content: "";
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  top: 0;
-}
-
-.main:after {
-  content: "";
-  background-image: url("/assets/images/grid.svg");
-  z-index: 1;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  /* opacity: 0.4; */
-  filter: invert(1);
 }
 
 .gradient {
