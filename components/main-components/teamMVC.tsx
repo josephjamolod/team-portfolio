@@ -10,27 +10,35 @@ import commitment from "@/public/assets/images/commitment.png";
 import mission from "@/public/assets/images/mission.png";
 import vision from "@/public/assets/images/vision.png";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 
 export default function TeamMVC() {
+  const { theme } = useTheme();
+
+  const isDarkMode = theme === "dark";
   return (
     <div className="pb-10">
       <VerticalTimeline>
         <VerticalTimelineElement
           contentStyle={{
-            background: "#EFECFF",
-            color: "#b075eb",
-            border: "solid #b075eb",
+            background: isDarkMode ? "hsl(var(--secondary))" : "#EFECFF", // Dark gray for dark mode, light purple otherwise
+            color: isDarkMode ? "#ffffff" : "#b075eb", // Text color for dark and light modes
+            border: `solid 1.5px ${isDarkMode ? "#4b5563" : "#b075eb"}`,
           }}
-          contentArrowStyle={{ borderRight: "7px solid #b075eb" }}
+          contentArrowStyle={{
+            borderRight: `7px solid ${
+              isDarkMode ? "hsl(var(--secondary))" : "#b075eb"
+            }`,
+          }}
           date={<Image src={mission} height={500} width={500} alt="mission" />}
           iconStyle={{
-            background: "#fff",
+            background: isDarkMode ? "hsl(var(--secondary))" : "#fff",
             color: "#b075eb",
             border: "solid #b075eb ",
           }}
           icon={<FaCheckCircle />}
         >
-          <h3 className="vertical-timeline-element-title font-bold text-4xl gradient-text">
+          <h3 className="vertical-timeline-element-title font-bold text-4xl gradient-text dark:bg-gradient-to-r dark:from-purple-500 dark:via-indigo-500 dark:to-cyan-400">
             Our Mission
           </h3>
           <p className="text-base lg:text-xl leading-loose tracking-wider text-primary">
@@ -42,20 +50,24 @@ export default function TeamMVC() {
         </VerticalTimelineElement>
         <VerticalTimelineElement
           contentStyle={{
-            background: "#EFECFF",
-            color: "#b075eb",
-            border: "solid #b075eb",
+            background: isDarkMode ? "hsl(var(--secondary))" : "#EFECFF", // Dark gray for dark mode, light purple otherwise
+            color: isDarkMode ? "#ffffff" : "#b075eb", // Text color for dark and light modes
+            border: `solid 1.5px ${isDarkMode ? "#4b5563" : "#b075eb"}`,
           }}
-          contentArrowStyle={{ borderRight: "7px solid #b075eb" }}
-          date={<Image src={vision} height={500} width={500} alt="vision" />}
+          contentArrowStyle={{
+            borderRight: `7px solid ${
+              isDarkMode ? "hsl(var(--secondary))" : "#b075eb"
+            }`,
+          }}
+          date={<Image src={vision} height={500} width={500} alt="mission" />}
           iconStyle={{
-            background: "#fff",
+            background: isDarkMode ? "hsl(var(--secondary))" : "#fff",
             color: "#b075eb",
-            border: "solid #b075eb",
+            border: "solid #b075eb ",
           }}
           icon={<FaCheckCircle />}
         >
-          <h3 className="vertical-timeline-element-title font-bold text-4xl gradient-text">
+          <h3 className="vertical-timeline-element-title font-bold text-4xl gradient-text dark:bg-gradient-to-r dark:from-purple-500 dark:via-indigo-500 dark:to-cyan-400">
             Our Vision
           </h3>
           <p className="text-base lg:text-xl leading-loose tracking-wider text-primary">
@@ -67,22 +79,26 @@ export default function TeamMVC() {
         </VerticalTimelineElement>
         <VerticalTimelineElement
           contentStyle={{
-            background: "#EFECFF",
-            color: "#b075eb",
-            border: "solid #b075eb",
+            background: isDarkMode ? "hsl(var(--secondary))" : "#EFECFF", // Dark gray for dark mode, light purple otherwise
+            color: isDarkMode ? "#ffffff" : "#b075eb", // Text color for dark and light modes
+            border: `solid 1.5px ${isDarkMode ? "#4b5563" : "#b075eb"}`,
           }}
-          contentArrowStyle={{ borderRight: "7px solid #b075eb" }}
+          contentArrowStyle={{
+            borderRight: `7px solid ${
+              isDarkMode ? "hsl(var(--secondary))" : "#b075eb"
+            }`,
+          }}
           date={
-            <Image src={commitment} height={500} width={500} alt="commitment" />
+            <Image src={commitment} height={500} width={500} alt="mission" />
           }
           iconStyle={{
-            background: "#fff",
+            background: isDarkMode ? "hsl(var(--secondary))" : "#fff",
             color: "#b075eb",
-            border: "solid #b075eb",
+            border: "solid #b075eb ",
           }}
           icon={<FaCheckCircle />}
         >
-          <h3 className="vertical-timeline-element-title font-bold text-4xl gradient-text">
+          <h3 className="vertical-timeline-element-title font-bold text-4xl gradient-text dark:bg-gradient-to-r dark:from-purple-500 dark:via-indigo-500 dark:to-cyan-400">
             Our Commitment
           </h3>
           <p className="text-base lg:text-xl leading-loose tracking-wider text-primary">
