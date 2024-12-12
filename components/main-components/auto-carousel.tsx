@@ -24,8 +24,8 @@ import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 
 enum Color {
-  Primary = "text-primary",
-  Secondary = "text-secondary",
+  Primary = "text-black",
+  Secondary = "text-white",
 }
 
 interface ItemsType {
