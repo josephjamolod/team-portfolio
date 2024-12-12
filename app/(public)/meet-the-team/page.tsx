@@ -28,9 +28,9 @@ export default async function MeetTheTeam() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center  pt-20">
       <GridBackgroundDemo />
-
+      {/* <div className="absolute h-full w-full dark:visible invisible bg-black -z-[2]"></div> */}
       <MainTitle />
-      <div className="h-full w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  justify-center md:px-10 3xl:px-32">
+      <div className="h-full w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  justify-center md:px-10 3xl:px-32 pb-4">
         {profileData.length > 0 ? (
           profileData.map((staff) => (
             <ThreeDCard key={staff.id} staff={staff} />
