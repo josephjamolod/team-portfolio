@@ -9,6 +9,7 @@ import ProfileDropdown from "./profileDropdown";
 import { Menu } from "../header-components/menu";
 import SearchBar from "../header-components/searchBar";
 import { useAuth } from "@/providers/userProvider";
+import { ModeToggle } from "../header-components/themeToggle";
 
 export default function Header() {
   const { user, logOutUser, isOldDataPresent } = useAuth();
@@ -16,6 +17,7 @@ export default function Header() {
     <header className="fixed z-50 w-full flex items-center justify-between h-[74px] border border-b-[#CAC2FF80] pr-5 xl:px-10 bg-white shadow-sm">
       <div className="flex items-center mx-3">
         <ul className="hidden lg:flex gap-x-12 items-center">
+          <ModeToggle />
           <Image src={logo} alt="logo" height={200} width={200} />
           <ProfileDropdown
             isOldDataPresent={isOldDataPresent}

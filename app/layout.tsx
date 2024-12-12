@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "@/providers/userProvider";
 import { QueryProvider } from "@/providers/query-provider";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,20 +31,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html suppressHydrationWarning lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ToastContainer />
-        <QueryProvider>
-          <AuthProvider>
-            <div className="main -z-10">
-              <div className="gradient" />
-            </div>
-            <Header />
-            {children}
-          </AuthProvider>
-        </QueryProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ToastContainer />
+          <QueryProvider>
+            <AuthProvider>
+              {/* <GridBackgroundDemo /> */}
+              {/* <div className="main -z-10 dark:bg-black">
+                <div className="gradient dark:bg-black" />
+              </div> */}
+              <Header />
+              {children}
+            </AuthProvider>
+          </QueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
