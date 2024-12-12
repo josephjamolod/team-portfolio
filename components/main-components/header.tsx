@@ -48,12 +48,14 @@ export default function Header() {
           </Button>
         </Link>
 
-        <Button
-          variant={"ghost"}
-          className="rounded-full h-11 text-base primary-button hover:bg-[#5139edb5] hover:text-white transition-colors duration-300"
-        >
-          Connect
-        </Button>
+        <Link href={"/connect"}>
+          <Button
+            variant={"ghost"}
+            className="rounded-full h-11 text-base primary-button hover:bg-[#5139edb5] hover:text-white transition-colors duration-300"
+          >
+            Connect
+          </Button>
+        </Link>
       </div>
       <div className="flex lg:hidden w-full justify-between">
         <Image src={logo} alt="logo" height={150} width={150} />
