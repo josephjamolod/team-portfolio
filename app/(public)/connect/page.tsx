@@ -4,7 +4,7 @@ import React from "react";
 
 export default function Connect() {
   return (
-    <div className="">
+    <div className="min-h-screen w-full bg-white">
       <WorldMapDemo />
     </div>
   );

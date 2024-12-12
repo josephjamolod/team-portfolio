@@ -5,7 +5,7 @@ import { Calendly } from "./calendly";
 
 export function WorldMapDemo() {
   return (
-    <div className=" py-40 dark:bg-black bg-white w-full fixed">
+    <div className=" py-40 dark:bg-black bg-white fixed w-full">
       <div className="max-w-7xl mx-auto text-center flex flex-col items-center justify-center">
         <p className="font-bold text-xl md:text-4xl dark:text-white text-[#6434d3]">
           Remote{" "}

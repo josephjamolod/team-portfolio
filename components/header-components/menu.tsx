@@ -68,7 +68,7 @@ export function Menu({
               Services
             </SheetTrigger>
           </Link>
-          <Link href={"#"}>
+          <Link href={"/connect"}>
             <SheetTrigger className="border rounded-md shadow-sm font-medium w-full hover:bg-accent h-9 px-4 py-2 items-center flex justify-center">
               Connect
             </SheetTrigger>

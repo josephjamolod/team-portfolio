@@ -16,8 +16,8 @@ interface CompanyType {
 const aboutUs: AboutUsTye[] = [
   { label: "Services", href: "#services" },
   { label: "Why Choose Us", href: "#why-choose-us" },
-  { label: "Meet The Team", href: "#" },
-  { label: "Let's Connect", href: "#" },
+  { label: "Meet The Team", href: "/meet-the-team" },
+  { label: "Let's Connect", href: "/connect" },
 ];
 
 const company: CompanyType[] = [
