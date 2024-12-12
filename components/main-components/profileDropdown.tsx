@@ -13,8 +13,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Image from "next/image";
-import memoji from "@/public/assets/images/memoji.png";
 
 import {
   Tooltip,
@@ -26,6 +24,7 @@ import Link from "next/link";
 import SignOutBtn from "../auth-components/signOutBtn";
 import { User } from "@/providers/userProvider";
 import { Button } from "../ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export interface UserAndLogOutUserType {
   user: User | null;
@@ -42,17 +41,19 @@ export default function ProfileDropdown({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="border-2 rounded-full border-[#8676eeb5] double-gradient-border focus:outline-[#8676eeb5] ">
+      <DropdownMenuTrigger className=" rounded-full ">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Image
-                src={memoji}
-                alt="profile"
-                width={45}
-                height={45}
-                className="bg-[#EFECFF] rounded-full cursor-pointer"
-              />
+              <div className="p-[4px] gradient-bg rounded-full dark:bg-gradient-to-r dark:from-purple-500 dark:via-indigo-500 dark:to-cyan-400">
+                <Avatar>
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="@shadcn"
+                  />
+                  <AvatarFallback>D</AvatarFallback>
+                </Avatar>
+              </div>
             </TooltipTrigger>
             <TooltipContent>
               <p className="text-xs">Log In as User</p>
@@ -60,6 +61,7 @@ export default function ProfileDropdown({
           </Tooltip>
         </TooltipProvider>
       </DropdownMenuTrigger>
+
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel className="text-[#b071ec] flex items-center gap-x-2">
           <span className="text-2xl">
