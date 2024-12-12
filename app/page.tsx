@@ -9,6 +9,9 @@ export default function Main() {
   return (
     <main className="h-auto overflow-hidden">
       <div>
+        <div className=" -z-10 ">
+          <div className="gradient " />
+        </div>
         <About />
         <AutoCarousel />
         <Services />

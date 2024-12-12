@@ -44,10 +44,6 @@ export default function RootLayout({
           <ToastContainer />
           <QueryProvider>
             <AuthProvider>
-              {/* <GridBackgroundDemo /> */}
-              <div className=" -z-10 dark:bg-black">
-                <div className="gradient dark:bg-black" />
-              </div>
               <Header />
               {children}
             </AuthProvider>
