@@ -129,3 +129,26 @@ export const messages: whyChooseUsTpye[] = [
       "Our clients are at the heart of everything we do. We prioritize your needs and work collaboratively to achieve your goals.",
   },
 ];
+
+// footer
+interface AboutUsTye {
+  label: string;
+  href: string;
+}
+
+interface CompanyType {
+  label: string;
+  href: string;
+}
+
+export const aboutUs: AboutUsTye[] = [
+  { label: "Services", href: "#services" },
+  { label: "Why Choose Us", href: "#why-choose-us" },
+  { label: "Meet The Team", href: "/meet-the-team" },
+  { label: "Let's Connect", href: "/connect" },
+];
+
+export const company: CompanyType[] = [
+  { label: "FAQs", href: "#" },
+  { label: "Terms & Condition", href: "#" },
+];
