@@ -122,7 +122,9 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
                 <input type="checkbox" />
                 <span>Remember Password</span>
               </div>
-              <p className="text-xs text-[#624ced]">Forgot your password?</p>
+              <Link href={"/contact-mod"} className="text-xs text-[#624ced]">
+                Forgot your password?
+              </Link>
             </div>
             <Button
               type="submit"
@@ -146,7 +148,7 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
       <CardFooter>
         <p className="flex gap-x-1 items-center justify-center text-xs text-muted-foreground w-full pt-2">
           <span>Don&#39;t Have an Account?</span>
-          <Link className="text-[#624ced]" href={"/"}>
+          <Link className="text-[#624ced]" href={"/contact-mod"}>
             Contact Moderator
           </Link>
         </p>
