@@ -53,7 +53,7 @@ p {
 }
 
 .vertical-timeline::before {
-  background: #b075eb !important;
+  background: #6652ee !important;
 }
 
 @layer base {

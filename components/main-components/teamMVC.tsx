@@ -22,19 +22,19 @@ export default function TeamMVC() {
         <VerticalTimelineElement
           contentStyle={{
             background: isDarkMode ? "hsl(var(--secondary))" : "#EFECFF", // Dark gray for dark mode, light purple otherwise
-            color: isDarkMode ? "#ffffff" : "#b075eb", // Text color for dark and light modes
-            border: `solid 1.5px ${isDarkMode ? "#4b5563" : "#b075eb"}`,
+            color: isDarkMode ? "#ffffff" : "#6652ee", // Text color for dark and light modes
+            border: `solid 1.5px ${isDarkMode ? "#4b5563" : "#6652ee"}`,
           }}
           contentArrowStyle={{
             borderRight: `7px solid ${
-              isDarkMode ? "hsl(var(--secondary))" : "#b075eb"
+              isDarkMode ? "hsl(var(--secondary))" : "#6652ee"
             }`,
           }}
           date={<Image src={mission} height={500} width={500} alt="mission" />}
           iconStyle={{
             background: isDarkMode ? "hsl(var(--secondary))" : "#fff",
-            color: "#b075eb",
-            border: "solid #b075eb ",
+            color: "#6652ee",
+            border: "solid #6652ee ",
           }}
           icon={<FaCheckCircle />}
         >
@@ -51,19 +51,19 @@ export default function TeamMVC() {
         <VerticalTimelineElement
           contentStyle={{
             background: isDarkMode ? "hsl(var(--secondary))" : "#EFECFF", // Dark gray for dark mode, light purple otherwise
-            color: isDarkMode ? "#ffffff" : "#b075eb", // Text color for dark and light modes
-            border: `solid 1.5px ${isDarkMode ? "#4b5563" : "#b075eb"}`,
+            color: isDarkMode ? "#ffffff" : "#6652ee", // Text color for dark and light modes
+            border: `solid 1.5px ${isDarkMode ? "#4b5563" : "#6652ee"}`,
           }}
           contentArrowStyle={{
             borderRight: `7px solid ${
-              isDarkMode ? "hsl(var(--secondary))" : "#b075eb"
+              isDarkMode ? "hsl(var(--secondary))" : "#6652ee"
             }`,
           }}
           date={<Image src={vision} height={500} width={500} alt="mission" />}
           iconStyle={{
             background: isDarkMode ? "hsl(var(--secondary))" : "#fff",
-            color: "#b075eb",
-            border: "solid #b075eb ",
+            color: "#6652ee",
+            border: "solid #6652ee ",
           }}
           icon={<FaCheckCircle />}
         >
@@ -80,12 +80,12 @@ export default function TeamMVC() {
         <VerticalTimelineElement
           contentStyle={{
             background: isDarkMode ? "hsl(var(--secondary))" : "#EFECFF", // Dark gray for dark mode, light purple otherwise
-            color: isDarkMode ? "#ffffff" : "#b075eb", // Text color for dark and light modes
-            border: `solid 1.5px ${isDarkMode ? "#4b5563" : "#b075eb"}`,
+            color: isDarkMode ? "#ffffff" : "#6652ee", // Text color for dark and light modes
+            border: `solid 1.5px ${isDarkMode ? "#4b5563" : "#6652ee"}`,
           }}
           contentArrowStyle={{
             borderRight: `7px solid ${
-              isDarkMode ? "hsl(var(--secondary))" : "#b075eb"
+              isDarkMode ? "hsl(var(--secondary))" : "#6652ee"
             }`,
           }}
           date={
@@ -93,8 +93,8 @@ export default function TeamMVC() {
           }
           iconStyle={{
             background: isDarkMode ? "hsl(var(--secondary))" : "#fff",
-            color: "#b075eb",
-            border: "solid #b075eb ",
+            color: "#6652ee",
+            border: "solid #6652ee ",
           }}
           icon={<FaCheckCircle />}
         >
