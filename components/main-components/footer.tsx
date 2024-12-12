@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
-import logo from "@/public/assets/images/logo.png";
 import Social from "../footer-components/social";
+import Logo from "../logo";
 
 interface AboutUsTye {
   label: string;
@@ -30,7 +29,7 @@ export default function Footer() {
     <main className=" mt-40  border border-[#b071ec] bg-[#efecff]  text-sm">
       <div className="grid grid-cols-1 md:grid-cols-4 px-10 lg:px-52 h-full gap-8 pt-20">
         <ul className=" h-full flex flex-col gap-y-4">
-          <Image src={logo} alt="logo" height={175} width={175} />
+          <Logo size="text-2xl" />
           <h3 className="pr-4 font-medium md:font-normal">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit dolore magna
             aliqua.

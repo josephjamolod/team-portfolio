@@ -1,6 +1,6 @@
 "use client";
 
-import logo from "@/public/assets/images/logo.png";
+// import logo from "@/public/assets/images/logo.png";
 
 import { Button } from "@/components/ui/button";
 import { LuBellRing } from "react-icons/lu";
@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/sheet";
 import { DropdownMenuSeparator } from "../ui/dropdown-menu";
 import { IoShieldHalf } from "react-icons/io5";
-import Image from "next/image";
 import Social from "../footer-components/social";
 import Link from "next/link";
 import SearchBar from "./searchBar";
@@ -26,6 +25,7 @@ import SearchBar from "./searchBar";
 import SignOutBtn from "../auth-components/signOutBtn";
 import React from "react";
 import { UserAndLogOutUserType } from "../main-components/profileDropdown";
+import Logo from "../logo";
 
 export function Menu({
   user,
@@ -41,7 +41,7 @@ export function Menu({
       </SheetTrigger>
 
       <SheetContent className="py-8">
-        {!user && <Image src={logo} alt="logo" height={150} width={150} />}
+        {!user && <Logo size="text-2xl" />}
         <SheetHeader className={`${user ? "flex" : "hidden"}`}>
           <SheetTitle className="flex items-center justify-center gap-x-2">
             Reminder
@@ -54,7 +54,7 @@ export function Menu({
         </SheetHeader>
 
         <div className="grid gap-4 py-6 mb-2 mx-2">
-          <SearchBar margin="mx-0" />
+          <SearchBar />
 
           <DropdownMenuSeparator />
 

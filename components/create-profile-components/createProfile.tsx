@@ -1,12 +1,13 @@
 "use client";
 
-import logo from "@/public/assets/images/logo.png";
+// import logo from "@/public/assets/images/logo.png";
 import React from "react";
 import Image from "next/image";
 import ImageUpload from "./imageUpload";
 import CreateProfileForm from "./createProfileForm";
 import { useAuth } from "@/providers/userProvider";
 import Loading from "@/app/loading";
+import Logo from "../logo";
 
 function CreateProfile() {
   const {
@@ -144,13 +145,7 @@ function CreateProfile() {
               isOldDataPresent={isOldDataPresent}
             >
               <div className="flex items-center w-full justify-center">
-                <Image
-                  src={logo}
-                  alt="logo"
-                  height={150}
-                  width={150}
-                  className=""
-                />
+                <Logo size="text-2xl" />
               </div>
             </CreateProfileForm>
           </div>
