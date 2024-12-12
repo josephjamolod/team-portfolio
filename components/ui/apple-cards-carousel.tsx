@@ -125,18 +125,18 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
         </div>
         <div className="flex justify-end gap-2 mr-10">
           <button
-            className="relative z-40 h-10 w-10 rounded-full bg-[#efecff] flex items-center justify-center disabled:opacity-50 border border-[#6434d3]"
+            className="relative z-40 h-10 w-10 rounded-full bg-[#efecff]  flex items-center justify-center disabled:opacity-50 border border-[#6434d3] dark:bg-secondary dark:border-[#6652ee] "
             onClick={scrollLeft}
             disabled={!canScrollLeft}
           >
-            <FaArrowLeft className="h-6 w-6 text-[#6434d3]" />
+            <FaArrowLeft className="h-6 w-6 text-[#6434d3] dark:text-white" />
           </button>
           <button
-            className="relative z-40 h-10 w-10 rounded-full bg-[#efecff] flex items-center justify-center disabled:opacity-50 border border-[#6434d3]"
+            className="relative z-40 h-10 w-10 rounded-full bg-[#efecff] flex items-center justify-center disabled:opacity-50 border border-[#6434d3] dark:bg-secondary dark:border-[#6652ee] "
             onClick={scrollRight}
             disabled={!canScrollRight}
           >
-            <FaArrowRight className="h-6 w-6 text-[#6434d3]" />
+            <FaArrowRight className="h-6 w-6 text-[#6434d3] dark:text-white" />
           </button>
         </div>
       </div>
