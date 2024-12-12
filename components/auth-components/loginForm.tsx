@@ -66,7 +66,7 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
   });
 
   return (
-    <Card className="w-full shadow-md p-5  md:p-10 h-full flex flex-col justify-center rounded-l-none rounded-r-md">
+    <Card className="w-full shadow-md p-5 bg-secondary  md:p-10 h-full flex flex-col justify-center rounded-l-none rounded-r-md">
       <CardHeader> {children}</CardHeader>
       <CardContent className="pb-0 ">
         <Form {...form}>
@@ -78,7 +78,7 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
                 render={({ field }) => (
                   <FormItem>
                     <div className="flex items-center justify-between">
-                      <FormLabel className="text-black text-xs">
+                      <FormLabel className="text-primary text-xs">
                         Email Address
                       </FormLabel>
                       <FormMessage className="text-xs" />
@@ -88,7 +88,7 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
                         {...field}
                         type="email"
                         placeholder="Email"
-                        className="text-xs h-10 bg-[#efecff] rounded-xl focus:outline-none focus:border-[#b071ec]"
+                        className="text-xs h-10 bg-[#efecff] dark:bg-black focus:outline-none focus:border-[#6652ee]"
                       />
                     </FormControl>
                   </FormItem>
@@ -100,7 +100,7 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
                 render={({ field }) => (
                   <FormItem>
                     <div className="flex items-center justify-between">
-                      <FormLabel className="text-black text-xs">
+                      <FormLabel className="text-primary text-xs">
                         Password
                       </FormLabel>
                       <FormMessage className="text-xs" />
@@ -110,7 +110,7 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
                         {...field}
                         type="password"
                         placeholder="Password"
-                        className="text-xs h-10 bg-[#efecff] rounded-xl focus:outline-none focus:border-[#b071ec]"
+                        className="text-xs h-10 bg-[#efecff] dark:bg-black focus:outline-none focus:border-[#6652ee]"
                       />
                     </FormControl>
                   </FormItem>
@@ -122,13 +122,13 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
                 <input type="checkbox" />
                 <span>Remember Password</span>
               </div>
-              <Link href={"/contact-mod"} className="text-xs text-[#624ced]">
+              <Link href={"/contact-mod"} className="text-xs text-[#6652ee]">
                 Forgot your password?
               </Link>
             </div>
             <Button
               type="submit"
-              className="w-full rounded-full hover:opacity-85   h-8 bg-gradient-to-r from-[#988ce6] to-[#624ced] font-light  mt-[20px] transform transition-opacity duration-300"
+              className="bg-gradient-to-r w-full mt-[20px]  from-indigo-500 to-[#6434d3] text-white font-bold py-2 px-4 rounded-md pt-1 hover:shadow-lg"
               variant={"default"}
               size={"lg"}
               disabled={isPending}
@@ -136,7 +136,7 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
               {isPending ? (
                 <div className="flex justify-center gap-x-3 items-center">
                   <span>Signing In</span>
-                  <div className="w-4 h-4 border-4 border-t-[#624ced] border-gray-300 rounded-full animate-spin"></div>
+                  <div className="w-4 h-4 border-4 border-t-[#6652ee] border-gray-300 rounded-full animate-spin"></div>
                 </div>
               ) : (
                 "Sign In"
@@ -148,7 +148,7 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
       <CardFooter>
         <p className="flex gap-x-1 items-center justify-center text-xs text-muted-foreground w-full pt-2">
           <span>Don&#39;t Have an Account?</span>
-          <Link className="text-[#624ced]" href={"/contact-mod"}>
+          <Link className="text-[#6652ee]" href={"/contact-mod"}>
             Contact Moderator
           </Link>
         </p>
