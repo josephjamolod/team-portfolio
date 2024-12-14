@@ -50,14 +50,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
       onOpenChange={setIsOpen}
       className={cn(
         "relative h-full transition-all duration-300 ease-in-out",
-        isOpen ? "w-[340px] 2xl:w-[500px]" : "w-20"
+        isOpen ? "w-[340px] md:w-[450px] 2xl:w-[500px]" : "w-20"
       )}
     >
       <CollapsibleTrigger className="hidden lg:flex absolute -right-3 top-[137px] z-10 h-6 w-6 lg:h-8 lg:w-8 items-center justify-center rounded-full border border-[#624ced] text-[#624ced] text-2xl bg-[#efecff] shadow-sm">
         {isOpen ? <FiChevronLeft /> : <FiChevronRight />}
       </CollapsibleTrigger>
 
-      <aside className="h-full bg-white border-r border-gray-200 flex flex-col flex-shrink-0 overflow-hidden">
+      <aside className="h-full bg-white dark:bg-black border-r border-gray-200 flex flex-col flex-shrink-0 overflow-hidden">
         {/* Mobile Close Button */}
         {onClose && (
           <button
@@ -83,28 +83,28 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
             isPro={true}
           />
 
-          <div className="2xl:py-4 2xl:px-14 p-4 space-y-3">
+          <div className="md:px-14 p-4 space-y-3">
             <ActionButton
               icon={<FiMail className="w-5 h-5" />}
               label="Get In Touch"
               onClick={() => {}}
             />
 
-            <div className="flex items-center text-sm text-gray-600">
+            <div className="flex items-center text-sm text-muted-foreground">
               <FiStar className="w-4 h-4 mr-2 flex-shrink-0" />
               <span>Typically responds within 24 hours</span>
             </div>
           </div>
 
-          <div className="2xl:py-4 2xl:px-14 p-4 border-t border-gray-200">
-            <h3 className="text-sm font-medium text-gray-500 uppercase mb-3">
+          <div className="md:px-14 p-4 border-t border-gray-200">
+            <h3 className="text-sm font-medium text-muted-foreground uppercase mb-3">
               Contact Number:
             </h3>
-            <div className="flex  items-center gap-x-4 text-lg font-medium text-gray-900">
+            <div className="flex  items-center gap-x-4 text-lg font-medium text-primary">
               <button className=" text-2xl scale-100 hover:scale-110 transition-transform duration-300">
                 <TiPhone />
               </button>
-              <span className="font-medium text-gray-900 flex items-center">
+              <span className="font-medium text-primary flex items-center">
                 <Flag
                   code={staff.contactNumber.countryCode}
                   style={{
@@ -118,8 +118,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
             </div>
           </div>
 
-          <div className="2xl:py-4 2xl:px-14 p-4 border-t border-gray-200">
-            <h3 className="text-sm font-medium text-gray-500 uppercase mb-3">
+          <div className="md:px-14 p-4 border-t border-gray-200">
+            <h3 className="text-sm font-medium text-muted-foreground uppercase mb-3">
               Social Links:
             </h3>
             <ProfileStats
@@ -130,11 +130,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
               x={staff.twitterSrc}
               web={staff.websiteSrc}
               yt={staff.youtubeSrc}
-              whatsApp={staff.whatsappNumber}
+              whatsApp={staff.whatsappNumber.number}
             />
           </div>
 
-          <div className="2xl:py-4 2xl:px-14 p-4 border-t border-gray-200">
+          <div className="md:px-14 p-4 border-t border-gray-200">
             <ProfileTabs tabs={tabs} onTabChange={setActiveTab} />
             {activeTab === "Tools" ? (
               <ToolsTab tools={staff.tools} />

@@ -17,7 +17,7 @@ export const StaffCard: React.FC<StaffCardProps> = ({
   return (
     <div
       onClick={onClick}
-      className={`bg-white rounded-lg shadow-sm p-6 cursor-pointer transition-all
+      className={`bg-white dark:bg-black rounded-lg shadow-sm p-6 cursor-pointer transition-all
         ${isSelected ? "ring-2 ring-[#624ced] shadow-md" : "hover:shadow-md"}`}
     >
       <div className="flex items-center gap-4 mb-4">
@@ -31,7 +31,7 @@ export const StaffCard: React.FC<StaffCardProps> = ({
           />
         </div>
         <div>
-          <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2 capitalize">
+          <h2 className="text-xl font-bold text-primary flex items-center gap-2 capitalize">
             {staff.name + " " + staff.lastname}
 
             <Badge
@@ -41,12 +41,14 @@ export const StaffCard: React.FC<StaffCardProps> = ({
               AVAILABLE
             </Badge>
           </h2>
-          <p className="text-gray-600 text-base font-medium">
+          <p className="text-gray-600 dark:text-muted-foreground text-base font-medium">
             {staff.position}
           </p>
         </div>
       </div>
-      <p className="text-gray-600 text-base">{staff.serviceDescription}</p>
+      <p className="text-gray-600 dark:text-muted-foreground text-base">
+        {staff.serviceDescription}
+      </p>
     </div>
   );
 };

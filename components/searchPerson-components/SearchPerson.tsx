@@ -77,7 +77,7 @@ function SearchPerson() {
   }, [users, searchQuery]);
 
   return (
-    <div className="flex flex-col lg:flex-row w-full min-h-screen bg-gray-50  overflow-hidden">
+    <div className="flex flex-col lg:flex-row w-full min-h-screen  overflow-hidden">
       {/* Mobile Overlay */}
       {isSidebarOpen && (
         <div
@@ -93,19 +93,19 @@ function SearchPerson() {
         }`}
       >
         {loading ? (
-          <div className="px-14 relative h-full transition-all duration-300 flex flex-col gap-y-4 items-center bg-white ease-in-out iw-[340px] 2xl:w-[500px] pt-28">
-            <Skeleton className="h-32 w-32 rounded-full" />
-            <Skeleton className="h-6 w-[250px]" />
-            <Skeleton className="h-12 w-[400px] mt-6" />
-            <Skeleton className="h-4 w-[250px] place-self-start" />
-            <Skeleton className="h-20 w-[400px] mt-4" />
-            <Skeleton className="h-20 w-[400px] mt-4" />
-            <div className="flex px-8 gap-x-4 pt-4 items-start justify-start w-full">
-              <Skeleton className="h-6 w-[50px]" />
-              <Skeleton className="h-6 w-[50px]" />
+          <div className="px-14 relative h-full transition-all duration-300 flex flex-col gap-y-4 items-center bg-white dark:bg-black ease-in-out iw-[340px] 2xl:w-[500px] pt-28">
+            <Skeleton className="h-32 w-32 rounded-full dark:bg-secondary" />
+            <Skeleton className="h-6 w-[250px]  dark:bg-secondary" />
+            <Skeleton className="h-12 w-[400px] mt-6 dark:bg-secondary" />
+            <Skeleton className="h-4 w-[250px] place-self-start dark:bg-secondary" />
+            <Skeleton className="h-20 w-[400px] mt-4 dark:bg-secondary" />
+            <Skeleton className="h-20 w-[400px] mt-4 dark:bg-secondary" />
+            <div className="flex px-8 gap-x-4 pt-4 items-start justify-start w-full ">
+              <Skeleton className="h-6 w-[50px] dark:bg-secondary" />
+              <Skeleton className="h-6 w-[50px] dark:bg-secondary" />
             </div>
 
-            <Skeleton className="h-80 w-80 " />
+            <Skeleton className="h-80 w-80 dark:bg-secondary" />
           </div>
         ) : (
           selectedUser && (
@@ -121,7 +121,7 @@ function SearchPerson() {
       <main className="flex-1 p-4 lg:p-8 ">
         <div className=" mx-auto pt-16">
           <div className="flex items-center justify-between mb-8">
-            <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">
+            <h1 className="text-3xl lg:text-4xl font-bold text-primary">
               DOLOMAJ&prime;S STAFF
             </h1>
             <button
@@ -157,7 +157,7 @@ function SearchPerson() {
           <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
           {loading ? (
-            <div className="space-y-4 lg:space-y-6 grid grid-cols-1 border border-none rounded-lg bg-gray-200 max-h-[600px] overflow-hidden overflow-y-auto p-4">
+            <div className="space-y-4 lg:space-y-6 grid grid-cols-1 border border-none rounded-lg bg-gray-200 dark:bg-gray-800 max-h-[600px] overflow-hidden overflow-y-auto p-4">
               {[1, 2, 3].map((_, i) => {
                 return (
                   <div key={i} className="flex flex-col  ">
@@ -183,7 +183,7 @@ function SearchPerson() {
               </p>
             </div>
           ) : (
-            <div className="space-y-4 lg:space-y-6 grid grid-cols-1 border border-none rounded-lg bg-gray-200 max-h-[600px] overflow-hidden overflow-y-auto p-4">
+            <div className="space-y-4 lg:space-y-6 grid grid-cols-1 border border-none rounded-lg bg-gray-200 dark:bg-secondary max-h-[600px] overflow-hidden overflow-y-auto p-4">
               {filteredUsers.map((user) => (
                 <StaffCard
                   key={user.id}

@@ -15,7 +15,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
     <button
       onClick={onClick}
       className={
-        "w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition-colors bg-[#624ced] text-secondary hover:bg-[#5a46d8] shadow-sm"
+        "w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition-colors bg-[#624ced] text-white hover:bg-[#5a46d8] shadow-sm"
       }
     >
       {icon}

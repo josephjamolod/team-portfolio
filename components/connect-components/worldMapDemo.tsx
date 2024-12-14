@@ -23,7 +23,7 @@ export function WorldMapDemo() {
             ))}
           </span>
         </p>
-        <p className="text-sm md:text-lg text-neutral-500 max-w-2xl mx-auto py-4">
+        <p className="text-sm md:text-lg text-neutral-500 dark:text-muted-foreground max-w-2xl mx-auto py-4">
           <span className="block">
             Plan to connect your business remotely? DOLOMAJ is your best choice!
           </span>

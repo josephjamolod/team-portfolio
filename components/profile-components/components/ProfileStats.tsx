@@ -43,7 +43,7 @@ export const ProfileStats: React.FC<ProfileStatsProps> = ({
   ];
 
   return (
-    <div className=" flex flex-col gap-y-2 items-center ">
+    <div className=" flex flex-col gap-y-2 items-center text-primary ">
       <div className="flex w-full   justify-between">
         {sources.map((source, index) => {
           return (

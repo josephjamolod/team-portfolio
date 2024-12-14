@@ -25,13 +25,15 @@ export const ProfileTabs: React.FC<ProfileTabsProps> = ({
             onClick={() => onTabChange(tab.name)}
             className={clsx(
               "py-4 relative",
-              tab.isActive ? "text-black" : "text-gray-500 hover:text-gray-700"
+              tab.isActive
+                ? "text-primary"
+                : "text-gray-500 hover:text-gray-700"
             )}
           >
             <span className="flex items-center gap-2">
               {tab.name}
               {tab.count !== undefined && (
-                <span className="bg-purple-100 text-purple-600 px-2 py-0.5 rounded-full text-sm">
+                <span className="bg-purple-100 dark:bg-secondary text-purple-600 dark:text-purple-100 dark:border dark:border-purple-600 px-2 py-0.5 rounded-full text-sm">
                   {tab.count}
                 </span>
               )}

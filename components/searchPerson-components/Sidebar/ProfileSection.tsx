@@ -16,7 +16,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
   isPro,
 }) => {
   return (
-    <div className="md:py-6 md:px-14 p-6 bg-white ">
+    <div className="md:py-6 md:px-14 p-6  ">
       <div className="relative w-32 h-32 place-self-center">
         <Image
           src={imageUrl}
@@ -33,7 +33,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
         </Badge>
       </div>
       <div className="mt-4 text-center">
-        <h2 className="text-2xl font-bold text-gray-900 flex items-center justify-center gap-2 capitalize">
+        <h2 className="text-2xl font-bold text-primary flex items-center justify-center gap-2 capitalize">
           {name}
           {isPro && (
             <Badge
