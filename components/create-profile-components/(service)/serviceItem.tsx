@@ -9,28 +9,28 @@ interface ServiceItemProps {
 
 const ServiceItem: React.FC<ServiceItemProps> = ({ service, onDelete, id }) => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col">
+    <div className="bg-white dark:bg-black p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col">
       <button
         type="button"
         onClick={() => onDelete(id)}
-        className="self-end text-red-600 hover:text-red-800 p-2 rounded-full hover:bg-red-100 transition-colors"
+        className="self-end text-red-600 hover:text-red-800 dark:hover:text-red-200 p-2 rounded-full hover:bg-red-100 dark:hover:bg-red-950 transition-colors"
         aria-label="Delete service"
       >
         <DeleteIcon />
       </button>
       <div className="flex-1">
-        <h3 className="font-medium text-gray-800 whitespace-normal break-words pb-2 px-2 capitalize">
+        <h3 className="font-medium text-primary whitespace-normal break-words pb-2 px-2 capitalize">
           {service.name}
         </h3>
         <hr className="border-[#624ced]" />
-        <p className="text-gray-600 text-base mt-1 whitespace-normal break-words px-2">
+        <p className="text-muted-foreground text-base mt-1 whitespace-normal break-words px-2">
           {service.description}
         </p>
         <p className="text-base p-2 flex gap-x-2 items-center">
           <span className="text-sm">Per hour:</span>{" "}
           <span>$ {service.perHour}</span>{" "}
           {service.isActive ? (
-            <span className="border border-green-400 bg-emerald-100 text-sm  px-2 rounded-lg">
+            <span className="border border-green-400 bg-emerald-100 text-sm text-black  px-2 rounded-lg">
               Active
             </span>
           ) : (

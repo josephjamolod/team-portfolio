@@ -110,39 +110,43 @@ export default function UploadTools({
 
   return (
     <div className="max-w-4xl mx-auto ">
-      <h1 className="text-2xl font-bold mb-6 text-gray-800">Tool Expertise</h1>
+      <h1 className="text-2xl font-bold mb-6 text-primary">Tool Expertise</h1>
       <div className="flex justify-between items-center mb-4">
         <div className="flex flex-col items-center md:flex-row gap-x-2 text-sm font-medium text-muted-foreground">
           <span> Images uploaded: </span>
           <p>
-            <span className="text-[#624ced] font-bold">{images.length}</span>{" "}
-            out of <span className="text-[#624ced] font-bold">12</span>
+            <span className="text-[#6652ee] font-bold">{images.length}</span>{" "}
+            out of <span className="text-[#6652ee] font-bold">12</span>
           </p>
         </div>
         {images.length > 0 && (
-          <Button onClick={clearAllImages} variant={"destructive"}>
+          <Button
+            onClick={clearAllImages}
+            variant={"destructive"}
+            className="bg-red-600"
+          >
             <FiTrash2 />
             Clear All
           </Button>
         )}
       </div>
 
-      <div className="bg-[#efecff] rounded-lg p-4 mb-4">
+      <div className="bg-[#efecff] dark:bg-secondary rounded-lg p-4 mb-4">
         <div
           {...getRootProps()}
-          className={`border-2 border-dashed rounded-lg p-8 bg-white text-center cursor-pointer transition-colors mb-8
+          className={`border-2 border-dashed rounded-lg p-8 bg-white dark:bg-black text-center cursor-pointer transition-colors mb-8
           ${
             isDragActive
-              ? "border-[#624ced] bg-[#efecff]"
-              : "border-gray-300 hover:border-[#624ced]"
+              ? "border-[#6652ee] bg-[#efecff]"
+              : "border-gray-300 hover:border-[#6652ee]"
           }`}
         >
           <input {...getInputProps()} />
           <FiUpload className="mx-auto h-12 w-12 text-gray-400" />
-          <p className="mt-2 text-sm text-[#624ced]">
+          <p className="mt-2 text-sm text-[#6652ee]">
             Drag and drop images here, or click to select files
           </p>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-muted-foreground mt-1">
             Maximum 12 photos allowed
           </p>
         </div>
@@ -176,7 +180,7 @@ export default function UploadTools({
                 type="button"
                 ref={cancelRef}
                 onClick={() => removeImage(index)}
-                className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute top-2 right-2 p-1 bg-red-600 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
               >
                 <FiX />
               </button>

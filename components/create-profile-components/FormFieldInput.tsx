@@ -40,7 +40,7 @@ const FormFieldInput = <T extends FieldValues>({
       render={({ field }) => (
         <FormItem className="flex-1">
           <div className="flex items-center justify-between">
-            <FormLabel className="flex gap-x-2 text-black text-xs">
+            <FormLabel className="flex gap-x-2 text-primary text-xs">
               <span> {label}</span>
               {!optional && <span className="text-red-500">*</span>}
             </FormLabel>
@@ -50,7 +50,7 @@ const FormFieldInput = <T extends FieldValues>({
               {...field}
               type={type}
               placeholder={placeholder}
-              className={`text-xs h-10 rounded-none bg-[#efecff] focus:outline-none focus:border-[#b071ec] ${
+              className={`text-xs h-10 rounded-none bg-[#efecff] dark:bg-secondary focus:outline-none focus:border-[#b071ec] ${
                 formState.errors[name] && "border-red-500"
               } ${className}`}
             />

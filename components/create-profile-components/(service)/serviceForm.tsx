@@ -85,7 +85,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onAddService }) => {
   };
 
   return (
-    <div className="bg-[#efecff] rounded-lg p-4 mb-4">
+    <div className="bg-[#efecff] dark:bg-secondary rounded-lg p-4 mb-4">
       <div className="space-y-4">
         <FormInput
           id="serviceName"
@@ -107,7 +107,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onAddService }) => {
           <div className="flex px-2 items-center mt-2 gap-x-2">
             <label
               htmlFor="servicePerHour"
-              className="font-medium text-black text-xs"
+              className="font-medium text-primary text-xs"
             >
               <span className="pr-2">Per hour:</span>
               <input
@@ -153,7 +153,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onAddService }) => {
         <Button
           type="button"
           onClick={handleSubmit}
-          className="w-full rounded-md hover:opacity-100 opacity-85 h-12 text-xl hover:shadow-lg bg-gradient-to-r from-[#988ce6] to-[#624ced] mt-[20px] transform transition-opacity duration-300"
+          className="w-full rounded-md hover:opacity-100 opacity-85 h-12 text-xl bg-[#624ced] hover:bg-[#5643d1] hover:shadow-lg mt-[20px] transform transition-opacity text-white duration-300"
         >
           Add Service
         </Button>

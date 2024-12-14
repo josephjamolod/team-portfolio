@@ -8,6 +8,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+import { useTheme } from "next-themes";
 
 interface FormFieldPhoneInputProps<T extends FieldValues> {
   control: Control<T>;
@@ -32,7 +33,10 @@ const FormFieldPhoneInput = <T extends FieldValues>({
   country = "ph",
   isOptional = false,
 }: FormFieldPhoneInputProps<T>) => {
+  const { theme } = useTheme();
   const { formState } = useFormContext<T>();
+
+  const isDarkMode = theme === "dark";
 
   const handlePhoneChange = (
     value: string,
@@ -68,9 +72,13 @@ const FormFieldPhoneInput = <T extends FieldValues>({
               inputStyle={{
                 fontSize: "0.875rem", // text-xs
                 height: "2.5rem", // h-10
-                backgroundColor: "#efecff", // bg-[#efecff]
+                backgroundColor: isDarkMode
+                  ? "hsl(var(--secondary))"
+                  : "#efecff", // bg-[#efecff]
                 border: formState.errors[name]
                   ? "1.5px solid #f87171" // Red border if error
+                  : isDarkMode
+                  ? "1.5px solid hsl(var(--secondary))"
                   : "1.5px solid #e4e8ee", // Default border
                 borderRadius: 0,
                 width: "100%", // w-full

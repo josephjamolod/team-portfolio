@@ -190,7 +190,7 @@ export default function CreateProfileForm({
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="space-y-5">
-              <h1 className="text-2xl font-bold mb-6 text-gray-800">
+              <h1 className="text-2xl font-bold mb-6 text-primary">
                 Profile Info
               </h1>
               <div className="flex gap-y-2 flex-col">
@@ -252,7 +252,7 @@ export default function CreateProfileForm({
                 label="Position"
                 placeholder="Your position"
               />
-              <div className="bg-[#efecff] rounded-lg p-4 mb-4">
+              <div className="bg-[#efecff]  dark:bg-secondary rounded-lg p-4 mb-4">
                 {/* About Yourseld text area */}
                 <FormField
                   control={form.control}
@@ -260,7 +260,7 @@ export default function CreateProfileForm({
                   render={({ field }) => (
                     <FormItem>
                       <div className="flex items-center justify-between">
-                        <FormLabel className=" flex gap-x-2 text-black text-xs">
+                        <FormLabel className=" flex gap-x-2 text-primary text-xs">
                           <span>About Yourself</span>
                           <span className="text-red-500">*</span>
                         </FormLabel>
@@ -269,7 +269,7 @@ export default function CreateProfileForm({
                         <Textarea
                           {...field}
                           placeholder="Self Description . . ."
-                          className={`text-xs  rounded-none resize-none h-32  bg-white focus:outline-none focus:border-[#b071ec] ${
+                          className={`text-xs  rounded-none resize-none h-32  bg-white dark:bg-black focus:outline-none focus:border-[#b071ec] ${
                             form.formState.errors.email && "border-red-500"
                           }`}
                         />
@@ -286,12 +286,12 @@ export default function CreateProfileForm({
               {/* Add services input field */}
               <div className="w-full ">
                 <div className=" rounded-xl ">
-                  <h1 className="text-2xl font-bold mb-6 text-gray-800">
+                  <h1 className="text-2xl font-bold mb-6 text-primary">
                     Your services
                   </h1>
                   <ServiceForm onAddService={handleAddService} />
                   {services && services.length != 0 && (
-                    <h2 className="text-2xl font-bold mb-6 text-gray-800">
+                    <h2 className="text-2xl font-bold mb-6 text-primary">
                       Services :{" "}
                       <span className="text-[#624ced] font-bold">
                         {" "}
@@ -304,7 +304,7 @@ export default function CreateProfileForm({
                       "Please provide your service"}
                   </span>
                   {services && services.length != 0 && (
-                    <div className="max-h-[30vh] overflow-y-auto pr-2 bg-[#efecff] rounded-lg p-4 mb-4">
+                    <div className="max-h-[30vh] overflow-y-auto pr-2 bg-[#efecff] dark:bg-secondary rounded-lg p-4 mb-4">
                       <ServiceList
                         services={services}
                         onDeleteService={handleDeleteService}
@@ -314,7 +314,7 @@ export default function CreateProfileForm({
                 </div>
               </div>
               <UploadTools images={images} setImages={setImages} />
-              <h1 className="text-2xl font-bold mb-6 text-gray-800">
+              <h1 className="text-2xl font-bold mb-6 text-primary">
                 Social Links
               </h1>
               <div className="flex flex-col lg:flex-row gap-y-5 gap-x-5">
@@ -392,7 +392,7 @@ export default function CreateProfileForm({
                 type="submit"
                 disabled={isLoading}
                 className={cn(
-                  "w-full rounded-md h-12 text-xl mt-[20px] transform transition-opacity duration-300",
+                  "w-full rounded-md h-12 text-xl mt-[20px] text-white transform transition-opacity duration-300",
                   isLoading
                     ? "bg-[#7a6ff1] opacity-80 cursor-not-allowed" // Lighter color and disabled styles when loading
                     : "bg-[#624ced] hover:bg-[#5643d1] hover:shadow-lg"

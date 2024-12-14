@@ -31,11 +31,11 @@ function CreateProfile() {
   return loading ? (
     <Loading />
   ) : (
-    <div className="h-full bg-[#efecff93]  py-12 px-4 sm:px-6 lg:px-8 w-full">
+    <div className="h-full bg-[#efecff93] dark:bg-secondary  py-12 px-4 sm:px-6 lg:px-8 w-full">
       <div className="max-w-3xl h-full mx-auto">
-        <div className="bg-white shadow rounded-sm sm:rounded-lg">
+        <div className="bg-white dark:bg-black shadow rounded-sm sm:rounded-lg">
           <div className="px-4 md:px-14 py-5">
-            <h1 className="text-2xl font-bold text-[#624ced] mb-8">
+            <h1 className="text-2xl font-bold text-[#6652ee] mb-8">
               {isOldDataPresent ? "Update Profile" : "   Create Profile"}
             </h1>
 
@@ -90,7 +90,7 @@ function CreateProfile() {
                           <Image
                             src={profilePhoto}
                             alt="Profile"
-                            className=" object-cover border-4 border-white shadow-lg"
+                            className=" object-cover border-4 border-secondary shadow-lg"
                             fill
                           />
                         </div>

@@ -21,7 +21,7 @@ const FormInput: React.FC<FormInputProps> = ({
     <div>
       <label
         htmlFor={id}
-        className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black text-xs"
+        className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-primary text-xs"
       >
         {label}
       </label>
