@@ -60,7 +60,8 @@ export default function Header() {
       </div>
       <div className="flex lg:hidden w-full justify-between">
         <Logo size="text-2xl" />
-        <div className="flex lg:hidden">
+        <div className="flex lg:hidden gap-x-2">
+          <ModeToggle />
           <Menu
             isOldDataPresent={isOldDataPresent}
             user={user}
