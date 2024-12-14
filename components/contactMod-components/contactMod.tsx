@@ -7,17 +7,21 @@ export default function ContactMod() {
   return (
     /* From Uiverse.io by themrsami */
     <div className="flex flex-col items-center justify-center h-screen">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Send Message</h2>
+      <div className="w-full max-w-md bg-secondary rounded-lg shadow-md p-6">
+        <h2 className="text-2xl font-bold text-primary mb-4">Send Message</h2>
         <form className="flex flex-col gap-y-2">
           <SelectDemo />
-          <Input type="email" placeholder="Email" />
+          <Input
+            type="email"
+            placeholder="Email"
+            className="dark:border-muted-foreground"
+          />
           <Textarea
-            className="resize-none h-44"
-            placeholder="Type your message here."
+            className="resize-none h-44 dark:border-muted-foreground"
+            placeholder="Type your message here. "
           />
           <div className="flex items-center justify-between flex-wrap">
-            <p className="text-gray-900  text-sm">
+            <p className="text-primary  text-sm">
               Dont have an account or forgot password?
             </p>
           </div>

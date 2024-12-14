@@ -13,7 +13,7 @@ import {
 export function SelectDemo() {
   return (
     <Select>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-[180px] dark:border-muted-foreground">
         <SelectValue placeholder="Select a concern" />
       </SelectTrigger>
       <SelectContent>
