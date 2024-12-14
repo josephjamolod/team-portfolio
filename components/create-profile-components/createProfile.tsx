@@ -43,7 +43,7 @@ function CreateProfile() {
               {/* Cover Photo Container */}
               <div className="relative">
                 {/* Cover Photo */}
-                <div className="relative w-full h-[200px] md:h-[348px] bg-gray-100">
+                <div className="relative w-full h-[200px] md:h-[348px] bg-gray-100 dark:bg-secondary">
                   {coverPhoto ? (
                     <>
                       <div className="w-full h-full object-cover">

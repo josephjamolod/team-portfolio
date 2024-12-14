@@ -83,8 +83,8 @@ export default function ImageUpload({
       <div
         className={`h-full flex items-center justify-center px-6 pt-5 pb-6 border-2 ${
           isDragging
-            ? "border-[#624ced] bg-[#efecff]"
-            : "border-gray-300 bg-white bg-opacity-80"
+            ? "border-[#624ced] bg-[#efecff] dark:bg-gray-900"
+            : "border-gray-300 bg-white dark:bg-secondary bg-opacity-80"
         } border-dashed rounded-md transition-colors duration-200 ease-in-out`}
         onDragEnter={handleDragEnter}
         onDragOver={handleDragOver}

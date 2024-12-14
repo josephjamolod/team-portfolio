@@ -61,8 +61,6 @@ export default function CreateProfileForm({
   const [formLoading, setFormLoading] = useState(false);
   const isLoading = updateUserLoader || loading || formLoading;
 
-  // console.log(userData);
-
   const form = useForm<z.infer<typeof createProfileSchema>>({
     resolver: zodResolver(createProfileSchema),
     defaultValues: {
@@ -174,7 +172,7 @@ export default function CreateProfileForm({
         });
       }
 
-      toast.success("User updated successfully!");
+      toast.success(`User ${userData ? "updated" : "created"} successfully! `);
     } catch (error) {
       console.error("Error: ", error);
       toast.error("Failed to update profile. Please try again.");
@@ -398,7 +396,7 @@ export default function CreateProfileForm({
                     : "bg-[#624ced] hover:bg-[#5643d1] hover:shadow-lg"
                 )}
               >
-                {updateUserLoader ? (
+                {isLoading ? (
                   <div className="flex justify-center gap-x-3 items-center">
                     <span>
                       {isOldDataPresent
