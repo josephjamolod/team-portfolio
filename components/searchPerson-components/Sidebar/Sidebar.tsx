@@ -84,27 +84,23 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
           />
 
           <div className="md:px-14 p-4 space-y-3">
-            <ActionButton
-              icon={<FiMail className="w-5 h-5" />}
-              label="Get In Touch"
-              onClick={() => {}}
-            />
+            <ActionButton icon={<FiMail />} label="Get In Touch" />
 
-            <div className="flex items-center text-sm text-muted-foreground">
+            <div className="flex items-center text-sm text-muted-foreground py-2">
               <FiStar className="w-4 h-4 mr-2 flex-shrink-0" />
               <span>Typically responds within 24 hours</span>
             </div>
           </div>
 
           <div className="md:px-14 p-4 border-t border-gray-200">
-            <h3 className="text-sm font-medium text-muted-foreground uppercase mb-3">
+            <h3 className="text-xs font-medium text-muted-foreground uppercase mb-3">
               Contact Number:
             </h3>
             <div className="flex  items-center gap-x-4 text-lg font-medium text-primary">
               <button className=" text-2xl scale-100 hover:scale-110 transition-transform duration-300">
                 <TiPhone />
               </button>
-              <span className="font-medium text-primary flex items-center">
+              <span className="font-medium text-base text-primary flex items-center">
                 <Flag
                   code={staff.contactNumber.countryCode}
                   style={{
@@ -119,7 +115,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
           </div>
 
           <div className="md:px-14 p-4 border-t border-gray-200">
-            <h3 className="text-sm font-medium text-muted-foreground uppercase mb-3">
+            <h3 className="text-xs font-medium text-muted-foreground uppercase mb-3">
               Social Links:
             </h3>
             <ProfileStats
