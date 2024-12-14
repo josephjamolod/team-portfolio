@@ -10,7 +10,7 @@ export const ServicesTab: React.FC<ServicesTabProps> = ({ services }) => {
   return (
     <div className="py-6 space-y-4">
       {services?.map((service, index) => (
-        <ServiceCard key={index} {...service} id={index} />
+        <ServiceCard key={index} {...service} id={index.toString()} />
       ))}
     </div>
   );
