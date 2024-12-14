@@ -122,21 +122,11 @@ export const createProfileSchema = z.object({
     ),
 });
 
-// export const serviceSchema = z.object({
-//   serviceName: z
-//     .string()
-//     .min(5, { message: "Service name must contain at least 5 characters" })
-//     .max(100, {
-//       message: "Service name can contain a maximum of 100 characters",
-//     }),
-//   serviceDesc: z
-//     .string()
-//     .min(20, {
-//       message: "Service description must contain at least 20 characters",
-//     })
-//     .max(1000, {
-//       message: "Service description can contain a maximum of 1000 characters",
-//     }),
-// });
-
-// export const servicesSchema = z.array(serviceSchema);
+export const sendMailSchema = z.object({
+  name: z.string().min(2, "Name is required").max(20, "Name too long"),
+  email: z.string().email({ message: "Invalid email address" }),
+  message: z
+    .string()
+    .min(20, "Message too short")
+    .max(1000, "Message too long"),
+});
