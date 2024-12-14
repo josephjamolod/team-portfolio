@@ -47,7 +47,9 @@ export const ProfileStats: React.FC<ProfileStatsProps> = ({
       <div className="flex w-full   justify-between">
         {sources.map((source, index) => {
           return (
-            <LinkTag key={index} src={source.src || "#"} icon={source.icon} />
+            source.src && (
+              <LinkTag key={index} src={source.src || "#"} icon={source.icon} />
+            )
           );
         })}
       </div>
