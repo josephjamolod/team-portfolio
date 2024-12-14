@@ -84,7 +84,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
           />
 
           <div className="md:px-14 p-4 space-y-3">
-            <ActionButton icon={<FiMail />} label="Get In Touch" />
+            <ActionButton
+              icon={<FiMail />}
+              staff={staff}
+              label="Get In Touch"
+            />
 
             <div className="flex items-center text-sm text-muted-foreground py-2">
               <FiStar className="w-4 h-4 mr-2 flex-shrink-0" />

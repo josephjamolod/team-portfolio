@@ -1,10 +1,3 @@
-// import React from "react";
-
-interface ActionButtonProps {
-  icon: React.ReactNode;
-  label: string;
-}
-
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -17,8 +10,21 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Staff } from "../SearchPerson";
+import { Textarea } from "@/components/ui/textarea";
+import AnimatedModal from "./AnimatedModal";
 
-export const ActionButton: React.FC<ActionButtonProps> = ({ icon, label }) => {
+interface ActionButtonProps {
+  icon: React.ReactNode;
+  label: string;
+  staff: Staff;
+}
+
+export const ActionButton: React.FC<ActionButtonProps> = ({
+  icon,
+  label,
+  staff,
+}) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -29,9 +35,10 @@ export const ActionButton: React.FC<ActionButtonProps> = ({ icon, label }) => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <DialogTitle>Get In Touch</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when youre done.
+            Send a message to{" "}
+            <span className="text-primary">{staff.email}</span>
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -40,24 +47,30 @@ export const ActionButton: React.FC<ActionButtonProps> = ({ icon, label }) => {
               Name
             </Label>
             <Input
+              type="text"
               id="name"
-              defaultValue="Pedro Duarte"
-              className="col-span-3"
+              className="col-span-3 focus-visible:ring-[#9b61d1] focus-visible:ring-[2px]"
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
+            <Label htmlFor="email" className="text-right">
+              Email
             </Label>
             <Input
-              id="username"
-              defaultValue="@peduarte"
-              className="col-span-3"
+              type="email"
+              id="email"
+              className="col-span-3 focus-visible:ring-[#9b61d1] focus-visible:ring-[2px]"
             />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="message" className="text-right">
+              Message
+            </Label>
+            <Textarea typeof="text" id="message" className="col-span-3" />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <AnimatedModal />
         </DialogFooter>
       </DialogContent>
     </Dialog>
