@@ -3,9 +3,10 @@ import { z } from "zod";
 import FormInput from "./formInput";
 import { Button } from "@/components/ui/button";
 import { serviceSchema } from "@/schema";
+import { v4 as uuidv4 } from "uuid";
 
 export interface Service {
-  id: number;
+  id: string; // Change the type of id to string
   name: string;
   description: string;
   perHour: number;
@@ -30,13 +31,14 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onAddService }) => {
   const [isActive, setIsActive] = useState(true);
   const [errors, setErrors] = useState<FormErrors>({});
 
+  // Updated createService function to use uuidv4
   const createService = (
     name: string,
     description: string,
     perHour: number,
     isActive: boolean
   ): Service => ({
-    id: Date.now(),
+    id: uuidv4(), // Use uuidv4 to generate a unique ID
     name,
     description,
     perHour,
