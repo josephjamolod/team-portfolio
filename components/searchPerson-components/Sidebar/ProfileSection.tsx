@@ -38,7 +38,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
           {isPro && (
             <Badge
               variant="default"
-              className="text-sm gradient-bg text-primary border-purple-700"
+              className="text-sm gradient-bg hover:bg-white text-primary border-purple-700"
             >
               PRO
             </Badge>

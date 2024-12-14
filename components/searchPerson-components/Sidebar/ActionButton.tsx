@@ -9,10 +9,21 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Staff } from "../SearchPerson";
 import { Textarea } from "@/components/ui/textarea";
 import AnimatedModal from "./AnimatedModal";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { z } from "zod";
+import { sendMailSchema } from "@/schema";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface ActionButtonProps {
   icon: React.ReactNode;
@@ -25,53 +36,111 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   label,
   staff,
 }) => {
+  const form = useForm<z.infer<typeof sendMailSchema>>({
+    resolver: zodResolver(sendMailSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = async (data: z.infer<typeof sendMailSchema>) => {
+    console.log(data);
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-full py-6" variant="default">
+        <Button
+          className="bg-gradient-to-r w-full py-6 from-indigo-500 to-[#6434d3] text-white   rounded-md  hover:shadow-lg"
+          variant="default"
+        >
           {icon}
           <span>{label}</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] dark:bg-secondary">
         <DialogHeader>
           <DialogTitle>Get In Touch</DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="pt-2">
             Send a message to{" "}
-            <span className="text-primary">{staff.email}</span>
+            <span className="text-primary ">{staff.email}</span>
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input
-              type="text"
-              id="name"
-              className="col-span-3 focus-visible:ring-[#9b61d1] focus-visible:ring-[2px]"
-            />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="email" className="text-right">
-              Email
-            </Label>
-            <Input
-              type="email"
-              id="email"
-              className="col-span-3 focus-visible:ring-[#9b61d1] focus-visible:ring-[2px]"
-            />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="message" className="text-right">
-              Message
-            </Label>
-            <Textarea typeof="text" id="message" className="col-span-3" />
-          </div>
-        </div>
-        <DialogFooter>
-          <AnimatedModal />
-        </DialogFooter>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="space-y-4 pb-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="flex items-center justify-between">
+                      <FormLabel className="text-primary text-xs px-2">
+                        Email Address
+                      </FormLabel>
+                      <FormMessage className="text-xs text-red-500" />
+                    </div>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        type="email"
+                        placeholder="Email"
+                        className="text-xs h-10 bg-[#efecff] dark:bg-black focus:outline-none focus:border-[#6652ee]"
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="flex items-center justify-between">
+                      <FormLabel className="text-primary text-xs px-2">
+                        Email Address
+                      </FormLabel>
+                      <FormMessage className="text-xs text-red-500" />
+                    </div>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        type="email"
+                        placeholder="Email"
+                        className="text-xs h-10 bg-[#efecff] dark:bg-black focus:outline-none focus:border-[#6652ee]"
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="message"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="flex items-center justify-between">
+                      <FormLabel className="text-primary text-xs px-2">
+                        Message
+                      </FormLabel>
+                      <FormMessage className="text-xs text-red-500" />
+                    </div>
+                    <FormControl>
+                      <Textarea
+                        {...field}
+                        placeholder="Message"
+                        className="text-xs h-32 bg-[#efecff] dark:bg-black focus:outline-none focus:border-[#6652ee] resize-none "
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+            <DialogFooter>
+              <AnimatedModal />
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );
