@@ -1,7 +1,13 @@
 "use client";
-import WorldMap from "@/components/ui/world-map";
+// import WorldMap from "@/components/ui/world-map";
 import { motion } from "motion/react";
 import { Calendly } from "./calendly";
+
+import dynamic from "next/dynamic";
+
+const WorldMap = dynamic(() => import("@/components/ui/world-map"), {
+  ssr: false,
+});
 
 export function WorldMapDemo() {
   return (
