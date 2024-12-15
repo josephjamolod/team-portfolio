@@ -3,9 +3,10 @@
 import Image from "next/image";
 import React from "react";
 import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
-import Link from "next/link";
 import { Staff } from "../searchPerson-components/SearchPerson";
 import { FiMail } from "react-icons/fi";
+import { ActionButton } from "../searchPerson-components/Sidebar/ActionButton";
+import { ViewServices } from "./ViewServices";
 
 export function ThreeDCard({ staff }: { staff: Staff }) {
   return (
@@ -41,23 +42,14 @@ export function ThreeDCard({ staff }: { staff: Staff }) {
           />
         </CardItem>
         <div className="flex justify-between items-center mt-20">
-          <CardItem
-            translateZ={20}
-            as={Link}
-            href="https://twitter.com/mannupaaji"
-            target="__blank"
-            className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
-          >
-            View Services →
-          </CardItem>
-          <CardItem
-            translateZ={20}
-            as="button"
-            className="px-4 py-2 rounded-lg flex gap-x-2 items-center bg-primary  text-secondary text-xs font-bold"
-          >
-            <FiMail size={26} />
-            <span> Get in touch</span>
-          </CardItem>
+          <ViewServices staff={staff} />
+          <div>
+            <ActionButton
+              icon={<FiMail />}
+              staff={staff}
+              label="Get In Touch"
+            />
+          </div>
         </div>
       </CardBody>
     </CardContainer>
