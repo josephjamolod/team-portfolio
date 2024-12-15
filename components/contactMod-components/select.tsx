@@ -9,20 +9,40 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ControllerRenderProps } from "react-hook-form";
 
-export function SelectDemo() {
+export function SelectDemo(
+  field: ControllerRenderProps<
+    {
+      subject: string;
+      message: string;
+      email: string;
+    },
+    "subject"
+  >
+) {
   return (
-    <Select>
+    <Select value={field.value} onValueChange={field.onChange}>
       <SelectTrigger className="w-[180px] dark:border-muted-foreground">
         <SelectValue placeholder="Select a concern" />
       </SelectTrigger>
       <SelectContent>
-        <SelectGroup>
+        <SelectGroup {...field}>
           <SelectLabel>Subjects</SelectLabel>
-          <SelectItem value="apple">Request for Account</SelectItem>
-          <SelectItem value="banana">Forgot Password</SelectItem>
+          <SelectItem value="request_account">Request for Account</SelectItem>
+          <SelectItem value="forgot_password">Forgot Password</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>
   );
 }
+
+// <Select value={field.value} onValueChange={field.onChange}>
+//   <SelectTrigger className="w-[180px] dark:border-muted-foreground">
+//     <SelectValue placeholder="Select a concern" />
+//   </SelectTrigger>
+//   <SelectContent>
+//     <SelectItem value="request_account">Request for Account</SelectItem>
+//     <SelectItem value="forgot_password">Forgot Password</SelectItem>
+//   </SelectContent>
+// </Select>;
