@@ -249,7 +249,7 @@ export const Card = ({
           </motion.p>
           <motion.p
             layoutId={layout ? `category-${card.category}` : undefined}
-            className="text-white text-sm md:text-base font-medium font-sans text-left pt-4"
+            className="text-white text-sm md:text-base font-medium font-sans text-left pt-4 invisible md:visible"
           >
             {card.category}
           </motion.p>
@@ -267,7 +267,7 @@ export const Card = ({
 
 export const BlurImage = ({ src }: ImageProps) => {
   return (
-    <div className="h-full absolute  flex items-center justify-center">
+    <div className="h-full absolute w-full flex items-center justify-center">
       <DirectionAwareHover imageUrl={src}>
         <p className="font-bold text-sm flex items-center gap-x-2">
           Click to learn more. <FaArrowUpRightFromSquare />
