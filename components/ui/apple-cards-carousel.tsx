@@ -8,11 +8,13 @@ import React, {
 } from "react";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import Image, { ImageProps, StaticImageData } from "next/image";
+import { ImageProps, StaticImageData } from "next/image";
 import { useOutsideClick } from "@/hooks/use-outside-click";
+import { DirectionAwareHover } from "./direction-aware-hover";
 
 interface CarouselProps {
   items: JSX.Element[];
@@ -263,31 +265,14 @@ export const Card = ({
   );
 };
 
-export const BlurImage = ({
-  height,
-  width,
-  src,
-  className,
-  alt,
-  ...rest
-}: ImageProps) => {
-  const [isLoading, setLoading] = useState(true);
+export const BlurImage = ({ src }: ImageProps) => {
   return (
-    <Image
-      className={cn(
-        "transition duration-300",
-        isLoading ? "blur-sm" : "blur-0",
-        className
-      )}
-      onLoad={() => setLoading(false)}
-      src={src}
-      width={width}
-      height={height}
-      loading="lazy"
-      decoding="async"
-      blurDataURL={typeof src === "string" ? src : undefined}
-      alt={alt ? alt : "Background of a beautiful view"}
-      {...rest}
-    />
+    <div className="h-full absolute  flex items-center justify-center">
+      <DirectionAwareHover imageUrl={src}>
+        <p className="font-bold text-sm flex items-center gap-x-2">
+          Click to learn more. <FaArrowUpRightFromSquare />
+        </p>
+      </DirectionAwareHover>
+    </div>
   );
 };
