@@ -36,7 +36,7 @@ export function TabSwitch({ services, tools }: TabSwitchPropType) {
                 >
                   {service.isActive ? "active" : "inactive"}
                 </Badge>
-                <CardTitle>{service.name}</CardTitle>
+                <CardTitle className="capitalize">{service.name}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
                 <CardDescription>{service.description}</CardDescription>
