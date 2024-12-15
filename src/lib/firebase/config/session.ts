@@ -3,8 +3,10 @@
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
+const secret = process.env.JWT_SECRET_KEY!;
+
 export const createSession = async (uid: string) => {
-  const token = jwt.sign({ uid }, "samplesecret", {
+  const token = jwt.sign({ uid }, secret, {
     expiresIn: "1h",
   });
 
@@ -30,14 +32,14 @@ export const getSession = async () => {
 };
 
 export const signUserId = async (uid: string) => {
-  return jwt.sign({ uid }, "samplesecret", {
+  return jwt.sign({ uid }, secret, {
     expiresIn: "1h",
   });
 };
 
 export const verifySignUserId = async (token: string) => {
   try {
-    const data = await jwt.verify(token, "samplesecret");
+    const data = await jwt.verify(token, secret);
     return data;
   } catch (error) {
     console.log(error);
