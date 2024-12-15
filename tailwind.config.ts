@@ -10,12 +10,23 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/**/*.{ts,tsx}", // Add Aceternity's source directory
+    "./src/**/*.{ts,tsx}", // Include Aceternity's source directory
   ],
   theme: {
     extend: {
       screens: {
         "3xl": "1920px",
+      },
+      animation: {
+        scroll:
+          "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+      },
+      keyframes: {
+        scroll: {
+          to: {
+            transform: "translate(calc(-50% - 0.5rem))",
+          },
+        },
       },
       colors: {
         background: "hsl(var(--background))",
