@@ -26,17 +26,20 @@ import { sendMailSchema } from "@/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
+import { cn } from "@/lib/utils";
 
 interface ActionButtonProps {
   icon: React.ReactNode;
   label: string;
   staff: Staff;
+  backGround?: string;
 }
 
 export const ActionButton: React.FC<ActionButtonProps> = ({
   icon,
   label,
   staff,
+  backGround,
 }) => {
   const form = useForm<z.infer<typeof sendMailSchema>>({
     resolver: zodResolver(sendMailSchema),
@@ -73,7 +76,10 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
     <Dialog>
       <DialogTrigger asChild>
         <Button
-          className="bg-gradient-to-r w-full py-6 from-indigo-500 to-[#6434d3] text-white   rounded-md  hover:shadow-lg"
+          className={cn(
+            backGround,
+            "bg-gradient-to-r w-full py-6    rounded-md  hover:shadow-lg"
+          )}
           variant="default"
         >
           {icon}

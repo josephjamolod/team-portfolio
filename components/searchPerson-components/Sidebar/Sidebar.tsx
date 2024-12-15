@@ -88,6 +88,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
               icon={<FiMail />}
               staff={staff}
               label="Get In Touch"
+              backGround="from-indigo-500 to-[#6434d3] text-white"
             />
 
             <div className="flex items-center text-sm text-muted-foreground py-2">
