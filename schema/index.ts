@@ -130,3 +130,12 @@ export const sendMailSchema = z.object({
     .min(20, "Message too short")
     .max(1000, "Message too long"),
 });
+
+export const contactModSchema = z.object({
+  subject: z.string().min(3, "Please provide a subject"),
+  email: z.string().email({ message: "Invalid email address" }),
+  message: z
+    .string()
+    .min(20, "Message too short")
+    .max(1000, "Message too long"),
+});
