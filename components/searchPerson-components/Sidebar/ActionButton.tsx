@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import emailjs from "@emailjs/browser";
 import {
   Dialog,
   DialogContent,
@@ -24,6 +25,7 @@ import { z } from "zod";
 import { sendMailSchema } from "@/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-toastify";
 
 interface ActionButtonProps {
   icon: React.ReactNode;
@@ -46,7 +48,26 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   });
 
   const onSubmit = async (data: z.infer<typeof sendMailSchema>) => {
-    console.log(data);
+    // console.log(data);
+    try {
+      emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID as string,
+        {
+          from_name: data.email,
+          to_name: staff.name,
+          from_email: data.email,
+          to_email: staff.email,
+          message: data.message,
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+      );
+      toast.success("Message Successfuly Sent");
+      form.reset();
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
   };
   return (
     <Dialog>
@@ -77,15 +98,15 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
                   <FormItem>
                     <div className="flex items-center justify-between">
                       <FormLabel className="text-primary text-xs px-2">
-                        Email Address
+                        Name
                       </FormLabel>
                       <FormMessage className="text-xs text-red-500" />
                     </div>
                     <FormControl>
                       <Input
                         {...field}
-                        type="email"
-                        placeholder="Email"
+                        type="text"
+                        placeholder="Please Enter Your Name"
                         className="text-xs h-10 bg-[#efecff] dark:bg-black focus:outline-none focus:border-[#6652ee]"
                       />
                     </FormControl>
@@ -107,7 +128,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
                       <Input
                         {...field}
                         type="email"
-                        placeholder="Email"
+                        placeholder="Please Enter Your Email Address"
                         className="text-xs h-10 bg-[#efecff] dark:bg-black focus:outline-none focus:border-[#6652ee]"
                       />
                     </FormControl>
@@ -128,7 +149,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
                     <FormControl>
                       <Textarea
                         {...field}
-                        placeholder="Message"
+                        placeholder="Message Here . . ."
                         className="text-xs h-32 bg-[#efecff] dark:bg-black focus:outline-none focus:border-[#6652ee] resize-none "
                       />
                     </FormControl>
