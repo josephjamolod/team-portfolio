@@ -31,8 +31,10 @@ export function TabSwitch({ services, tools }: TabSwitchPropType) {
                 <Badge
                   variant={"outline"}
                   className={`w-fit ${
-                    service.isActive && "bg-green-200"
-                  } text-black`}
+                    service.isActive
+                      ? "bg-green-200 text-black"
+                      : "text-primary"
+                  } `}
                 >
                   {service.isActive ? "active" : "inactive"}
                 </Badge>
