@@ -29,6 +29,9 @@ import {
 import { CreateUserProfileProp } from "@/components/create-profile-components/type";
 import { Staff } from "@/components/searchPerson-components/SearchPerson";
 import { Service } from "@/components/create-profile-components/(service)/serviceForm";
+import { fetchAnotherUsers, fetchUsers } from "@/src/data/fetchUsers";
+import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 // Define a type for your user, matching the properties provided by Firebase
 export type User = {
@@ -37,6 +40,11 @@ export type User = {
   displayName: string | null;
   photoURL: string | null;
 };
+
+interface OldDataPropType {
+  usersData: Staff[];
+  lastDoc: QueryDocumentSnapshot<DocumentData, DocumentData>;
+}
 
 export type UserProviderContextType = {
   user: User | null;
@@ -60,6 +68,24 @@ export type UserProviderContextType = {
   services: Service[];
   handleAddService: (service: Service) => void;
   handleDeleteService: (serviceId: number) => void;
+  staffs:
+    | {
+        usersData: Staff[];
+        lastDoc: QueryDocumentSnapshot<DocumentData, DocumentData>;
+        totalDocCount: number;
+      }
+    | undefined;
+  fetchAnotherStaff: UseMutateFunction<
+    {
+      usersData: Staff[];
+      lastDoc: QueryDocumentSnapshot<DocumentData, DocumentData>;
+    },
+    Error,
+    void,
+    unknown
+  >;
+  showMore: boolean;
+  staffsLoading: boolean;
 };
 
 // Create the AuthContext object
@@ -75,6 +101,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [coverPhoto, setCoverPhoto] = useState<string | null>(null);
   const [services, setServices] = useState<Service[]>([]);
   const [images, setImages] = useState<ImageFile[]>([]);
+  const [showMore, setShowMore] = useState(true);
   const { user, userUid, loading: isLoading } = useUserSession();
 
   // Reset states when `userUid` changes
@@ -86,6 +113,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setImages([]);
     }
   }, [userUid]);
+
+  useEffect(() => {
+    setShowMore(true);
+  }, []);
 
   const { data: userData, isPending: isUserLoading } = useQuery({
     queryKey: ["current-active-user", userUid],
@@ -132,8 +163,49 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setServices((prev) => filterServices(prev, serviceId));
   };
 
+  const { data: staffs, isLoading: fetchLoading } = useQuery({
+    queryKey: ["profiles"],
+    queryFn: fetchUsers,
+    enabled: true,
+  });
+
+  const { mutate: fetchAnotherStaff, isPending: isMutating } = useMutation({
+    mutationFn: async () => {
+      if (!staffs?.lastDoc) {
+        throw new Error("No last document to paginate from.");
+      }
+      const newData = await fetchAnotherUsers(staffs.lastDoc);
+
+      // Check if we fetched fewer documents than the page limit
+      // if (newData.length < ITEMS_PER_PAGE) {
+      //   setHasMore(false); // No more documents to fetch
+      // }
+
+      return newData;
+    },
+    onSuccess: (newData: OldDataPropType) => {
+      queryClient.setQueryData(["profiles"], (oldData: OldDataPropType) => {
+        const updatedData = {
+          ...oldData,
+          usersData: [...(oldData?.usersData || []), ...newData.usersData],
+          lastDoc: newData.lastDoc, // Update the last document
+        };
+
+        if (staffs?.totalDocCount === updatedData.usersData.length) {
+          setShowMore(false);
+        }
+        return updatedData;
+      });
+    },
+    onError: (error) => {
+      toast.error("Failed to load more profiles.");
+      console.error(error);
+    },
+  });
+
   const isOldDataPresent = userData && Object.keys(userData).length > 0;
   const loading = isLoading || isUserLoading;
+  const staffsLoading = fetchLoading || isMutating;
 
   return (
     <AuthContext.Provider
@@ -154,6 +226,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         services,
         handleAddService,
         handleDeleteService,
+        staffs,
+        fetchAnotherStaff,
+        showMore,
+        staffsLoading,
       }}
     >
       {children}
