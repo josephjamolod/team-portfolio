@@ -13,7 +13,9 @@ export const ServiceCard: React.FC<Service> = ({
       <div className="flex flex-col justify-between items-start mb-2">
         <Badge
           variant={"outline"}
-          className={`w-fit ${isActive && "bg-green-200"} text-black`}
+          className={`w-fit  ${
+            isActive ? "bg-green-200 text-black" : "text-primary"
+          } `}
         >
           {isActive ? "active" : "inactive"}
         </Badge>

@@ -88,7 +88,7 @@ function SearchPerson() {
 
       {/* Sidebar */}
       <div
-        className={`fixed lg:sticky top-0 h-screen z-30 lg:z-0 transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed lg:sticky top-0 min-h-screen z-30 lg:z-0 transition-transform duration-300 lg:translate-x-0 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
@@ -183,7 +183,7 @@ function SearchPerson() {
               </p>
             </div>
           ) : (
-            <div className="space-y-4 lg:space-y-6 grid grid-cols-1 border border-none rounded-lg bg-gray-200 dark:bg-secondary max-h-[600px] overflow-hidden overflow-y-auto p-4">
+            <div className="space-y-4 lg:space-y-6 grid grid-cols-1 border border-none rounded-lg bg-gray-200 dark:bg-secondary max-h-[900px] overflow-hidden overflow-y-auto p-4">
               {filteredUsers.map((user) => (
                 <StaffCard
                   key={user.id}
