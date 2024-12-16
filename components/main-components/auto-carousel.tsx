@@ -87,7 +87,7 @@ export function AutoCarousel() {
         <span> SOFTWARE AND TOOLS</span>
       </p>
       <div className=" rounded-md flex flex-col antialiased  items-center justify-center relative overflow-hidden">
-        <InfiniteMovingCards direction="right" speed="normal" />
+        <InfiniteMovingCards direction="right" speed="slow" />
       </div>
       <p className="  md:pt-8 pt-2 leading-none text-[18px] font-semibold md:font-normal md:text-[36px] lg:text-[56px]">
         Find verified experts from top tools.
