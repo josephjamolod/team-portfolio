@@ -152,3 +152,18 @@ export const company: CompanyType[] = [
   { label: "FAQs", href: "#" },
   { label: "Terms & Condition", href: "#" },
 ];
+
+export const wrapperFramerProps = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+export const framerProps = {
+  hidden: { y: 20, opacity: 0 },
+  show: { y: 0, opacity: 1 },
+};
