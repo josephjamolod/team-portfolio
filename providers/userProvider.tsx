@@ -142,6 +142,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         queryClient.invalidateQueries({
           queryKey: ["current-active-user", user?.uid],
         });
+        queryClient.invalidateQueries({
+          queryKey: ["profiles"],
+        });
         router.push(`/meet-the-team`);
       },
     });
