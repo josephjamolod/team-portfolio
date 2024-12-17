@@ -1,15 +1,13 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
-
-import { collection, getDocs } from "firebase/firestore";
-import { firebaseDb } from "@/src/lib/firebase/config/firebase";
+import React, { useState, useMemo } from "react";
 import { Services } from "@/app/(public)/meet-the-team/[id]/page";
 import { Sidebar } from "./Sidebar/Sidebar";
 import { SearchBar } from "./SearchBar";
 import { StaffCard } from "./DeveloperCard";
-import { toast } from "react-toastify";
 import { Skeleton } from "../ui/skeleton";
+import { useAuth } from "@/providers/userProvider";
+import { Button } from "../ui/button";
 
 export interface Staff {
   id: string;
@@ -36,45 +34,19 @@ export interface Staff {
 }
 
 function SearchPerson() {
-  const [loading, setLoading] = useState(true);
-  const [users, setUsers] = useState<Staff[]>([]);
+  const { staffs, staffsLoading, fetchAnotherStaff, showMore } = useAuth();
   const [selectedUser, setSelectedUser] = useState<Staff | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Fetch users from Firestore
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const usersCollection = collection(firebaseDb, "users");
-        const querySnapshot = await getDocs(usersCollection);
-
-        const usersData: Staff[] = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        })) as Staff[];
-
-        setUsers(usersData);
-        if (usersData.length > 0) {
-          setSelectedUser(usersData[0]); // Set the first user as selected by default
-        }
-      } catch (error) {
-        toast.error("Failed to fetch staff data.");
-        console.error("Error fetching users:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUsers();
-  }, []);
-
   // Filter users based on search query
   const filteredUsers = useMemo(() => {
-    return users.filter((user) =>
+    return staffs?.usersData.filter((user) =>
       user.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [users, searchQuery]);
+  }, [staffs?.usersData, searchQuery]);
+
+  const initialInfo = !!staffs?.usersData[0] || selectedUser;
 
   return (
     <div className="flex flex-col lg:flex-row w-full min-h-screen  overflow-hidden">
@@ -92,7 +64,7 @@ function SearchPerson() {
           isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
-        {loading ? (
+        {staffsLoading ? (
           <div className="px-14 relative h-full transition-all duration-300 flex flex-col gap-y-4 items-center bg-white dark:bg-black ease-in-out iw-[340px] 2xl:w-[500px] pt-28">
             <Skeleton className="h-32 w-32 rounded-full dark:bg-secondary" />
             <Skeleton className="h-6 w-[250px]  dark:bg-secondary" />
@@ -108,9 +80,9 @@ function SearchPerson() {
             <Skeleton className="h-80 w-80 dark:bg-secondary" />
           </div>
         ) : (
-          selectedUser && (
+          initialInfo && (
             <Sidebar
-              staff={selectedUser}
+              staff={selectedUser || (staffs?.usersData[0] as Staff)}
               onClose={() => setIsSidebarOpen(false)}
             />
           )
@@ -156,7 +128,7 @@ function SearchPerson() {
 
           <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
-          {loading ? (
+          {staffsLoading ? (
             <div className="space-y-4 lg:space-y-6 grid grid-cols-1 border border-none rounded-lg bg-gray-200 dark:bg-gray-800 max-h-[600px] overflow-hidden overflow-y-auto p-4">
               {[1, 2, 3].map((_, i) => {
                 return (
@@ -176,7 +148,7 @@ function SearchPerson() {
                 );
               })}
             </div>
-          ) : filteredUsers.length === 0 ? (
+          ) : filteredUsers?.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-gray-500">
                 No staff found matching &#8243;{searchQuery}&#8243;
@@ -184,7 +156,7 @@ function SearchPerson() {
             </div>
           ) : (
             <div className="space-y-4 lg:space-y-6 grid grid-cols-1 border border-none rounded-lg bg-gray-200 dark:bg-secondary max-h-[900px] overflow-hidden overflow-y-auto p-4">
-              {filteredUsers.map((user) => (
+              {filteredUsers?.map((user) => (
                 <StaffCard
                   key={user.id}
                   staff={user}
@@ -195,6 +167,19 @@ function SearchPerson() {
                   }}
                 />
               ))}
+            </div>
+          )}
+          {showMore && !staffsLoading && (
+            <div className="w-full  flex items-center pt-4 justify-center">
+              {" "}
+              <Button
+                disabled={staffsLoading}
+                type="button"
+                onClick={() => fetchAnotherStaff()}
+                variant={"default"}
+              >
+                Show More
+              </Button>
             </div>
           )}
         </div>

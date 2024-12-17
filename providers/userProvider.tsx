@@ -175,12 +175,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         throw new Error("No last document to paginate from.");
       }
       const newData = await fetchAnotherUsers(staffs.lastDoc);
-
-      // Check if we fetched fewer documents than the page limit
-      // if (newData.length < ITEMS_PER_PAGE) {
-      //   setHasMore(false); // No more documents to fetch
-      // }
-
       return newData;
     },
     onSuccess: (newData: OldDataPropType) => {
