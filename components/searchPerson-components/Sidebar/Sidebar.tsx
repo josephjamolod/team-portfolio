@@ -51,7 +51,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
       onOpenChange={setIsOpen}
       className={cn(
         "relative h-full transition-all duration-300 ease-in-out",
-        isOpen ? "w-[340px] md:w-[450px] 2xl:w-[500px]" : "w-20"
+        isOpen ? "w-[380px] md:w-[450px] 2xl:w-[500px]" : "w-20"
       )}
     >
       <CollapsibleTrigger className="hidden lg:flex absolute -right-3 top-[137px] z-10 h-6 w-6 lg:h-8 lg:w-8 items-center justify-center rounded-full border border-[#624ced] text-[#624ced] dark:text-white text-2xl bg-[#efecff] dark:bg-secondary shadow-sm">
@@ -104,7 +104,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
             <h3 className="text-xs font-medium text-muted-foreground uppercase mb-3">
               Contact Number:
             </h3>
-            <div className="flex  items-center gap-x-4 text-lg font-medium text-primary">
+            <div className="flex mt-5 items-center gap-x-4 text-lg font-medium text-primary">
               <button className=" text-2xl scale-100 hover:scale-110 transition-transform duration-300">
                 <TiPhone />
               </button>
@@ -122,8 +122,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
             </div>
           </div>
 
-          <div className="md:px-14 p-4 border-t border-gray-200">
-            <h3 className="text-xs font-medium text-muted-foreground uppercase mb-3">
+          <div className=" py-4 border-t border-gray-200">
+            <h3 className="text-xs px-4 md:px-14  font-medium text-muted-foreground uppercase mb-3">
               Social Links:
             </h3>
             <ProfileStats
