@@ -41,8 +41,11 @@ export const fetchUsers = async (
     })) as Staff[];
 
     const lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
+
     if (usersData.length !== totalDocCount) {
       setShowMore(true);
+    } else {
+      setShowMore(false);
     }
     return { usersData, lastDoc, totalDocCount };
   } catch (error) {

@@ -17,7 +17,7 @@ export const StaffCard: React.FC<StaffCardProps> = ({
   return (
     <div
       onClick={onClick}
-      className={`bg-white dark:bg-black rounded-lg shadow-sm p-6 cursor-pointer transition-all
+      className={`bg-white dark:bg-black rounded-lg h-fit shadow-sm p-6 cursor-pointer transition-all
         ${isSelected ? "ring-2 ring-[#624ced] shadow-md" : "hover:shadow-md"}`}
     >
       <div className="flex items-center gap-4 mb-4">
