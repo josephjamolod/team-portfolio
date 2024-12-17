@@ -10,7 +10,7 @@ export default function Main() {
     <main className="h-auto overflow-hidden">
       <div>
         <div className=" -z-10 ">
-          <div className="gradient " />
+          <div className="gradient z-10" />
         </div>
         <About />
         <AutoCarousel />
