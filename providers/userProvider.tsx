@@ -85,6 +85,8 @@ export type UserProviderContextType = {
     unknown
   >;
   showMore: boolean;
+  fetchLoading: boolean;
+  isMutating: boolean;
   staffsLoading: boolean;
 };
 
@@ -223,6 +225,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         staffs,
         fetchAnotherStaff,
         showMore,
+        fetchLoading,
+        isMutating,
         staffsLoading,
       }}
     >

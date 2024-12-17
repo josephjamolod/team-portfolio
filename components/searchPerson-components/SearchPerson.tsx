@@ -34,7 +34,8 @@ export interface Staff {
 }
 
 function SearchPerson() {
-  const { staffs, staffsLoading, fetchAnotherStaff, showMore } = useAuth();
+  const { staffs, fetchLoading, isMutating, fetchAnotherStaff, showMore } =
+    useAuth();
   const [selectedUser, setSelectedUser] = useState<Staff | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -64,7 +65,7 @@ function SearchPerson() {
           isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
-        {staffsLoading ? (
+        {fetchLoading ? (
           <div className="px-14 relative h-full transition-all duration-300 flex flex-col gap-y-4 items-center bg-white dark:bg-black ease-in-out iw-[340px] 2xl:w-[500px] pt-28">
             <Skeleton className="h-32 w-32 rounded-full dark:bg-secondary" />
             <Skeleton className="h-6 w-[250px]  dark:bg-secondary" />
@@ -128,7 +129,7 @@ function SearchPerson() {
 
           <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
-          {staffsLoading ? (
+          {fetchLoading ? (
             <div className="space-y-4 lg:space-y-6 grid grid-cols-1 border border-none rounded-lg bg-gray-200 dark:bg-gray-800 max-h-[600px] overflow-hidden overflow-y-auto p-4">
               {[1, 2, 3].map((_, i) => {
                 return (
@@ -169,11 +170,11 @@ function SearchPerson() {
               ))}
             </div>
           )}
-          {showMore && !staffsLoading && (
+          {showMore && !fetchLoading && (
             <div className="w-full  flex items-center pt-4 justify-center">
               {" "}
               <Button
-                disabled={staffsLoading}
+                disabled={fetchLoading || isMutating}
                 type="button"
                 onClick={() => fetchAnotherStaff()}
                 variant={"default"}

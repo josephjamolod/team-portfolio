@@ -29,17 +29,13 @@ import { toast } from "react-toastify";
 import { cn } from "@/lib/utils";
 
 interface ActionButtonProps {
-  icon: React.ReactNode;
-  label: string;
+  children: React.ReactNode;
   staff: Staff;
-  backGround?: string;
 }
 
 export const ActionButton: React.FC<ActionButtonProps> = ({
-  icon,
-  label,
   staff,
-  backGround,
+  children,
 }) => {
   const form = useForm<z.infer<typeof sendMailSchema>>({
     resolver: zodResolver(sendMailSchema),
@@ -75,16 +71,17 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
+        {children}
+        {/* <Button
           className={cn(
             backGround,
-            "bg-gradient-to-r w-full py-6    rounded-md  hover:shadow-lg"
+            "bg-gradient-to-r w-full py-6 rounded-md  hover:shadow-lg"
           )}
           variant="default"
         >
           {icon}
           <span>{label}</span>
-        </Button>
+        </Button> */}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] dark:bg-secondary">
         <DialogHeader>

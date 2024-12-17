@@ -25,6 +25,7 @@ import { ServicesTab } from "@/components/profile-components/components/Services
 import { SocialActions } from "@/components/profile-components/components/SocialActions";
 import { Staff } from "../SearchPerson";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 interface SidebarProps {
   staff: Staff;
@@ -53,7 +54,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
         isOpen ? "w-[340px] md:w-[450px] 2xl:w-[500px]" : "w-20"
       )}
     >
-      <CollapsibleTrigger className="hidden lg:flex absolute -right-3 top-[137px] z-10 h-6 w-6 lg:h-8 lg:w-8 items-center justify-center rounded-full border border-[#624ced] text-[#624ced] text-2xl bg-[#efecff] shadow-sm">
+      <CollapsibleTrigger className="hidden lg:flex absolute -right-3 top-[137px] z-10 h-6 w-6 lg:h-8 lg:w-8 items-center justify-center rounded-full border border-[#624ced] text-[#624ced] text-2xl bg-[#efecff] dark:bg-secondary shadow-sm">
         {isOpen ? <FiChevronLeft /> : <FiChevronRight />}
       </CollapsibleTrigger>
 
@@ -84,12 +85,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
           />
 
           <div className="md:px-14 p-4 space-y-3">
-            <ActionButton
-              icon={<FiMail />}
-              staff={staff}
-              label="Get In Touch"
-              backGround="from-indigo-500 to-[#6434d3] text-white"
-            />
+            <ActionButton staff={staff}>
+              <Button
+                className="bg-gradient-to-r from-indigo-500 to-[#6434d3] text-white w-full py-6 rounded-md  hover:shadow-lg"
+                variant="default"
+              >
+                <FiMail />
+                <span>Get In Touch</span>
+              </Button>
+            </ActionButton>
 
             <div className="flex items-center text-sm text-muted-foreground py-2">
               <FiStar className="w-4 h-4 mr-2 flex-shrink-0" />
@@ -163,13 +167,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
                 }
               ></span>
             </div>
-
-            <button
-              className="w-12 h-12 flex items-center justify-center rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors"
-              onClick={() => {}}
-            >
-              <FiMail className="w-5 h-5" />
-            </button>
+            <ActionButton staff={staff}>
+              <button
+                className="w-12 h-12 flex items-center justify-center rounded-lg bg-[#624ced] text-white hover:bg-[#5139edb5] transition-colors"
+                onClick={() => {}}
+              >
+                <FiMail className="w-5 h-5" />
+              </button>
+            </ActionButton>
           </div>
         )}
       </aside>
