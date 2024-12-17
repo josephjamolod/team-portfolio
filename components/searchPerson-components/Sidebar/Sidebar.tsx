@@ -54,7 +54,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
         isOpen ? "w-[340px] md:w-[450px] 2xl:w-[500px]" : "w-20"
       )}
     >
-      <CollapsibleTrigger className="hidden lg:flex absolute -right-3 top-[137px] z-10 h-6 w-6 lg:h-8 lg:w-8 items-center justify-center rounded-full border border-[#624ced] text-[#624ced] text-2xl bg-[#efecff] dark:bg-secondary shadow-sm">
+      <CollapsibleTrigger className="hidden lg:flex absolute -right-3 top-[137px] z-10 h-6 w-6 lg:h-8 lg:w-8 items-center justify-center rounded-full border border-[#624ced] text-[#624ced] dark:text-white text-2xl bg-[#efecff] dark:bg-secondary shadow-sm">
         {isOpen ? <FiChevronLeft /> : <FiChevronRight />}
       </CollapsibleTrigger>
 

@@ -12,6 +12,7 @@ import {
 import { firebaseDb } from "../lib/firebase/config/firebase";
 import { Staff } from "@/components/searchPerson-components/SearchPerson";
 import { toast } from "react-toastify";
+import { Dispatch, SetStateAction } from "react";
 
 export const ITEMS_PER_PAGE = 6;
 
@@ -21,7 +22,9 @@ export async function getDocCount() {
   return snapshot.data().count;
 }
 
-export const fetchUsers = async () => {
+export const fetchUsers = async (
+  setShowMore: Dispatch<SetStateAction<boolean>>
+) => {
   try {
     const totalDocCount = await getDocCount();
     const usersCollection = collection(firebaseDb, "users");
@@ -38,7 +41,9 @@ export const fetchUsers = async () => {
     })) as Staff[];
 
     const lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
-
+    if (usersData.length !== totalDocCount) {
+      setShowMore(true);
+    }
     return { usersData, lastDoc, totalDocCount };
   } catch (error) {
     toast.error("Failed to fetch staff data.");

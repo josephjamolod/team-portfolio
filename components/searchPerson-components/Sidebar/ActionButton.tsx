@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import emailjs from "@emailjs/browser";
 import {
   Dialog,
@@ -26,7 +25,6 @@ import { sendMailSchema } from "@/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
-import { cn } from "@/lib/utils";
 
 interface ActionButtonProps {
   children: React.ReactNode;
@@ -70,19 +68,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   };
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        {children}
-        {/* <Button
-          className={cn(
-            backGround,
-            "bg-gradient-to-r w-full py-6 rounded-md  hover:shadow-lg"
-          )}
-          variant="default"
-        >
-          {icon}
-          <span>{label}</span>
-        </Button> */}
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px] dark:bg-secondary">
         <DialogHeader>
           <DialogTitle>Get In Touch</DialogTitle>

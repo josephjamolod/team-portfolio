@@ -116,10 +116,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [userUid]);
 
-  useEffect(() => {
-    setShowMore(true);
-  }, []);
-
   const { data: userData, isPending: isUserLoading } = useQuery({
     queryKey: ["current-active-user", userUid],
     queryFn: async () => {
@@ -138,8 +134,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     staleTime: 1000 * 60 * 5,
     enabled: !!userUid,
   });
-
-  // console.log(userData);
 
   const { mutate: updateUserMutation, isPending: isLoadingUpdateMutation } =
     useMutation({
@@ -167,9 +161,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const { data: staffs, isLoading: fetchLoading } = useQuery({
     queryKey: ["profiles"],
-    queryFn: fetchUsers,
+    queryFn: () => fetchUsers(setShowMore),
     enabled: true,
   });
+
+  console.log(staffs?.usersData.length);
 
   const { mutate: fetchAnotherStaff, isPending: isMutating } = useMutation({
     mutationFn: async () => {
@@ -189,6 +185,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         if (staffs?.totalDocCount === updatedData.usersData.length) {
           setShowMore(false);
+        } else {
+          setShowMore(true);
         }
         return updatedData;
       });
@@ -225,6 +223,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         staffs,
         fetchAnotherStaff,
         showMore,
+
         fetchLoading,
         isMutating,
         staffsLoading,
