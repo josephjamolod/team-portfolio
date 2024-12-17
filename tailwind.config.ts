@@ -10,7 +10,7 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/**/*.{ts,tsx}", // Include Aceternity's source directory
+    "./src/**/*.{ts,tsx}", // Include source directory
   ],
   theme: {
     extend: {
@@ -21,6 +21,7 @@ const config: Config = {
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
         orbit: "orbit calc(var(--duration)*1s) linear infinite", // Added orbit animation
+        aurora: "aurora 60s linear infinite", // Aurora animation
       },
       keyframes: {
         scroll: {
@@ -36,6 +37,14 @@ const config: Config = {
           "100%": {
             transform:
               "rotate(360deg) translateY(calc(var(--radius) * 1px)) rotate(-360deg)",
+          },
+        },
+        aurora: {
+          from: {
+            backgroundPosition: "50% 50%, 50% 50%",
+          },
+          to: {
+            backgroundPosition: "350% 50%, 350% 50%",
           },
         },
       },
@@ -90,6 +99,7 @@ const config: Config = {
   },
   plugins: [
     tailwindcssAnimate,
+    // Adds CSS variables for all Tailwind colors
     function addVariablesForColors({ addBase, theme }: PluginAPI) {
       const allColors = flattenColorPalette(theme("colors"));
       const newVars = Object.fromEntries(
@@ -100,6 +110,7 @@ const config: Config = {
         ":root": newVars,
       });
     },
+    // Adds utilities for grid and dot backgrounds
     function ({ matchUtilities, theme }: PluginAPI) {
       matchUtilities(
         {
