@@ -8,7 +8,16 @@ import { GoGlobe } from "react-icons/go";
 import { LuYoutube } from "react-icons/lu";
 import { IoLogoInstagram } from "react-icons/io";
 import { FaXTwitter } from "react-icons/fa6";
-import LinkTag from "./linkTag";
+
+import {
+  Tooltip,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Dock, DockIcon } from "@/components/ui/dock";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface ProfileStatsProps {
   fb?: string;
@@ -43,15 +52,39 @@ export const ProfileStats: React.FC<ProfileStatsProps> = ({
   ];
 
   return (
-    <div className=" flex flex-col gap-y-2 items-center text-primary ">
-      <div className="flex w-full   justify-between">
-        {sources.map((source, index) => {
-          return (
-            source.src && (
-              <LinkTag key={index} src={source.src || "#"} icon={source.icon} />
-            )
-          );
-        })}
+    <div className=" flex flex-col  items-center text-primary ">
+      <div className="flex w-full  item justify-center">
+        <TooltipProvider>
+          <Dock className="mt-4 mx-0 gap-x-0 md:gap-x-2" direction="middle">
+            {sources.map((source, index) => {
+              return (
+                source.src && (
+                  // <LinkTag key={index} src={source.src || "#"} icon={source.icon} />
+
+                  <DockIcon key={index}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Link
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href={source.src}
+                          aria-label={source.src}
+                          className={cn(
+                            buttonVariants({ variant: "ghost", size: "icon" }),
+                            "size-12 rounded-full"
+                          )}
+                        >
+                          {source.icon}
+                          {/* <item.icon className="size-4" /> */}
+                        </Link>
+                      </TooltipTrigger>
+                    </Tooltip>
+                  </DockIcon>
+                )
+              );
+            })}
+          </Dock>
+        </TooltipProvider>
       </div>
     </div>
   );
