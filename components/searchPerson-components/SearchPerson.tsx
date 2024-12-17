@@ -152,9 +152,7 @@ function SearchPerson() {
             </div>
           ) : filteredUsers?.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-gray-500">
-                No staff found matching &#8243;{searchQuery}&#8243;
-              </p>
+              <p className="text-gray-500">No staff found</p>
             </div>
           ) : (
             <div className="space-y-4 lg:space-y-6 grid grid-cols-1 border border-none rounded-lg bg-gray-200 dark:bg-secondary h-[60vh]  overflow-hidden overflow-y-auto p-4">
@@ -171,7 +169,7 @@ function SearchPerson() {
               ))}
             </div>
           )}
-          {showMore && !fetchLoading && (
+          {filteredUsers?.length !== 0 && showMore && !fetchLoading && (
             <div className="w-full  flex items-center pt-4 justify-center">
               {" "}
               <Button

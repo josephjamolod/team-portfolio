@@ -17,7 +17,9 @@ import { SmallLoader } from "../smallLoader";
 export function ThreeDCard() {
   const { staffs, fetchAnotherStaff, showMore, staffsLoading } = useAuth();
 
-  return (
+  return staffs?.usersData.length === 0 ? (
+    <h1 className="pt-10 text-3xl">Team members coming soon!</h1>
+  ) : (
     <>
       <motion.div
         variants={wrapperFramerProps}
