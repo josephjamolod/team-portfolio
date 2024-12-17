@@ -22,10 +22,3 @@ export const isValidPhotoUrl = async (photoLink: string | null | undefined) => {
     return false;
   }
 };
-
-// .refine(
-//     (value) => value === "" || /^(https?:\/\/[^\s$.?#].[^\s]*)$/i.test(value),
-//     {
-//       message: "Invalid Coverphoto URL",
-//     }
-//   )

@@ -380,7 +380,7 @@ export default function CreateProfileForm({
                 className={cn(
                   "w-full rounded-md h-12 text-xl mt-[20px] text-white transform transition-opacity duration-300",
                   isLoading
-                    ? "bg-[#7a6ff1] opacity-80 cursor-not-allowed" // Lighter color and disabled styles when loading
+                    ? "bg-[#7a6ff1] opacity-80 cursor-not-allowed"
                     : "bg-[#624ced] hover:bg-[#5643d1] hover:shadow-lg"
                 )}
               >

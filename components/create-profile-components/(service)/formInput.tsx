@@ -30,7 +30,6 @@ const FormInput: React.FC<FormInputProps> = ({
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        // className="text-xs h-10 rounded-none bg-[#efecff]  focus:outline-none focus:border-[#b071ec]"
         className={`w-full p-2 mt-2 border text-xs h-10 rounded-none   focus:outline-none focus:border-[#b071ec] ${
           error && "border-red-500"
         }`}

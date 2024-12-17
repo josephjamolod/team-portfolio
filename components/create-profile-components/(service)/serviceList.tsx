@@ -1,6 +1,6 @@
 import React from "react";
 import { Service } from "./serviceForm";
-import ServiceItem from "./serviceItem"; // Updated to reflect the new component name.
+import ServiceItem from "./serviceItem";
 
 interface ServiceListProps {
   services: Service[];

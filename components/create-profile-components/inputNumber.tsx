@@ -66,22 +66,22 @@ const FormFieldPhoneInput = <T extends FieldValues>({
           <FormControl>
             <PhoneInput
               {...field}
-              country={country || "ph"} // Default country
+              country={country || "ph"}
               value={field.value?.number || ""}
               containerClass="custom-phone-container"
               inputStyle={{
-                fontSize: "0.875rem", // text-xs
-                height: "2.5rem", // h-10
+                fontSize: "0.875rem",
+                height: "2.5rem",
                 backgroundColor: isDarkMode
                   ? "hsl(var(--secondary))"
-                  : "#efecff", // bg-[#efecff]
+                  : "#efecff",
                 border: formState.errors[name]
-                  ? "1.5px solid #f87171" // Red border if error
+                  ? "1.5px solid #f87171"
                   : isDarkMode
                   ? "1.5px solid hsl(var(--secondary))"
-                  : "1.5px solid #e4e8ee", // Default border
+                  : "1.5px solid #e4e8ee",
                 borderRadius: 0,
-                width: "100%", // w-full
+                width: "100%",
               }}
               placeholder={placeholder}
               onChange={(value, countryData) =>

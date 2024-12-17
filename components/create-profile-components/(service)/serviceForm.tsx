@@ -6,7 +6,7 @@ import { serviceSchema } from "@/schema";
 import { v4 as uuidv4 } from "uuid";
 
 export interface Service {
-  id: string; // Change the type of id to string
+  id: string;
   name: string;
   description: string;
   perHour: number;
@@ -31,14 +31,13 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onAddService }) => {
   const [isActive, setIsActive] = useState(true);
   const [errors, setErrors] = useState<FormErrors>({});
 
-  // Updated createService function to use uuidv4
   const createService = (
     name: string,
     description: string,
     perHour: number,
     isActive: boolean
   ): Service => ({
-    id: uuidv4(), // Use uuidv4 to generate a unique ID
+    id: uuidv4(),
     name,
     description,
     perHour,
@@ -129,7 +128,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onAddService }) => {
                 className={`relative w-8 h-4 ${
                   isActive ? "bg-[#614cedbe]" : "bg-gray-300"
                 } rounded-full transition-colors duration-300`}
-                onClick={() => setIsActive((prev) => !prev)} // Toggle on click
+                onClick={() => setIsActive((prev) => !prev)}
               >
                 <div
                   className={`absolute top-1 left-1 w-2 h-2 bg-white rounded-full shadow-md transition-transform duration-300 ${

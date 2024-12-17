@@ -16,13 +16,10 @@ export const createSession = async (uid: string) => {
     maxAge: 60 * 60 * 24,
     path: "/",
   });
-
-  // redirect(ONBOARDING_ROUTE);
 };
 
 export const deleteSession = async () => {
   (await cookies()).delete("user_session");
-  // redirect(ROOT_ROUTE);
 };
 
 export const getSession = async () => {

@@ -31,10 +31,9 @@ export default function UploadTools({
   setImages,
 }: UploadToolsPropType) {
   //careful logging this without image, cause browser will crash "console.log(images[0].croppedImage);"
-  // console.log(images[0].croppedImage);
+
   const cancelRef = useRef<HTMLButtonElement>(null);
   const [currentImage, setCurrentImage] = useState<ImageFile | null>(null);
-  // console.log(currentImage);
 
   const [showCropper, setShowCropper] = useState(false);
 

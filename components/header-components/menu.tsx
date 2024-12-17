@@ -1,7 +1,5 @@
 "use client";
 
-// import logo from "@/public/assets/images/logo.png";
-
 import { Button } from "@/components/ui/button";
 import { LuBellRing } from "react-icons/lu";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -32,8 +30,6 @@ export function Menu({
   logOutUser,
   isOldDataPresent,
 }: UserAndLogOutUserType) {
-  // const { user, logOutUser } = useAuth();
-
   return (
     <Sheet>
       <SheetTrigger asChild>

@@ -29,7 +29,6 @@ export default function ImageCropper({
   const [completeCrop, setCompleteCrop] = useState<Crop | null>(null);
   const [hasInteracted, setHasInteracted] = useState(false);
   const imageRef = useRef<HTMLImageElement>(null);
-  // const previewCanvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     if (imageRef.current && completeCrop) {
@@ -104,8 +103,6 @@ export default function ImageCropper({
     );
 
     const base64Image = canvas.toDataURL("image/jpeg", 0.95);
-    // console.log(base64Image);
-
     onCropComplete(base64Image);
   };
 
