@@ -13,7 +13,7 @@ export const DirectionAwareHover = ({
   imageClassName,
   className,
 }: {
-  imageUrl: StaticImport;
+  imageUrl: string | StaticImport;
   children?: React.ReactNode | string;
   childrenClassName?: string;
   imageClassName?: string;
