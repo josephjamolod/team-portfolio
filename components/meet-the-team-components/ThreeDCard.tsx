@@ -15,6 +15,7 @@ import { framerProps, wrapperFramerProps } from "@/contants";
 
 export function ThreeDCard() {
   const { staffs, fetchAnotherStaff, showMore, staffsLoading } = useAuth();
+
   return (
     <>
       <motion.div
@@ -61,11 +62,12 @@ export function ThreeDCard() {
                   <div className="flex justify-between items-center mt-20">
                     <ViewServices staff={staff} />
                     <div>
-                      <ActionButton
-                        icon={<FiMail />}
-                        staff={staff}
-                        label="Get In Touch"
-                      />
+                      <ActionButton staff={staff}>
+                        <Button>
+                          <FiMail />
+                          Get In Touch
+                        </Button>
+                      </ActionButton>
                     </div>
                   </div>
                 </CardBody>
