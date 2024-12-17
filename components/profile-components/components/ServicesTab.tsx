@@ -1,6 +1,6 @@
 import React from "react";
 import { ServiceCard } from "./ServiceCard";
-import { Services } from "@/app/(public)/meet-the-team/[id]/page";
+import { Services } from "@/components/searchPerson-components/SearchPerson";
 
 interface ServicesTabProps {
   services?: Services[]; // Array of Services

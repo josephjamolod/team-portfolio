@@ -1,4 +1,3 @@
-import { Services } from "@/app/(public)/meet-the-team/[id]/page";
 import {
   Card,
   CardContent,
@@ -10,6 +9,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
+import { Services } from "../searchPerson-components/SearchPerson";
 
 interface TabSwitchPropType {
   services: Services[];

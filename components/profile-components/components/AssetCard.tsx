@@ -15,13 +15,6 @@ export const AssetCard: React.FC<AssetCardProps> = ({ tool }) => {
         width={300}
         className="object-cover"
       />
-      {/* <div className="p-4">
-        <h3 className="font-medium text-gray-900">{name}</h3>
-        <div className="flex items-center gap-1 mt-1">
-          <span className="text-sm text-gray-500">{currency}</span>
-          <span className="font-medium">{price}</span>
-        </div>
-      </div> */}
     </div>
   );
 };

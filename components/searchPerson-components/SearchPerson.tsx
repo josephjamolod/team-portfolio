@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { Services } from "@/app/(public)/meet-the-team/[id]/page";
 import { Sidebar } from "./Sidebar/Sidebar";
 import { SearchBar } from "./SearchBar";
 import { StaffCard } from "./DeveloperCard";
@@ -9,6 +8,13 @@ import { Skeleton } from "../ui/skeleton";
 import { useAuth } from "@/providers/userProvider";
 import { Button } from "../ui/button";
 import { SmallLoader } from "../smallLoader";
+
+export type Services = {
+  description: string;
+  name: string;
+  isActive: boolean;
+  perHour: number;
+};
 
 export interface Staff {
   id: string;
