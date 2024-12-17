@@ -24,8 +24,8 @@ import {
 import { Textarea } from "../ui/textarea";
 import {
   isHttpUrl,
+  isLink,
   uploadImageTools,
-  uploadPhoto,
   validateInputs,
 } from "@/src/lib/firebase/store/users.action";
 import UploadTools from "./uploadTools";
@@ -90,16 +90,13 @@ export default function CreateProfileForm({
         form.clearErrors("profilePictureUrl");
       }
     }
-  }, [profilePhoto, form]);
-
-  useEffect(() => {
     if (coverPhoto) {
       form.setValue("coverPhotoUrl", coverPhoto);
       if (form.formState.errors.coverPhotoUrl) {
         form.clearErrors("coverPhotoUrl");
       }
     }
-  }, [coverPhoto, form]);
+  }, [profilePhoto, coverPhoto, form]);
 
   const onSubmit = async (data: z.infer<typeof createProfileSchema>) => {
     try {
@@ -120,19 +117,12 @@ export default function CreateProfileForm({
         coverPhotoLink: photo.cover || "",
       };
 
-      // Check if profile and cover are already links
-      if (!isHttpUrl(photo.profile) || !isHttpUrl(photo.cover)) {
-        const uploadedPhotos = await uploadPhoto({
-          profile: !isHttpUrl(photo.profile) ? photo.profile : "",
-          cover: !isHttpUrl(photo.cover) ? photo.cover : "",
-        });
-
-        photoLinks = {
-          profileLink: uploadedPhotos?.profileLink || photoLinks.profileLink,
-          coverPhotoLink:
-            uploadedPhotos?.coverPhotoLink || photoLinks.coverPhotoLink,
-        };
-      }
+      const uploadedProfile = await isLink(photo.profile);
+      const uploadedCover = await isLink(photo.cover);
+      photoLinks = {
+        profileLink: uploadedProfile || photoLinks.profileLink,
+        coverPhotoLink: uploadedCover || photoLinks.coverPhotoLink,
+      };
 
       if (
         !(await isValidPhotoUrl(photoLinks.profileLink)) ||

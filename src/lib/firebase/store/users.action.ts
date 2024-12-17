@@ -46,25 +46,18 @@ export const uploadImage = async (
   }
 };
 
-export const uploadPhoto = async ({
-  profile,
-  cover,
-}: PhotoType): Promise<
-  { coverPhotoLink: string | null; profileLink: string | null } | undefined
-> => {
+export const isLink = async (imgBlob: string) => {
   try {
-    if (profile && cover) {
-      const profileLink = await uploadImage(profile);
-      const coverPhotoLink = await uploadImage(cover);
-      console.log("File available at", coverPhotoLink, profileLink);
-      if (!profileLink || !coverPhotoLink) {
-        toast.error("Something went wrong, try again later");
-      }
-      return { coverPhotoLink, profileLink };
+    if (isHttpUrl(imgBlob)) {
+      throw Error("imgBlob param is not a Blob");
     }
-    console.log("No cover or profile photo uploaded");
+    const uploadedCover = await uploadImage(imgBlob);
+    return uploadedCover;
   } catch (error) {
-    console.error("Error uploading image: ", error);
+    console.log(error);
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
   }
 };
 

@@ -165,8 +165,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     enabled: true,
   });
 
-  console.log(staffs?.usersData.length);
-
   const { mutate: fetchAnotherStaff, isPending: isMutating } = useMutation({
     mutationFn: async () => {
       if (!staffs?.lastDoc) {
