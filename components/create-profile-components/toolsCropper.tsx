@@ -7,6 +7,7 @@ import ReactCrop, {
   makeAspectCrop,
 } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import { Button } from "../ui/button";
 
 interface ToolsCropperProps {
   image: string;
@@ -104,18 +105,20 @@ export default function ToolsCropper({
           </ReactCrop>
         </div>
         <div className="mt-4 flex justify-end space-x-2">
-          <button
+          <Button
             onClick={onCancel}
-            className="px-4 py-2 bg-gray-200 rounded-lg"
+            className="hover:shadow-md"
+            variant={"outline"}
           >
             Cancel
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={handleCrop}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+            className="bg-[#efecff] text-[#624ced] border border-[#624ced] hover:bg-[#624ced] hover:text-white"
+            variant={"default"}
           >
             Crop
-          </button>
+          </Button>
         </div>
       </div>
     </div>
