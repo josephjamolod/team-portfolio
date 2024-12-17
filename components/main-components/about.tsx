@@ -52,13 +52,6 @@ export default function About() {
       <div className="hidden xl:flex flex-1">
         <Orbit />
       </div>
-      {/* <Image
-        src={frame}
-        className="absolute right-0 top-0 hidden xl:flex"
-        alt="frame"
-        height={900}
-        width={900}
-      /> */}
     </div>
   );
 }
