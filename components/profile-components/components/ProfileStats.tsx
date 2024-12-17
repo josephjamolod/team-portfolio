@@ -18,6 +18,7 @@ import { Dock, DockIcon } from "@/components/ui/dock";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { isSocial } from "@/src/lib/firebase/store/filters.action";
 
 interface ProfileStatsProps {
   fb?: string;
@@ -50,12 +51,19 @@ export const ProfileStats: React.FC<ProfileStatsProps> = ({
     { src: web, icon: <GoGlobe size={20} key="globe" /> },
     { src: yt, icon: <LuYoutube size={20} key="yt" /> },
   ];
+  const noSocials = isSocial(sources);
 
   return (
     <div className=" flex flex-col  items-center text-primary ">
       <div className="flex w-full  item justify-center">
         <TooltipProvider>
-          <Dock className="mt-4 mx-0 gap-x-0 md:gap-x-2" direction="middle">
+          <Dock
+            className={cn(
+              noSocials && "invisible",
+              "mt-4 mx-0 gap-x-0 md:gap-x-2"
+            )}
+            direction="middle"
+          >
             {sources.map((source, index) => {
               return (
                 source.src && (
