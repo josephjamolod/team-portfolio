@@ -54,7 +54,15 @@ export function Menu({
         </SheetHeader>
 
         <div className="grid gap-4 py-6 mb-2 mx-2">
-          <SearchBar />
+          <Link
+            href={"/search-person"}
+            className="flex items-center gradient-bg justify-center dark:bg-gradient-to-r w-fit place-self-center dark:from-purple-500 dark:via-indigo-500 dark:to-cyan-400 border-0
+                   rounded-full text-white text-lg max-w-full min-w-[140px] p-[4px] whitespace-nowrap cursor-pointer transition-transform duration-300 hover:outline-none active:scale-90"
+          >
+            <SheetTrigger>
+              <SearchBar />
+            </SheetTrigger>
+          </Link>
 
           <DropdownMenuSeparator />
 

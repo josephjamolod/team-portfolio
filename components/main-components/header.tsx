@@ -16,7 +16,7 @@ export default function Header() {
     <header className="fixed z-50 w-full flex items-center justify-between h-[74px] border border-b-[#CAC2FF80] pr-5 xl:px-10 bg-secondary shadow-sm">
       <div className="flex items-center mx-3">
         <ul className="hidden lg:flex gap-x-12 items-center">
-          <Logo size="text-3xl" />
+          <Logo size="text-2xl xl:text-3xl" />
           <ModeToggle />
           <ProfileDropdown
             isOldDataPresent={isOldDataPresent}
@@ -38,7 +38,13 @@ export default function Header() {
         </ul>
       </div>
       <div className="hidden lg:flex items-center gap-x-4">
-        <SearchBar />
+        <Link
+          href={"/search-person"}
+          className="flex items-center gradient-bg justify-center dark:bg-gradient-to-r dark:from-purple-500 dark:via-indigo-500 dark:to-cyan-400 border-0
+                   rounded-full text-white text-lg max-w-full min-w-[140px] p-[4px] whitespace-nowrap cursor-pointer transition-transform duration-300 hover:outline-none active:scale-90"
+        >
+          <SearchBar />
+        </Link>
 
         <Link href={"/meet-the-team"}>
           <Button

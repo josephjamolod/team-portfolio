@@ -81,7 +81,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ staff, onClose }) => {
             name={staff.name + " " + staff.lastname}
             imageUrl={staff.profileSrc}
             status="AVAILABLE"
-            isPro={true}
           />
 
           <div className="md:px-14 p-4 space-y-3">

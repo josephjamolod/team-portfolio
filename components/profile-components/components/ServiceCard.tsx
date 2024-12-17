@@ -19,7 +19,7 @@ export const ServiceCard: React.FC<Service> = ({
         >
           {isActive ? "active" : "inactive"}
         </Badge>
-        <h3 className="text-base font-semibold text-primary uppercase  ">
+        <h3 className="text-base font-semibold text-primary uppercase pt-2 ">
           {name}
         </h3>
       </div>
