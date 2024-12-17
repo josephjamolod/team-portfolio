@@ -41,6 +41,7 @@ import FormFieldInput from "./FormFieldInput";
 import FormFieldPhoneInput from "./inputNumber";
 
 import { cn } from "@/lib/utils";
+import { SmallLoader } from "../smallLoader";
 
 export default function CreateProfileForm({
   children,
@@ -393,7 +394,7 @@ export default function CreateProfileForm({
                         ? "Updating your profile"
                         : "Creating your profile"}
                     </span>
-                    <div className="w-4 h-4 border-4 border-t-[#624ced] border-gray-300 rounded-full animate-spin"></div>
+                    <SmallLoader />
                   </div>
                 ) : (
                   <span>

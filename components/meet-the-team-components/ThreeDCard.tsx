@@ -12,6 +12,7 @@ import { ViewServices } from "./ViewServices";
 import { useAuth } from "@/providers/userProvider";
 import { Button } from "../ui/button";
 import { framerProps, wrapperFramerProps } from "@/contants";
+import { SmallLoader } from "../smallLoader";
 
 export function ThreeDCard() {
   const { staffs, fetchAnotherStaff, showMore, staffsLoading } = useAuth();
@@ -85,7 +86,7 @@ export function ThreeDCard() {
           variant={"default"}
           className="w-fit place-self-center mb-4"
         >
-          Show More
+          {!staffsLoading ? "Show More" : <SmallLoader />}
         </Button>
       )}
     </>

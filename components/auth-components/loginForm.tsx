@@ -31,6 +31,7 @@ import { useRouter } from "next/navigation";
 import { loginHandler } from "@/src/lib/firebase/config/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { SmallLoader } from "../smallLoader";
 
 export function LogInForm({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -136,7 +137,7 @@ export function LogInForm({ children }: { children: React.ReactNode }) {
               {isPending ? (
                 <div className="flex justify-center gap-x-3 items-center">
                   <span>Signing In</span>
-                  <div className="w-4 h-4 border-4 border-t-[#6652ee] border-gray-300 rounded-full animate-spin"></div>
+                  <SmallLoader />
                 </div>
               ) : (
                 "Sign In"

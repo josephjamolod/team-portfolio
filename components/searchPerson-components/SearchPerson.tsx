@@ -8,6 +8,7 @@ import { StaffCard } from "./DeveloperCard";
 import { Skeleton } from "../ui/skeleton";
 import { useAuth } from "@/providers/userProvider";
 import { Button } from "../ui/button";
+import { SmallLoader } from "../smallLoader";
 
 export interface Staff {
   id: string;
@@ -179,7 +180,7 @@ function SearchPerson() {
                 onClick={() => fetchAnotherStaff()}
                 variant={"default"}
               >
-                Show More
+                {!fetchLoading || !isMutating ? "Show More" : <SmallLoader />}
               </Button>
             </div>
           )}
