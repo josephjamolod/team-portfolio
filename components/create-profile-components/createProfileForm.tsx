@@ -23,7 +23,6 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "../ui/textarea";
 import {
-  isHttpUrl,
   isLink,
   uploadImageTools,
   validateInputs,
@@ -61,6 +60,14 @@ export default function CreateProfileForm({
 }: CreateProfileFormPropType) {
   const [formLoading, setFormLoading] = useState(false);
   const isLoading = updateUserLoader || loading || formLoading;
+  const imagesToUpload = images.filter(
+    (file) =>
+      !(typeof file.preview === "string" && /^(https?:\/\/)/.test(file.preview))
+  );
+  const oldImagesUploaded = images.filter(
+    (file) =>
+      typeof file.preview === "string" && /^(https?:\/\/)/.test(file.preview)
+  );
 
   const form = useForm<z.infer<typeof createProfileSchema>>({
     resolver: zodResolver(createProfileSchema),
@@ -134,36 +141,26 @@ export default function CreateProfileForm({
         return;
       }
 
-      const isAllLinks = images.every((image) => isHttpUrl(image.preview));
+      const oldTools = oldImagesUploaded.map((item) => item.preview);
 
-      if (isAllLinks) {
-        // Call updateUser directly with images as links
+      const newTools =
+        imagesToUpload.length > 0 ? await uploadImageTools(imagesToUpload) : [];
+
+      const toolsToUpload = [...(newTools || []), ...(oldTools || [])];
+
+      if (toolsToUpload.length > 0) {
         await updateUser({
           data,
           photoLinks,
-          tools: images.map((item) => item.preview) as string[], // Pass images directly
+          tools: toolsToUpload as string[], // Pass tools after uploading
           user,
         });
+        toast.success(
+          `User ${userData ? "updated" : "created"} successfully! `
+        );
       } else {
-        // Filter for Blobs and upload them
-        const imagesToUpload = images.filter((image) => {
-          return image.croppedImage && !isHttpUrl(image.croppedImage);
-        });
-
-        const tools =
-          imagesToUpload.length > 0
-            ? await uploadImageTools(imagesToUpload)
-            : [];
-
-        await updateUser({
-          data,
-          photoLinks,
-          tools, // Pass tools after uploading
-          user,
-        });
+        toast.error("Something went wrong");
       }
-
-      toast.success(`User ${userData ? "updated" : "created"} successfully! `);
     } catch (error) {
       console.error("Error: ", error);
       toast.error("Failed to update profile. Please try again.");

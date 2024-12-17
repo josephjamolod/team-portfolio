@@ -4,10 +4,7 @@ import { ImageFile } from "@/components/create-profile-components/uploadTools";
 
 import { toast } from "react-toastify";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
-import {
-  CreateUserProfileProp,
-  PhotoType,
-} from "@/components/create-profile-components/type";
+import { CreateUserProfileProp } from "@/components/create-profile-components/type";
 import { Service } from "@/components/create-profile-components/(service)/serviceForm";
 import { User } from "@/providers/userProvider";
 
