@@ -31,7 +31,7 @@ function CreateProfile() {
   return loading ? (
     <Loading />
   ) : (
-    <div className="h-full bg-[#efecff93] dark:bg-secondary  py-12 px-4 sm:px-6 lg:px-8 w-full">
+    <div className="h-full bg-[#efecff93] dark:bg-secondary  pt-12 pb-4 px-4 sm:px-6 lg:px-8 w-full">
       <div className="max-w-3xl h-full mx-auto">
         <div className="bg-white dark:bg-black shadow rounded-sm sm:rounded-lg">
           <div className="px-4 md:px-14 py-5">
