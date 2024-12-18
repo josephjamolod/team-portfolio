@@ -60,6 +60,7 @@ import { Staff } from "@/components/searchPerson-components/SearchPerson";
 import { UseFormReset } from "react-hook-form";
 import { z } from "zod";
 import { createProfileSchema } from "@/schema";
+import DottedMap from "dotted-map";
 
 export const services: Card[] = [
   {
@@ -166,4 +167,56 @@ export const wrapperFramerProps = {
 export const framerProps = {
   hidden: { y: 20, opacity: 0 },
   show: { y: 0, opacity: 1 },
+};
+
+//world map constants
+
+export const dots = [
+  {
+    start: {
+      lat: 64.2008,
+      lng: -149.4937,
+    }, // Alaska (Fairbanks)
+    end: {
+      lat: 34.0522,
+      lng: -118.2437,
+    }, // Los Angeles
+  },
+  {
+    start: { lat: 64.2008, lng: -149.4937 }, // Alaska (Fairbanks)
+    end: { lat: -15.7975, lng: -47.8919 }, // Brazil (Brasília)
+  },
+  {
+    start: { lat: -15.7975, lng: -47.8919 }, // Brazil (Brasília)
+    end: { lat: 38.7223, lng: -9.1393 }, // Lisbon
+  },
+  {
+    start: { lat: 51.5074, lng: -0.1278 }, // London
+    end: { lat: 28.6139, lng: 77.209 }, // New Delhi
+  },
+  {
+    start: { lat: 28.6139, lng: 77.209 }, // New Delhi
+    end: { lat: 43.1332, lng: 131.9113 }, // Vladivostok
+  },
+  {
+    start: { lat: 28.6139, lng: 77.209 }, // New Delhi
+    end: { lat: -1.2921, lng: 36.8219 }, // Nairobi
+  },
+];
+
+export const projectPoint = (lat: number, lng: number) => {
+  const x = (lng + 180) * (800 / 360);
+  const y = (90 - lat) * (400 / 180);
+  return { x, y };
+};
+
+export const map = new DottedMap({ height: 100, grid: "diagonal" });
+
+export const createCurvedPath = (
+  start: { x: number; y: number },
+  end: { x: number; y: number }
+) => {
+  const midX = (start.x + end.x) / 2;
+  const midY = Math.min(start.y, end.y) - 50;
+  return `M ${start.x} ${start.y} Q ${midX} ${midY} ${end.x} ${end.y}`;
 };
