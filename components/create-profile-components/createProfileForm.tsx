@@ -41,6 +41,14 @@ import FormFieldPhoneInput from "./inputNumber";
 
 import { cn } from "@/lib/utils";
 import { SmallLoader } from "../smallLoader";
+import { CategoryInput } from "./categoryInput";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 export default function CreateProfileForm({
   children,
@@ -107,6 +115,8 @@ export default function CreateProfileForm({
   }, [profilePhoto, coverPhoto, form]);
 
   const onSubmit = async (data: z.infer<typeof createProfileSchema>) => {
+    console.log(data);
+
     try {
       setFormLoading(true);
 
@@ -230,14 +240,52 @@ export default function CreateProfileForm({
                 />
               </div>
               {/* Position input field */}
-              <FormFieldInput
-                optional={false}
-                control={form.control}
-                name="position"
-                type="text"
-                label="Position"
-                placeholder="Your position"
-              />
+              <div className="flex flex-col lg:flex-row gap-y-5 gap-x-5">
+                <div className="flex flex-col flex-1">
+                  <FormFieldInput
+                    optional={false}
+                    control={form.control}
+                    name="position"
+                    type="text"
+                    label="Position"
+                    placeholder="Your position"
+                  />
+                </div>
+                <div className="flex flex-col flex-1">
+                  <FormField
+                    control={form.control}
+                    name="category"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div className="flex items-center justify-between">
+                          <FormLabel className="text-primary text-xs">
+                            Category
+                          </FormLabel>
+                          <FormMessage className="text-xs text-red-500" />
+                        </div>
+                        <FormControl>
+                          <Select
+                            value={userData?.category || field.value}
+                            onValueChange={field.onChange}
+                          >
+                            <SelectTrigger className="w-full bg-[#efecff] focus:border-[#b071ec]   dark:bg-secondary h-[40px]">
+                              <SelectValue
+                                defaultValue={"red"}
+                                placeholder="Select skill category"
+                              />
+                            </SelectTrigger>
+                            <SelectContent className="max-h-60">
+                              <SelectGroup {...field}>
+                                <CategoryInput />
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
               <div className="bg-[#efecff]  dark:bg-secondary rounded-lg p-4 mb-4">
                 {/* About Yourseld text area */}
                 <FormField
