@@ -16,7 +16,7 @@ import { GridBackgroundDemo } from "@/components/gridBackGround";
 
 export default function LogInPage() {
   return (
-    <main className="flex justify-center  min-h-screen p-4 overflow-hidden">
+    <div className="flex justify-center  min-h-screen p-4 overflow-hidden">
       <GridBackgroundDemo />
       <div className="">
         <div className="gradient " />
@@ -33,21 +33,21 @@ export default function LogInPage() {
           />
         </div>
 
-        <div className="z-10 hidden md:flex flex-1 flex-col gap-y-4 items-center justify-center  rounded-md overflow-hidden text-white">
+        <section className="z-10 hidden md:flex flex-1 flex-col gap-y-4 items-center justify-center  rounded-md overflow-hidden text-white">
           <BackGround>
             <h1 className={cn(fonts.className, "text-5xl font-black pt-0 ")}>
               Sign In
             </h1>
           </BackGround>
-        </div>
-        <div className="flex flex-1 items-center justify-center z-10">
+        </section>
+        <section className="flex flex-1 items-center justify-center z-10">
           <LogInForm>
             <h1 className={cn(fonts.className, "text-3xl font-black pt-0 ")}>
               Log In Here
             </h1>
           </LogInForm>
-        </div>
+        </section>
       </div>
-    </main>
+    </div>
   );
 }

@@ -184,10 +184,6 @@ export const InfiniteMovingCards = ({
         {items.map((item) => (
           <li
             className={`w-[120px] md:w-[200px] max-w-full ${item.color} relative rounded-2xl border-none dark:border border-b-0 flex-shrink-0 border-slate-700 px-8 py-6 `}
-            // style={{
-            //   background:
-            //     "linear-gradient(180deg, var(--slate-800), var(--slate-900)",
-            // }}
             key={item.title}
           >
             <blockquote className=" flex flex-col relative h-24 md:h-60">
@@ -200,9 +196,9 @@ export const InfiniteMovingCards = ({
               >
                 {item.title}
               </span>
-              <div className="absolute flex flex-1 items-center justify-center h-full  w-full">
+              <span className="absolute flex flex-1 items-center justify-center h-full  w-full">
                 {item.description}
-              </div>
+              </span>
             </blockquote>
           </li>
         ))}

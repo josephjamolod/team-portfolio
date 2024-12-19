@@ -32,8 +32,8 @@ export function DropdownFilter({
             <DropdownMenuItem
               className={`text-sm ${
                 selectedCategory === category
-                  ? "text-blue-600 font-medium"
-                  : "text-primary hover:text-blue-600"
+                  ? "text-[#6652ee] font-medium"
+                  : "text-primary hover:text-[#6652ee]"
               }`}
               onClick={() => setSelectedCategory(category)}
               key={category}

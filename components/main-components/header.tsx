@@ -15,7 +15,7 @@ export default function Header() {
   return (
     <header className="fixed z-50 w-full flex items-center justify-between h-[74px] border border-b-[#CAC2FF80] pr-5 xl:px-10 bg-secondary shadow-sm">
       <div className="flex items-center mx-3">
-        <ul className="hidden lg:flex gap-x-12 items-center">
+        <nav className="hidden lg:flex gap-x-12 items-center">
           <Logo size="text-2xl xl:text-3xl" />
           <ModeToggle />
           <ProfileDropdown
@@ -35,7 +35,7 @@ export default function Header() {
           >
             Services
           </Link>
-        </ul>
+        </nav>
       </div>
       <div className="hidden lg:flex items-center gap-x-4">
         <Link

@@ -102,7 +102,7 @@ function SearchPerson() {
       </div>
 
       {/* Main Content */}
-      <main className="flex-1 p-4 lg:p-8 ">
+      <section className="flex-1 p-4 lg:p-8 ">
         <div className=" mx-auto pt-16">
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-3xl lg:text-4xl font-bold text-primary">
@@ -190,7 +190,7 @@ function SearchPerson() {
             </div>
           )}
         </div>
-      </main>
+      </section>
     </div>
   );
 }

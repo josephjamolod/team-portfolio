@@ -5,9 +5,9 @@ import { aboutUs, company } from "@/contants";
 
 export default function Footer() {
   return (
-    <main className=" mt-40  border border-[#b071ec] bg-[#efecff] dark:bg-secondary text-sm">
+    <footer className=" mt-40  border border-[#b071ec] bg-[#efecff] dark:bg-secondary text-sm">
       <div className="grid grid-cols-1 md:grid-cols-4 px-10 lg:px-52 h-full gap-8 pt-20">
-        <ul className=" h-full flex flex-col gap-y-4">
+        <div className=" h-full flex flex-col gap-y-4">
           <div className="w-full flex justify-center md:justify-start items-start">
             <Logo size="text-2xl" />
           </div>
@@ -15,8 +15,8 @@ export default function Footer() {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit dolore magna
             aliqua.
           </h3>
-        </ul>
-        <ul className=" h-full flex flex-col  gap-y-4">
+        </div>
+        <nav className=" h-full flex flex-col  gap-y-4">
           <Link href={"#"} className="font-semibold text-lg">
             About Us
           </Link>
@@ -31,8 +31,8 @@ export default function Footer() {
               </Link>
             );
           })}
-        </ul>
-        <ul className=" h-full flex flex-col gap-y-4">
+        </nav>
+        <nav className=" h-full flex flex-col gap-y-4">
           <Link href={"#"} className="font-semibold text-lg">
             Company
           </Link>
@@ -47,13 +47,13 @@ export default function Footer() {
               </Link>
             );
           })}
-        </ul>
-        <ul className=" h-full flex flex-col gap-y-4 ">
+        </nav>
+        <nav className=" h-full flex flex-col gap-y-4 ">
           <Link href={"#"} className="font-semibold text-lg">
             Connect to Us
           </Link>
           <Social cn="text-4xl" />
-        </ul>
+        </nav>
       </div>
       <hr className="w-full border-t-[1px]  border-[#6652ee] mt-5" />
       <h1 className="text-center w-full pt-2 pb-2  bg-[#6652ee] text-white">
@@ -66,6 +66,6 @@ export default function Footer() {
         </Link>
         . All Right Reserved
       </h1>
-    </main>
+    </footer>
   );
 }
