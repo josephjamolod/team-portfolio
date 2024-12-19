@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { Sidebar } from "./Sidebar/Sidebar";
 import { SearchBar } from "./SearchBar";
 import { StaffCard } from "./DeveloperCard";
@@ -8,6 +8,8 @@ import { Skeleton } from "../ui/skeleton";
 import { useAuth } from "@/providers/userProvider";
 import { Button } from "../ui/button";
 import { SmallLoader } from "../smallLoader";
+import { useFilterStaff } from "@/hooks/useFilterStaff";
+import { DropdownFilter } from "./DropdownFilter";
 
 export type Services = {
   description: string;
@@ -30,6 +32,7 @@ export interface Staff {
   profileSrc: string;
   youtubeSrc: string;
   position: string;
+  category: string;
   name: string;
   lastname: string;
   instagramSrc: string;
@@ -45,14 +48,15 @@ function SearchPerson() {
     useAuth();
   const [selectedUser, setSelectedUser] = useState<Staff | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("ALL");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Filter users based on search query
-  const filteredUsers = useMemo(() => {
-    return staffs?.usersData.filter((user) =>
-      user.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }, [staffs?.usersData, searchQuery]);
+  const filteredUsers = useFilterStaff(
+    staffs?.usersData,
+    searchQuery,
+    selectedCategory
+  );
 
   const initialInfo = !!staffs?.usersData[0] || selectedUser;
 
@@ -125,13 +129,10 @@ function SearchPerson() {
           </div>
 
           <nav className="mb-8 overflow-x-auto">
-            <ul className="flex space-x-8 min-w-max">
-              <li>
-                <a href="#" className="text-[#624ced] font-medium">
-                  All
-                </a>
-              </li>
-            </ul>
+            <DropdownFilter
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+            />
           </nav>
 
           <SearchBar value={searchQuery} onChange={setSearchQuery} />
