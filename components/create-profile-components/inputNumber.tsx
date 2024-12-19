@@ -58,7 +58,7 @@ const FormFieldPhoneInput = <T extends FieldValues>({
       render={({ field }) => (
         <FormItem className="flex-1">
           <div className="flex items-center justify-between">
-            <FormLabel className="flex gap-x-2 text-black text-xs">
+            <FormLabel className="flex gap-x-2 text-primary text-xs">
               <span>{label}</span>
               {!isOptional && <span className="text-red-500">*</span>}
             </FormLabel>
