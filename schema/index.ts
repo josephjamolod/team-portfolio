@@ -35,6 +35,7 @@ export const createProfileSchema = z.object({
   }),
 
   position: z.string().min(3, "Position is required"),
+  category: z.string().min(3, "Please provide a category"),
   serviceDescription: z
     .string()
     .min(20, { message: "Must contain at least 20 characters" })

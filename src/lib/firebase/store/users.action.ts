@@ -122,6 +122,7 @@ export const createUserProfile = async ({
     lastname: data.lastName,
     contactNumber: data.contactNumber,
     position: data.position,
+    category: data.category,
     serviceDescription: data.serviceDescription,
     facebookSrc: data.facebookUrl,
     youtubeSrc: data.youtubeUrl,
